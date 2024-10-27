@@ -1,0 +1,40 @@
+$colors: (
+  "primary": #007bff,
+  "secondary": #6c757d,
+  "success": #28a745,
+  "info": #17a2b8,
+  "warning": #ffc107,
+  "danger": #dc3545,
+  "light": #f8f9fa,
+  "dark": #343a40,
+  "muted": #6c757d,
+  "white": #ffffff,
+  "black": #000000,
+);
+
+// BUTTONS
+
+@each $key, $value in $colors {
+  .bg-#{$key} {
+    background-color: $value !important;
+  }
+
+  .text-#{$key} {
+    color: $value !important;
+  }
+
+  .border-#{$key} {
+    border-color: $value !important;
+  }
+
+  .btn-#{$key} {
+    background-color: $value !important;
+
+    &:hover {
+      background-color: adjust(
+        $value,
+        -10%
+      ) !important; // Use positional argument
+    }
+  }
+}

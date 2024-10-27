@@ -16,31 +16,40 @@
     ></script>
 
     <link href="/styles/styles.css" rel="stylesheet" />
+    <link href="/styles/custom-bs.css" rel="stylesheet" />
+
+    <!-- FontAwesome -->
+    <link href="/fontawesome/css/fontawesome.css" rel="stylesheet" />
+    <link href="/fontawesome/css/brands.css" rel="stylesheet" />
+    <link href="/fontawesome/css/solid.css" rel="stylesheet" />
 
   </head>
 
   <body>
-    <div class="navbar navbar-expand bg-light sticky-top cu-navbar">
-      <div class="container-fluid">
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <a class="nav-link" href="/clockin"> Clock in </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/calendar"> Calendar </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/analytics"> Analytics </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/login"> Log in </a>
-          </li>
-        </ul>
+    <div
+      class="navbar navbar-expand bg-light position-fixed w-100 container-fluid d-flex align-items-start justify-content-start gap-2"
+      style="top: 0; left: 0"
+    >
+      <div class="nav-link d-flex align-items-center h-100 p-2 cursor-pointer">
+        <a href="/clockin">
+          Clock in
+        </a>
+      </div>
+      <div class="nav-link d-flex align-items-center h-100 p-2 cursor-pointer">
+        <a href="/calendar"> Calendar </a>
+      </div>
+      <div class="nav-link d-flex align-items-center h-100 p-2 cursor-pointer">
+        <a href="/analytics"> Analytics </a>
+      </div>
+      <div class="nav-link d-flex align-items-center h-100 p-2 cursor-pointer">
+        <a href="/login"> Log in </a>
       </div>
     </div>
 
-    <div class="container-fluid">
-      <div class="row flex-xl-nowarp">
+    <div class="navbar-height"></div>
+
+    <div class="container-fluid h-100">
+      <div class="row flex-xl-nowarp h-100">
         {{{body}}}
       </div>
     </div>
