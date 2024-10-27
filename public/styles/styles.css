@@ -3,23 +3,17 @@
 }
 
 .navbar {
-  z-index: 1;
+  z-index: 100;
+  height: 60px;
+  padding: 0 !important;
 }
 
-.cu-sidebar {
-  top: 4rem;
+.navbar-height {
+  height: 60px;
 }
 
 .empty {
   height: 100px;
-}
-
-.clocked-in {
-  display: "";
-}
-
-.clocked-out {
-  display: "";
 }
 
 @media (min-width: 576px) {
@@ -39,4 +33,34 @@
   height: 20px;
   width: 4.16%;
   float: left;
+}
+
+.vh-100 {
+  height: 100vh;
+}
+
+.w-100 {
+  width: 100%;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* BUTTON */
+
+.btn {
+  padding: 10px 10px;
+  font-weight: 500;
+}
+
+.btn > i {
+  margin-left: 4px;
+}
+
+/* CONTAINERS */
+
+.container-sm {
+  width: 612px;
 }
