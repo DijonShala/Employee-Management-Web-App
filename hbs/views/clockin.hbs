@@ -1,0 +1,95 @@
+<script src="/javascript/clockin.js"></script>
+
+<main class="col-12" onload="start_time()">
+  <!--GREETINGS CARD-->
+
+  <div class="container text-center py-2 my-5">
+    <p>Good morning worker.</p>
+  </div>
+
+  <!-- TOAST -->
+  <div class="toast w-sm mx-auto" data-bs-autohide="false">
+    <div class="toast-header">
+      <strong class="me-auto">Congratulations worker! 😃😃😃😃😃😃😃😃😃😃😃😃</strong>
+      <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+    </div>
+    <div class="toast-body text-left">
+      <span>You have worked for </span>
+
+      <strong class="display-6" id="time-t-1"></strong>
+      <span class="display-8" id="time-t-2"></span>
+      <span> hours!</span>
+    </div>
+  </div>
+
+  <!-- CLOCKED IN -->
+  <div class="container text-center py-2 my-5 shadow-sm bg-light">
+    <div>
+      <p class="h4" id="time-1"></p>
+
+      <p class="h5 text-secondary clocked-in">
+        Clocked in since
+        <strong id="clockedtime"></strong>
+      </p>
+
+      <strong class="display-2" id="time-2-1"></strong>
+      <span class="display-6" id="time-2-2"></span>
+      <span class="h3 ms-1" id="time-2-3"></span>
+
+      <p class="clocked-out" id="ontime"></p>
+    </div>
+
+    <div>
+      <div class="border time-progress-item"></div>
+      <div class="border time-progress-item"></div>
+      <div class="border time-progress-item"></div>
+      <div class="border time-progress-item"></div>
+      <div class="border time-progress-item"></div>
+      <div class="border time-progress-item"></div>
+      <div class="border time-progress-item"></div>
+      <div class="border time-progress-item"></div>
+      <div class="border time-progress-item"></div>
+      <div class="border time-progress-item"></div>
+      <div class="border time-progress-item"></div>
+      <div class="border time-progress-item"></div>
+      <div class="border time-progress-item"></div>
+      <div class="border time-progress-item"></div>
+      <div class="border time-progress-item"></div>
+      <div class="border time-progress-item"></div>
+      <div class="border time-progress-item"></div>
+      <div class="border time-progress-item"></div>
+      <div class="border time-progress-item"></div>
+      <div class="border time-progress-item"></div>
+      <div class="border time-progress-item"></div>
+      <div class="border time-progress-item"></div>
+      <div class="border time-progress-item"></div>
+      <div class="border time-progress-item"></div>
+    </div>
+
+    <hr />
+
+    <div class="row"></div>
+
+    <p>
+      Your working hours are
+      <br />
+      <strong id="clock-in-time">9:10 AM</strong>
+      to
+      <strong id="clock-out-time">10:05 AM</strong>
+    </p>
+    <button
+      type="button"
+      class="btn w-75 btn-success shadow-lg clocked-out"
+      onclick="clock_in()"
+    >
+      Clock in
+    </button>
+    <button
+      type="button"
+      class="btn w-75 btn-danger shadow-lg clocked-in"
+      onclick="clock_out()"
+    >
+      Clock out
+    </button>
+  </div>
+</main>

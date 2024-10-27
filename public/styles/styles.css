@@ -1,0 +1,42 @@
+.nav-link:hover {
+  background-color: rgb(219, 219, 219);
+}
+
+.navbar {
+  z-index: 1;
+}
+
+.cu-sidebar {
+  top: 4rem;
+}
+
+.empty {
+  height: 100px;
+}
+
+.clocked-in {
+  display: "";
+}
+
+.clocked-out {
+  display: "";
+}
+
+@media (min-width: 576px) {
+  .w-sm {
+    width: 75%;
+  }
+}
+
+@media (min-width: 768px) {
+  .w-sm {
+    width: 50%;
+  }
+}
+
+.time-progress-item {
+  display: block;
+  height: 20px;
+  width: 4.16%;
+  float: left;
+}
