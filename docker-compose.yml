@@ -7,6 +7,15 @@ services:
     build: ./
     networks:
       - sp-network
+    environment:
+      - NODE_ENV=test # production/test
+  mongo-db:
+    image: mongo
+    container_name: sp-mongo-db
+    ports:
+      - "27017-27019:27017-27019"
+    networks:
+      - sp-network
 
 networks:
   sp-network:
