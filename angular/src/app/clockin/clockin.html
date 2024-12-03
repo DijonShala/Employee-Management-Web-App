@@ -1,0 +1,107 @@
+<main class="col-12">
+  <!--GREETINGS CARD-->
+
+  <div class="container text-center py-2 my-5">
+    <p>Good morning worker.</p>
+  </div>
+
+  <!-- TOAST -->
+  <div class="toast w-sm mx-auto" data-bs-autohide="false">
+    <div class="toast-header">
+      <strong class="me-auto"
+        >Congratulations worker! 😃😃😃😃😃😃😃😃😃😃😃😃</strong
+      >
+      <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+    </div>
+    <div class="toast-body text-left">
+      <span>You have worked for </span>
+
+      <strong class="display-6">{{clocked_time | date : 'H'}}</strong>
+      <span class="display-8">{{clocked_time | date : 'mm'}}</span>
+      <span> hours!</span>
+    </div>
+  </div>
+
+  <!-- CLOCKED IN -->
+  <div class="container text-center p-5 mt-5 shadow-sm bg-light">
+    <div>
+      <p class="h4">{{current_time | date : 'EEE, d MMMM y'}}</p>
+
+      <p class="h5 text-secondary" [hidden]="!clocked_in">
+        Clocked in since
+        <strong>{{clocked_in_time | date : 'H:mm'}}</strong>
+      </p>
+
+      <strong class="display-2">{{current_time | date : 'h:mm'}}</strong>
+      <span class="display-6">{{current_time | date : ':ss'}}</span>
+      <span class="h3 ms-1">{{current_time | date : 'aa'}}</span>
+
+      <p
+        [ngClass]="!ontime ? 'text-secondary' : 'text-success'"
+        [hidden]="clocked_in"
+      >
+        <span *ngIf="!ontime"> Free time </span>
+        <span *ngIf="ontime"> Work hours </span>
+      </p>
+    </div>
+
+    <div>
+      <div class="border time-progress-item"></div>
+      <div class="border time-progress-item"></div>
+      <div class="border time-progress-item"></div>
+      <div class="border time-progress-item"></div>
+      <div class="border time-progress-item"></div>
+      <div class="border time-progress-item"></div>
+      <div class="border time-progress-item"></div>
+      <div class="border time-progress-item"></div>
+      <div class="border time-progress-item"></div>
+      <div class="border time-progress-item"></div>
+      <div class="border time-progress-item"></div>
+      <div class="border time-progress-item"></div>
+      <div class="border time-progress-item"></div>
+      <div class="border time-progress-item"></div>
+      <div class="border time-progress-item"></div>
+      <div class="border time-progress-item"></div>
+      <div class="border time-progress-item"></div>
+      <div class="border time-progress-item"></div>
+      <div class="border time-progress-item"></div>
+      <div class="border time-progress-item"></div>
+      <div class="border time-progress-item"></div>
+      <div class="border time-progress-item"></div>
+      <div class="border time-progress-item"></div>
+      <div class="border time-progress-item"></div>
+    </div>
+
+    <hr />
+
+    <div class="row"></div>
+
+    <div class="d-flex flex-column gap-2 align-items-center">
+      <p>
+        Your working hours are
+        <br />
+        <strong>{{clock_in_time | date : 'H:mm'}}</strong>
+        to
+        <strong>{{clock_out_time | date : 'H:mm'}}</strong>
+      </p>
+      <button
+        type="button"
+        class="btn w-75 btn-success"
+        [hidden]="clocked_in"
+        (click)="clock_in()"
+      >
+        Clock in
+        <i class="fa-regular fa-clock"></i>
+      </button>
+      <button
+        type="button"
+        class="btn w-75 btn-dark"
+        [hidden]="!clocked_in"
+        (click)="clock_out()"
+      >
+        Clock out
+        <i class="fa-solid fa-flag-checkered"></i>
+      </button>
+    </div>
+  </div>
+</main>
