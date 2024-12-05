@@ -1,5 +1,7 @@
 import { CommonModule, NgClass } from "@angular/common";
 import { Component } from "@angular/core";
+import { Employee } from "../employee";
+import { EmployeeService } from "../employee.service";
 
 @Component({
   selector: "app-clockin",
@@ -8,15 +10,21 @@ import { Component } from "@angular/core";
   styles: ``,
 })
 export class ClockinComponent {
-  clock_in_time: number = 33300000;
-  clock_out_time: number = 36300000;
+  employee!: Employee;
 
   ontime: boolean = false;
+
+  clocked_time: number = 0;
 
   check_onTime() {
     let day_time = this.current_time % 86400000;
 
-    if (day_time < this.clock_out_time && day_time > this.clock_in_time) {
+    if (
+      this.employee.clock_out_time != null &&
+      day_time < this.employee.clock_out_time &&
+      this.employee.clock_in_time != null &&
+      day_time > this.employee.clock_in_time
+    ) {
       this.ontime = true;
     } else {
       this.ontime = false;
@@ -32,30 +40,15 @@ export class ClockinComponent {
     this.check_onTime();
   }
 
-  clocked_in: boolean = false;
-
-  clocked_in_time: number = 0;
-
-  clock_in() {
+  clock() {
     let date = new Date();
 
-    if (this.clocked_in) {
-      return;
+    this.employeeService.clockEmployee();
+    this.employee = this.employeeService.getEmployee();
+
+    if (this.employee.clocked_in_time != null) {
+      this.clocked_time = this.current_time - this.employee.clocked_in_time;
     }
-
-    this.clocked_in = true;
-    this.clocked_in_time = date.getTime();
-  }
-
-  clocked_time: number = 0;
-
-  clock_out() {
-    const date = new Date();
-    if (!this.clocked_in) {
-      return;
-    }
-    this.clocked_in = false;
-    this.clocked_time = this.current_time - this.clocked_in_time;
 
     // Toast to worker
 
@@ -66,7 +59,13 @@ export class ClockinComponent {
     //toastList.forEach((toast) => toast.show());
   }
 
+  constructor(private employeeService: EmployeeService) {}
+
   ngOnInit() {
+    this.employee = this.employeeService.getEmployee();
+
+    this.employeeService.getData();
+
     this.set_time();
 
     window.setInterval(() => {

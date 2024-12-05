@@ -43,9 +43,7 @@
             "outputPath": "dist/demo",
             "index": "src/index.html",
             "browser": "src/main.ts",
-            "polyfills": [
-              "zone.js"
-            ],
+            "polyfills": ["zone.js"],
             "tsConfig": "tsconfig.app.json",
             "assets": [
               {
@@ -53,9 +51,7 @@
                 "input": "public"
               }
             ],
-            "styles": [
-              "src/styles.css"
-            ],
+            "styles": ["src/styles.css"],
             "scripts": []
           },
           "configurations": {
@@ -89,7 +85,8 @@
               "buildTarget": "Demo:build:production"
             },
             "development": {
-              "buildTarget": "Demo:build:development"
+              "buildTarget": "Demo:build:development",
+              "proxyConfig": "src/proxy.conf.json"
             }
           },
           "defaultConfiguration": "development"

@@ -27,9 +27,9 @@
     <div>
       <p class="h4">{{current_time | date : 'EEE, d MMMM y'}}</p>
 
-      <p class="h5 text-secondary" [hidden]="!clocked_in">
+      <p class="h5 text-secondary" [hidden]="!employee.clocked_in">
         Clocked in since
-        <strong>{{clocked_in_time | date : 'H:mm'}}</strong>
+        <strong>{{employee.clocked_in_time | date : 'H:mm'}}</strong>
       </p>
 
       <strong class="display-2">{{current_time | date : 'h:mm'}}</strong>
@@ -38,7 +38,7 @@
 
       <p
         [ngClass]="!ontime ? 'text-secondary' : 'text-success'"
-        [hidden]="clocked_in"
+        [hidden]="employee.clocked_in"
       >
         <span *ngIf="!ontime"> Free time </span>
         <span *ngIf="ontime"> Work hours </span>
@@ -80,15 +80,15 @@
       <p>
         Your working hours are
         <br />
-        <strong>{{clock_in_time | date : 'H:mm'}}</strong>
+        <strong>{{employee.clock_in_time | date : 'H:mm'}}</strong>
         to
-        <strong>{{clock_out_time | date : 'H:mm'}}</strong>
+        <strong>{{employee.clock_out_time | date : 'H:mm'}}</strong>
       </p>
       <button
         type="button"
         class="btn w-75 btn-success"
-        [hidden]="clocked_in"
-        (click)="clock_in()"
+        [hidden]="employee.clocked_in"
+        (click)="clock()"
       >
         Clock in
         <i class="fa-regular fa-clock"></i>
@@ -96,8 +96,8 @@
       <button
         type="button"
         class="btn w-75 btn-dark"
-        [hidden]="!clocked_in"
-        (click)="clock_out()"
+        [hidden]="!employee.clocked_in"
+        (click)="clock()"
       >
         Clock out
         <i class="fa-solid fa-flag-checkered"></i>

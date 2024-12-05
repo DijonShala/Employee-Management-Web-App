@@ -17,8 +17,7 @@ import { LoginComponent } from "./login/login.component";
   ],
   template: `
     <app-navbar></app-navbar>
-
-    <app-clockin></app-clockin>
+    <router-outlet></router-outlet>
   `,
   styles: [],
 })

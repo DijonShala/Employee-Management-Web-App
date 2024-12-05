@@ -3,16 +3,20 @@
   style="top: 0; left: 0"
 >
   <div class="nav-link d-flex align-items-center h-100 p-2 cursor-pointer">
-    <a href="/clockin"> Clock in </a>
+    <a [routerLink]="'/'"> Clock in </a>
   </div>
   <div class="nav-link d-flex align-items-center h-100 p-2 cursor-pointer">
-    <a href="/calendar"> Calendar </a>
+    <a [routerLink]="'/calendar'"> Calendar </a>
   </div>
   <div class="nav-link d-flex align-items-center h-100 p-2 cursor-pointer">
-    <a href="/analytics"> Analytics </a>
+    <a [routerLink]="'/analytics'"> Analytics </a>
   </div>
   <div class="nav-link d-flex align-items-center h-100 p-2 cursor-pointer">
-    <a href="/login"> Log in </a>
+    <a [routerLink]="'/login'"> Log in </a>
+  </div>
+
+  <div class="nav-link d-flex align-items-center h-100 p-2 cursor-pointer">
+    <a [routerLink]="'/register'"> Register a user </a>
   </div>
 </div>
 

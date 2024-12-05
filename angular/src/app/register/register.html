@@ -1,0 +1,158 @@
+<main class="d-flex w-100 h-100 align-items-center">
+  <div class="container-sm p-5 bg-light">
+    <div>{{success_message}}</div>
+
+    <div>{{employee | json}}</div>
+
+    <form (ngSubmit)="addEmployee()">
+      <h3>Register user</h3>
+      <p>Register a user to the company.</p>
+
+      <!--
+      <div class="form-group mb-3 mt-3">
+        <input
+          class="form-control"
+          type="text"
+          name="street"
+          [(ngModel)]="employee.adress.street"
+          placeholder="Street"
+        />
+      </div>
+  
+      <div class="form-group mb-3 mt-3">
+        <input
+          class="form-control"
+          type="text"
+          name="city"
+          [(ngModel)]="employee.adress.city"
+          placeholder="City"
+        />
+      </div>
+  
+      <div class="form-group mb-3 mt-3">
+        <input
+          class="form-control"
+          type="text"
+          name="zipcode"
+          [(ngModel)]="employee.adress.zipcode"
+          placeholder="Zip code"
+        />
+      </div>
+  
+      <div class="form-group mb-3 mt-3">
+        <input
+          class="form-control"
+          type="text"
+          name="country"
+          [(ngModel)]="employee.adress.country"
+          placeholder="Country"
+        />
+      </div>
+-->
+
+      <div class="form-group mb-3 mt-3">
+        <input
+          class="form-control"
+          type="text"
+          name="userName"
+          [(ngModel)]="employee.userName"
+          placeholder="User name"
+        />
+      </div>
+
+      <div class="form-group mb-3 mt-3">
+        <input
+          class="form-control"
+          type="text"
+          name="firstName"
+          [(ngModel)]="employee.firstName"
+          placeholder="First name"
+        />
+      </div>
+
+      <div class="form-group mb-3 mt-3">
+        <input
+          class="form-control"
+          type="text"
+          name="lastName"
+          [(ngModel)]="employee.lastName"
+          placeholder="Last name"
+        />
+      </div>
+
+      <div class="form-group mb-3 mt-3">
+        <input
+          class="form-control"
+          type="text"
+          name="email"
+          [(ngModel)]="employee.email"
+          placeholder="Email"
+        />
+      </div>
+
+      <div class="form-group mb-3 mt-3">
+        <input
+          class="form-control"
+          type="text"
+          name="phoneNumber"
+          [(ngModel)]="employee.phoneNumber"
+          placeholder="Phone number"
+        />
+      </div>
+
+      <div class="form-group mb-3 mt-3">
+        <input
+          class="form-control"
+          type="text"
+          name="jobTitle"
+          [(ngModel)]="employee.jobTitle"
+          placeholder="Job title"
+        />
+      </div>
+
+      <div class="form-group mb-3 mt-3">
+        <input
+          class="form-control"
+          type="text"
+          name="departmentId"
+          [(ngModel)]="employee.departmentId"
+          placeholder="Department ID"
+        />
+      </div>
+
+      <div class="form-group mb-3 mt-3">
+        <input
+          class="form-control"
+          type="text"
+          name="hireDate"
+          [(ngModel)]="employee.hireDate"
+          placeholder="Hire date"
+        />
+      </div>
+
+      <div class="form-group mb-3 mt-3">
+        <input
+          class="form-control"
+          type="number"
+          name="salary"
+          [(ngModel)]="employee.salary"
+          placeholder="Salary"
+        />
+      </div>
+
+      <div class="form-group mb-3 mt-3">
+        <input
+          class="form-control"
+          type="text"
+          name="status"
+          [(ngModel)]="employee.status"
+          placeholder="Status"
+        />
+      </div>
+
+      <div class="text-center">
+        <button type="submit" class="btn btn-primary w-75">Register</button>
+      </div>
+    </form>
+  </div>
+</main>
