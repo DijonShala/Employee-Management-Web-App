@@ -281,7 +281,7 @@ const doAddEmployee = async (req, res) => {
       email: req.body.email,
       phoneNumber: req.body.phoneNumber,
       jobTitle: req.body.jobTitle,
-      departmentId: req.body.departmentId,
+      departmentId: "674573519322d092552e31a4", // TODO
       hireDate: req.body.hireDate,
       salary: req.body.salary,
       status: "active",

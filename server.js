@@ -16,6 +16,7 @@ import "./api/models/db.js";
 const port = process.env.PORT || 3000;
 const app = express();
 const __dirname = dirname(fileURLToPath(import.meta.url));
+app.use(express.json());
 
 /**
  * Static pages
