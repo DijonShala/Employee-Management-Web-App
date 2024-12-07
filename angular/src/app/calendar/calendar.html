@@ -1,0 +1,33 @@
+<div class="container mt-4">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <button class="btn btn-primary" (click)="changeMonth(-1)">
+      &laquo; Previous
+    </button>
+    <h2>{{ currentDate | date: "MMMM y" }}</h2>
+    <button class="btn btn-primary" (click)="changeMonth(1)">
+      Next &raquo;
+    </button>
+  </div>
+
+  <div class="row">
+    <div *ngFor="let day of daysOfWeek" class="col border">{{day}}</div>
+  </div>
+
+  <div *ngFor="let week of calendarDays" class="row">
+    <div
+      *ngFor="let day of week"
+      (click)="show(day.date)"
+      [class.bg-light]="day.isCurrentMonth"
+      [class.bg-secondary]="!day.isCurrentMonth"
+      class="col border"
+      name="test"
+      style="padding: 0"
+    >
+      {{day.date.getDate()}}
+      <app-horizontal-timeline
+        [attendances]="attendances"
+        [timeline_start]="day.date"
+      ></app-horizontal-timeline>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,8 @@
+<div class="timeline-container d-flex align-items-center">
+  <div
+    *ngFor="let item of timelineData"
+    class="timeline-item border"
+    [ngStyle]="{'background-color': 'green', 'opacity': item}"
+    [title]="'Work done: ' + item"
+  ></div>
+</div>

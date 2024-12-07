@@ -5,6 +5,7 @@ import { ClockinComponent } from "./clockin/clockin.component";
 import { CommonModule } from "@angular/common";
 import { SidebarComponent } from "./sidebar/sidebar.component";
 import { LoginComponent } from "./login/login.component";
+import { CalendarComponent } from "./calendar/calendar.component";
 
 @Component({
   selector: "app-root",

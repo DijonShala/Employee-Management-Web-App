@@ -2,156 +2,192 @@
   <div class="container-sm p-5 bg-light">
     <div>{{success_message}}</div>
 
-    <div>{{employee | json}}</div>
+    <div>{{employeeForm.valid| json}}</div>
 
-    <form (ngSubmit)="addEmployee()">
+    <form #employeeForm="ngForm" (ngSubmit)="addEmployee(employeeForm)">
       <h3>Register user</h3>
       <p>Register a user to the company.</p>
 
-      <!--
-      <div class="form-group mb-3 mt-3">
-        <input
-          class="form-control"
-          type="text"
-          name="street"
-          [(ngModel)]="employee.adress.street"
-          placeholder="Street"
-        />
+      <div>
+        User name*:
+        <span
+          class="text-danger"
+          *ngIf="employeeUserName.dirty && employeeUserName.errors?.['required']"
+          >required</span
+        >
       </div>
-  
-      <div class="form-group mb-3 mt-3">
-        <input
-          class="form-control"
-          type="text"
-          name="city"
-          [(ngModel)]="employee.adress.city"
-          placeholder="City"
-        />
-      </div>
-  
-      <div class="form-group mb-3 mt-3">
-        <input
-          class="form-control"
-          type="text"
-          name="zipcode"
-          [(ngModel)]="employee.adress.zipcode"
-          placeholder="Zip code"
-        />
-      </div>
-  
-      <div class="form-group mb-3 mt-3">
-        <input
-          class="form-control"
-          type="text"
-          name="country"
-          [(ngModel)]="employee.adress.country"
-          placeholder="Country"
-        />
-      </div>
--->
-
       <div class="form-group mb-3 mt-3">
         <input
           class="form-control"
           type="text"
           name="userName"
+          required
+          #employeeUserName="ngModel"
           [(ngModel)]="employee.userName"
           placeholder="User name"
         />
       </div>
 
+      <div>
+        First name*:
+        <span
+          class="text-danger"
+          *ngIf="employeeFirstName.dirty && employeeFirstName.errors?.['required']"
+          >required</span
+        >
+      </div>
       <div class="form-group mb-3 mt-3">
         <input
           class="form-control"
           type="text"
           name="firstName"
+          required
+          #employeeFirstName="ngModel"
           [(ngModel)]="employee.firstName"
           placeholder="First name"
         />
       </div>
 
+      <div>
+        Last name*:
+        <span
+          class="text-danger"
+          *ngIf="employeeLastName.dirty && employeeLastName.errors?.['required']"
+          >required</span
+        >
+      </div>
       <div class="form-group mb-3 mt-3">
         <input
           class="form-control"
           type="text"
           name="lastName"
+          required
+          #employeeLastName="ngModel"
           [(ngModel)]="employee.lastName"
           placeholder="Last name"
         />
       </div>
 
+      <div>
+        Email*:
+        <span
+          class="text-danger"
+          *ngIf="employeeEmail.dirty && employeeEmail.errors?.['required']"
+          >required</span
+        >
+        <span
+          class="text-danger"
+          *ngIf="employeeEmail.dirty && employeeEmail.errors?.['email']"
+          >not a valid email</span
+        >
+      </div>
       <div class="form-group mb-3 mt-3">
         <input
           class="form-control"
           type="text"
           name="email"
+          required
+          email
+          #employeeEmail="ngModel"
           [(ngModel)]="employee.email"
           placeholder="Email"
         />
       </div>
 
+      <div>
+        Phone number*:
+        <span
+          class="text-danger"
+          *ngIf="employeePhoneNumber.dirty && employeePhoneNumber.errors?.['required']"
+          >required</span
+        >
+        <span
+          class="text-danger"
+          *ngIf="employeePhoneNumber.dirty && employeePhoneNumber.errors?.['pattern']"
+          >invalid phone number</span
+        >
+      </div>
       <div class="form-group mb-3 mt-3">
         <input
           class="form-control"
           type="text"
           name="phoneNumber"
+          required
+          pattern="[0-9\-+]+"
+          #employeePhoneNumber="ngModel"
           [(ngModel)]="employee.phoneNumber"
           placeholder="Phone number"
         />
       </div>
 
+      <div>
+        Job title*:
+        <span
+          class="text-danger"
+          *ngIf="employeeJobNumber.dirty && employeeJobNumber.errors?.['required']"
+          >required</span
+        >
+      </div>
       <div class="form-group mb-3 mt-3">
         <input
           class="form-control"
           type="text"
           name="jobTitle"
+          required
+          #employeeJobNumber="ngModel"
           [(ngModel)]="employee.jobTitle"
           placeholder="Job title"
         />
       </div>
 
+      <div>
+        Department ID*:
+        <span
+          class="text-danger"
+          *ngIf="employeeDepartmentId.dirty && employeeDepartmentId.errors?.['required']"
+          >required</span
+        >
+      </div>
       <div class="form-group mb-3 mt-3">
         <input
           class="form-control"
           type="text"
           name="departmentId"
+          required
+          #employeeDepartmentId="ngModel"
           [(ngModel)]="employee.departmentId"
           placeholder="Department ID"
         />
       </div>
 
-      <div class="form-group mb-3 mt-3">
-        <input
-          class="form-control"
-          type="text"
-          name="hireDate"
-          [(ngModel)]="employee.hireDate"
-          placeholder="Hire date"
-        />
+      <div>
+        Salary*:
+        <span
+          class="text-danger"
+          *ngIf="employeeSalary.dirty && employeeSalary.errors?.['required']"
+          >required</span
+        >
       </div>
-
       <div class="form-group mb-3 mt-3">
         <input
           class="form-control"
           type="number"
           name="salary"
+          required
+          #employeeSalary="ngModel"
           [(ngModel)]="employee.salary"
           placeholder="Salary"
         />
       </div>
 
-      <div class="form-group mb-3 mt-3">
-        <input
-          class="form-control"
-          type="text"
-          name="status"
-          [(ngModel)]="employee.status"
-          placeholder="Status"
-        />
-      </div>
-
       <div class="text-center">
-        <button type="submit" class="btn btn-primary w-75">Register</button>
+        <button
+          [disabled]="employeeForm.invalid"
+          type="submit"
+          class="btn btn-primary w-75"
+        >
+          Register
+        </button>
       </div>
     </form>
   </div>

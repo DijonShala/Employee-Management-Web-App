@@ -28,13 +28,6 @@
   }
 }
 
-.time-progress-item {
-  display: block;
-  height: 20px;
-  width: 4.16%;
-  float: left;
-}
-
 .vh-100 {
   height: 100vh;
 }

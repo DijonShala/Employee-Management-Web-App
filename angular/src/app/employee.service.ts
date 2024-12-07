@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { Employee } from "./employee";
+import { Attendance, Employee } from "./employee";
 import { HttpClient } from "@angular/common/http";
 
 @Injectable({
@@ -30,15 +30,23 @@ export class EmployeeService {
     return this.http.post<Employee[]>("/api/employee", employee);
   }
 
-  getEmployee(): Employee {
+  getEmployeeMock(): Employee {
     // TODO
     return this.employee;
   }
 
-  getData() {
-    this.http.get<Employee[]>("/api/employee-all").subscribe((employees) => {
-      console.log(employees);
-    });
+  getEmployee(username: string) {
+    return this.http.get<Employee>("/api/employee/".concat(username));
+  }
+
+  getEmployees() {
+    return this.http.get<Employee[]>("/api/employee-all");
+  }
+
+  start_hour = new Date("Tue Dec 05 2024 00:00:00 GMT+0100");
+
+  getEmployeeClocks(username: string) {
+    return this.attendances;
   }
 
   clockEmployee() {
@@ -48,4 +56,78 @@ export class EmployeeService {
     this.employee.clocked_in = !this.employee.clocked_in; // TODO
     this.employee.clocked_in_time = date.getTime(); // TODO
   }
+
+  // LONG Attendance LIST
+
+  attendances: Attendance[] = [
+    {
+      employee_ID: "admin",
+      clock_in_time: new Date(
+        this.start_hour.getFullYear(),
+        this.start_hour.getMonth(),
+        this.start_hour.getDate(),
+        this.start_hour.getHours() + 1
+      ),
+      clock_out_time: new Date(
+        this.start_hour.getFullYear(),
+        this.start_hour.getMonth(),
+        this.start_hour.getDate(),
+        this.start_hour.getHours() + 3
+      ),
+      status: "work",
+    },
+
+    {
+      employee_ID: "admin",
+      clock_in_time: new Date(
+        this.start_hour.getFullYear(),
+        this.start_hour.getMonth(),
+        this.start_hour.getDate(),
+        this.start_hour.getHours() + 6
+      ),
+      clock_out_time: new Date(
+        this.start_hour.getFullYear(),
+        this.start_hour.getMonth(),
+        this.start_hour.getDate(),
+        this.start_hour.getHours() + 9
+      ),
+      status: "work",
+    },
+
+    {
+      employee_ID: "admin",
+      clock_in_time: new Date(
+        this.start_hour.getFullYear(),
+        this.start_hour.getMonth(),
+        this.start_hour.getDate(),
+        this.start_hour.getHours() + 11
+      ),
+      clock_out_time: new Date(
+        this.start_hour.getFullYear(),
+        this.start_hour.getMonth(),
+        this.start_hour.getDate(),
+        this.start_hour.getHours() + 12,
+        this.start_hour.getMinutes() + 30
+      ),
+      status: "work",
+    },
+
+    {
+      employee_ID: "admin",
+      clock_in_time: new Date(
+        this.start_hour.getFullYear(),
+        this.start_hour.getMonth(),
+        this.start_hour.getDate() + 3,
+        this.start_hour.getHours() + 11
+      ),
+      clock_out_time: new Date(
+        this.start_hour.getFullYear(),
+        this.start_hour.getMonth(),
+        this.start_hour.getDate() + 5,
+        this.start_hour.getHours() + 2,
+        this.start_hour.getMinutes() + 30
+      ),
+      status: "work",
+    },
+  ];
 }

@@ -1,12 +1,12 @@
 import { Component } from "@angular/core";
 import { Employee } from "../employee";
-import { FormsModule } from "@angular/forms";
-import { JsonPipe } from "@angular/common";
+import { FormsModule, NgForm } from "@angular/forms";
+import { CommonModule, JsonPipe } from "@angular/common";
 import { EmployeeService } from "../employee.service";
 
 @Component({
   selector: "app-register",
-  imports: [FormsModule, JsonPipe],
+  imports: [FormsModule, JsonPipe, CommonModule],
   templateUrl: "./register.html",
   styles: ``,
 })
@@ -35,11 +35,15 @@ export class RegisterComponent {
 
   constructor(private employeeService: EmployeeService) {}
 
-  addEmployee() {
+  addEmployee(employeeForm: NgForm) {
+    let date: Date = new Date();
+    this.employee.hireDate = String(date.getTime());
     this.employeeService
       .addEmployee(this.employee)
       .subscribe(
         (data) => (this.success_message = "Employee added successfully!")
       );
+
+    employeeForm.reset();
   }
 }

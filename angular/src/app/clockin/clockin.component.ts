@@ -1,23 +1,26 @@
 import { CommonModule, NgClass } from "@angular/common";
 import { Component } from "@angular/core";
-import { Employee } from "../employee";
+import { Attendance, Employee } from "../employee";
 import { EmployeeService } from "../employee.service";
+import { HorizontalTimelineComponent } from "../horizontal-timeline/horizontal-timeline.component";
 
 @Component({
   selector: "app-clockin",
-  imports: [CommonModule],
+  imports: [CommonModule, HorizontalTimelineComponent],
   templateUrl: "./clockin.html",
   styles: ``,
 })
 export class ClockinComponent {
+  timeline_start: Date = new Date("Tue Dec 05 2024 00:00:00 GMT+0100"); // Timeline shows 24 hours
+  attendances!: Attendance[];
+
   employee!: Employee;
 
   ontime: boolean = false;
-
   clocked_time: number = 0;
 
   check_onTime() {
-    let day_time = this.current_time % 86400000;
+    let day_time = this.current_time.getTime() % 86400000;
 
     if (
       this.employee.clock_out_time != null &&
@@ -31,40 +34,28 @@ export class ClockinComponent {
     }
   }
 
-  current_time: number = 0;
+  current_time: Date = new Date();
 
   set_time() {
-    let date = new Date();
-
-    this.current_time = date.getTime();
+    this.current_time = new Date();
     this.check_onTime();
   }
 
   clock() {
-    let date = new Date();
-
     this.employeeService.clockEmployee();
-    this.employee = this.employeeService.getEmployee();
+    this.employee = this.employeeService.getEmployeeMock();
 
     if (this.employee.clocked_in_time != null) {
-      this.clocked_time = this.current_time - this.employee.clocked_in_time;
+      this.clocked_time =
+        this.current_time.getTime() - this.employee.clocked_in_time;
     }
-
-    // Toast to worker
-
-    //var toastElList = [].slice.call(document.querySelectorAll(".toast"));
-    //var toastList = toastElList.map(function (toastEl) {
-    //  return new bootstrap.Toast(toastEl);
-    //});
-    //toastList.forEach((toast) => toast.show());
   }
 
   constructor(private employeeService: EmployeeService) {}
 
   ngOnInit() {
-    this.employee = this.employeeService.getEmployee();
-
-    this.employeeService.getData();
+    this.employee = this.employeeService.getEmployeeMock();
+    this.attendances = this.employeeService.getEmployeeClocks("admin");
 
     this.set_time();
 
