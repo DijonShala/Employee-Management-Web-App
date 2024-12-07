@@ -63,6 +63,10 @@ const swaggerDocument = swaggerJsDoc({
         name: "Employee",
         description: "<b>Employee</b> (users)",
       },
+      {
+        name: "Attendance",
+        description: "Employee's <b>attendance</b>",
+      },
     ],
     servers: [
       {
@@ -148,6 +152,37 @@ const swaggerDocument = swaggerJsDoc({
           "status",
         ],
       },
+      Attendance: {
+        type: "object",
+        properties: {
+          userName: {
+            type: "string",
+            description: "The employee's username.",
+            example: "admin",
+          },
+          clock_in_time: {
+            type: "string",
+            format: "date-time",
+            description: "Clock in time.",
+          },
+          clock_out_time: {
+            type: "string",
+            format: "date-time",
+            description: "Clock out time.",
+          },
+          status: {
+            type: "string",
+            description: "Status of clockin.",
+          },
+          _id: {
+            type: "string",
+          },
+          _v: {
+            type: "number",
+          },
+        },
+        required: ["userName"],
+      },
       ErrorMessage: {
         type: "object",
         properties: {
@@ -162,6 +197,7 @@ const swaggerDocument = swaggerJsDoc({
   },
   apis: [
     "./api/models/employee.js",
+    "./api/models/attendance.js",
     "./api/models/db.js",
     "./api/controllers/*.js",
   ],
