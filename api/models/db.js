@@ -32,6 +32,7 @@ mongoose.connect(dbURI);
 mongoose.connection.on("connected", () => {
   console.log(`Mongoose connected to ${dbURI}.`);
   importTD.addAddmin();
+
 });
 mongoose.connection.on("error", (err) =>
   console.log(`Mongoose connection error: ${err}.`)
@@ -56,3 +57,7 @@ process.on("SIGINT", () => {
 process.on("SIGTERM", () => {
   gracefulShutdown("Cloud-based app shutdown", () => process.exit(0));
 });
+
+import "./leave.js"
+import "./employee.js"
+import "./salary.js"
