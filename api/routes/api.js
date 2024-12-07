@@ -1,12 +1,9 @@
 import { Router } from "express";
 const router = Router();
 import ctrlEmployee from "../controllers/employee.js";
-<<<<<<< HEAD
-import ctrlLeave from "../controllers/leave.js"
-import ctrlSalary from "../controllers/salary.js"
-=======
+import ctrlLeave from "../controllers/leave.js";
+import ctrlSalary from "../controllers/salary.js";
 import ctrlAttendance from "../controllers/attendance.js";
->>>>>>> df6ef4f4a75c79bbda72f95616801acf0341808e
 
 /**
  * Employee
