@@ -5,6 +5,7 @@ import ctrlLeave from "../controllers/leave.js"
 import ctrlSalary from "../controllers/salary.js"
 import ctrlAttendance from "../controllers/attendance.js";
 import ctrlTask from "../controllers/task.js";
+import ctrlDepartment from "../controllers/department.js";
 
 /**
  * Employee
@@ -14,6 +15,7 @@ router.get("/employee/:username", ctrlEmployee.employeeReadOne);
 router.post("/employee", ctrlEmployee.employeeCreate);
 router.put("/employee/:employeeId", ctrlEmployee.employeeUpdateOne);
 router.delete("/employee/:employeeId", ctrlEmployee.employeeDeleteOne);
+
 /**
  * Attendance
  */
@@ -47,4 +49,14 @@ router.get("/tasks", ctrlTask.getAllTasks);
 router.get("/tasks/:userName", ctrlTask.getTasksByUserName);
 router.put("/tasks/:taskId/status", ctrlTask.updateTaskStatus);
 router.delete("/tasks/:taskId", ctrlTask.deleteTask);
+/**
+ * Department
+ */
+
+router.get("/departments", ctrlDepartment.getAllDepartments);
+router.get("/department/:id", ctrlDepartment.findDepartmentById);
+router.post("/department", ctrlDepartment.insertDepartment);
+router.put("/department/:id", ctrlDepartment.updateDepartment);
+router.delete("/department/:id", ctrlDepartment.deleteDepartment);
+
 export default router;

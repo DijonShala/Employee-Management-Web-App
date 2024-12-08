@@ -87,7 +87,7 @@ const attendanceByUsername = async (req, res) => {
  *             maxLength: 100
  *           example: admin
  *       responses:
- *         '200':
+ *         '201':
  *           description: <b>OK</b>, with created attendance.
  *           content:
  *             application/json:
@@ -144,7 +144,7 @@ const clockIn = async (req, res) => {
       status: "present",
     });
 
-    res.status(200).json(attendance);
+    res.status(201).json(attendance);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }

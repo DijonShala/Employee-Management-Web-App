@@ -39,7 +39,11 @@ const swaggerDocument = swaggerJsDoc({
       {
         name: "Salary",
         description: "Employee's <b>salaries</b>",
-      }
+      },
+      {
+        name: "Department",
+        description: "<b>Department</b>",
+      },
     ],
     servers: [
       {
@@ -303,6 +307,7 @@ const swaggerDocument = swaggerJsDoc({
     "./api/models/leave.js",
     "./api/models/salary.js",
     "./api/models/task.js",
+    "./api/models/department.js",
     "./api/models/db.js",
     "./api/controllers/*.js",
   ],
