@@ -61,3 +61,5 @@ process.on("SIGTERM", () => {
 import "./leave.js"
 import "./employee.js"
 import "./salary.js"
+import "./task.js"
+import "./attendance.js"

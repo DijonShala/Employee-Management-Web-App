@@ -6,45 +6,6 @@ import hbsRouter from "./hbs/routes/hbs.js";
 import apiRouter from "./api/routes/api.js";
 
 /**
- * Database connection
- */
-import "./api/models/db.js";
-
-/**
- * Create server
- */
-const port = process.env.PORT || 3000;
-const app = express();
-const __dirname = dirname(fileURLToPath(import.meta.url));
-app.use(express.json());
-
-/**
- * Static pages
- */
-app.use(express.static(join(__dirname, "public")));
-
-/**
- * Body parser (application/x-www-form-urlencoded)
- */
-app.use(bodyParser.urlencoded({ extended: false }));
-
-/**
- * View engine (HBS) setup
- */
-app.set("views", join(__dirname, "hbs", "views"));
-app.set("view engine", "hbs");
-
-/**
- * HBS routing
- */
-app.use("/", hbsRouter);
-
-/**
- * API routing
- */
-app.use("/api", apiRouter);
-
-/**
  * Swagger and OpenAPI
  */
 import swaggerJsDoc from "swagger-jsdoc";
@@ -54,9 +15,9 @@ const swaggerDocument = swaggerJsDoc({
   definition: {
     openapi: "3.1.0",
     info: {
-      title: "Clockin",
+      title: "Clock In",
       version: "0.1.0",
-      description: "",
+      description: " **Rest API** used for LP-12 project" ,
     },
     tags: [
       {
@@ -67,6 +28,18 @@ const swaggerDocument = swaggerJsDoc({
         name: "Attendance",
         description: "Employee's <b>attendance</b>",
       },
+      {
+        name: "Task",
+        description: "Employee's <b>tasks</b>",
+      },
+      {
+        name: "Leave",
+        description: "Employee's <b>leaves</b>",
+      },
+      {
+        name: "Salary",
+        description: "Employee's <b>salaries</b>",
+      }
     ],
     servers: [
       {
@@ -198,23 +171,63 @@ const swaggerDocument = swaggerJsDoc({
   apis: [
     "./api/models/employee.js",
     "./api/models/attendance.js",
+    "./api/models/leave.js",
+    "./api/models/salary.js",
+    "./api/models/task.js",
     "./api/models/db.js",
     "./api/controllers/*.js",
   ],
 });
 
 /**
+ * Database connection
+ */
+import "./api/models/db.js";
+
+/**
+ * Create server
+ */
+const port = process.env.PORT || 3000;
+const app = express();
+const __dirname = dirname(fileURLToPath(import.meta.url));
+app.use(express.json());
+
+/**
+ * Static pages
+ */
+app.use(express.static(join(__dirname, "public")));
+
+/**
+ * Body parser (application/x-www-form-urlencoded)
+ */
+app.use(bodyParser.urlencoded({ extended: false }));
+
+/**
+ * View engine (HBS) setup
+ */
+app.set("views", join(__dirname, "hbs", "views"));
+app.set("view engine", "hbs");
+
+/**
+ * HBS routing
+ */
+app.use("/", hbsRouter);
+
+/**
+ * API routing
+ */
+app.use("/api", apiRouter);
+/**
  * Swagger file and explorer
  */
-app.get("/swagger.json", (req, res) => res.status(200).json(swaggerDocument));
-app.use(
+apiRouter.get("/swagger.json", (req, res) => res.status(200).json(swaggerDocument));
+apiRouter.use(
   "/docs",
   swaggerUi.serve,
   swaggerUi.setup(swaggerDocument, {
     customCss: ".swagger-ui .topbar { display: none }",
   })
 );
-
 /**
  * Start server
  */

@@ -18,7 +18,7 @@ import Employee from "../models/employee.js";
  *                 type: array
  *                 items:
  *                   $ref: '#/components/schemas/Employee'
- *         '501':
+ *         '500':
  *           description: <b>Internal Server Error</b>, with error message.
  *           content:
  *             application/json:
@@ -128,7 +128,7 @@ const employeeReadOne = async (req, res) => {
  *       requestBody:
  *         required: true
  *         content:
- *           application/x-www-form-urlencoded:
+ *           application/json:
  *             schema:
  *               type: object
  *               properties:
@@ -313,7 +313,7 @@ const doAddEmployee = async (req, res) => {
  *       requestBody:
  *         required: true
  *         content:
- *           application/x-www-form-urlencoded:
+ *           application/json:
  *             schema:
  *               type: object
  *               properties:
