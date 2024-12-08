@@ -156,6 +156,135 @@ const swaggerDocument = swaggerJsDoc({
         },
         required: ["userName"],
       },
+      Leave: {
+        type: "object",
+        properties: {
+          userName: {
+            type: "string",
+            description: "The employee's username.",
+            example: "admin",
+          },
+          leaveType: {
+            type: "string",
+            description: "Type of leave (e.g., Sick, Casual, Vacation).",
+            example: "Sick",
+          },
+          startDate: {
+            type: "string",
+            format: "date",
+            description: "Start date of leave.",
+            example: "2024-11-25",
+          },
+          endDate: {
+            type: "string",
+            format: "date",
+            description: "End date of leave.",
+            example: "2024-11-30",
+          },
+          status: {
+            type: "string",
+            enum: ["Pending", "Approved", "Rejected"],
+            description: "Status of the leave request.",
+            example: "Pending",
+          },
+          reason: {
+            type: "string",
+            description: "Reason for the leave request.",
+            example: "Medical reasons",
+          },
+        },
+        required: [
+          "userName",
+          "leaveType",
+          "startDate",
+          "endDate",
+          "status",
+        ],
+      },
+      Task: {
+        type: "object",
+        properties: {
+          userName: {
+            type: "string",
+            description: "The employee's username.",
+            example: "admin",
+          },
+          description: {
+            type: "string",
+            description: "Description of the task.",
+            example: "Complete the monthly report",
+          },
+          startDate: {
+            type: "string",
+            format: "date-time",
+            description: "Task start date.",
+            example: "2024-11-25T08:00:00.000Z",
+          },
+          dueDate: {
+            type: "string",
+            format: "date-time",
+            description: "Due date for the task.",
+            example: "2024-11-30T17:00:00.000Z",
+          },
+          status: {
+            type: "string",
+            enum: ["Todo", "In Progress", "Done"],
+            description: "Current status of the task.",
+            example: "Todo",
+          },
+        },
+        required: [
+          "userName",
+          "description",
+          "startDate",
+          "dueDate",
+          "status",
+        ],
+      },
+      Salary: {
+        type: "object",
+        properties: {
+          userName: {
+            type: "string",
+            description: "The employee's username.",
+            example: "admin",
+          },
+          basicSalary: {
+            type: "number",
+            description: "Basic salary amount.",
+            example: 5000,
+          },
+          allowances: {
+            type: "number",
+            description: "Additional allowances.",
+            example: 1000,
+          },
+          deductions: {
+            type: "number",
+            description: "Salary deductions.",
+            example: 500,
+          },
+          netSalary: {
+            type: "number",
+            description: "Net salary after deductions.",
+            example: 4500,
+          },
+          payDate: {
+            type: "string",
+            format: "date-time",
+            description: "Date of salary payment.",
+            example: "2024-11-25T12:00:00.000Z",
+          },
+        },
+        required: [
+          "userName",
+          "basicSalary",
+          "allowances",
+          "deductions",
+          "netSalary",
+          "payDate",
+        ],
+      },
       ErrorMessage: {
         type: "object",
         properties: {
