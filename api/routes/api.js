@@ -1,8 +1,8 @@
 import { Router } from "express";
 const router = Router();
 import ctrlEmployee from "../controllers/employee.js";
-import ctrlLeave from "../controllers/leave.js"
-import ctrlSalary from "../controllers/salary.js"
+import ctrlLeave from "../controllers/leave.js";
+import ctrlSalary from "../controllers/salary.js";
 import ctrlAttendance from "../controllers/attendance.js";
 import ctrlTask from "../controllers/task.js";
 import ctrlDepartment from "../controllers/department.js";
@@ -15,6 +15,7 @@ router.get("/employee/:username", ctrlEmployee.employeeReadOne);
 router.post("/employee", ctrlEmployee.employeeCreate);
 router.put("/employee/:username", ctrlEmployee.employeeUpdateOne);
 router.delete("/employee/:username", ctrlEmployee.employeeDeleteOne);
+router.get("/employee-filter", ctrlEmployee.employeeListByMultiFilter);
 /**
  * Attendance
  */
