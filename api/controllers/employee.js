@@ -296,7 +296,7 @@ const doAddEmployee = async (req, res) => {
 /**
  * @openapi
  * paths:
- *   /employee/{employeeId}:
+ *   /employee/{username}:
  *     put:
  *       summary: Update an existing employee
  *       description: Update the details of an existing employee based on their unique employee ID.
@@ -304,12 +304,12 @@ const doAddEmployee = async (req, res) => {
  *         - Employee
  *       parameters:
  *         - in: path
- *           name: employeeId
+ *           name: username
  *           required: true
  *           description: The unique ID of the employee to update.
  *           schema:
  *             type: string
- *             example: "674573519322d092552e31a4"
+ *             example: "admin"
  *       requestBody:
  *         required: true
  *         content:
@@ -423,9 +423,9 @@ const doAddEmployee = async (req, res) => {
 
 const employeeUpdateOne = async (req, res) => {
   try {
-    const { employeeId } = req.params;
+    const { username } = req.params;
 
-    const employee = await Employee.findById(employeeId);
+    const employee = await Employee.findOne({ userName: username });
 
     if (!employee) {
       return res.status(404).json({ message: "Employee not found." });
@@ -458,20 +458,20 @@ const employeeUpdateOne = async (req, res) => {
 /**
  * @openapi
  * paths:
- *   /employee/{employeeId}:
+ *   /employee/{username}:
  *     delete:
  *       summary: Delete an employee
  *       description: Delete an **employee** by their unique employee ID.
  *       tags:
  *         - Employee
  *       parameters:
- *         - name: employeeId
+ *         - name: username
  *           in: path
  *           required: true
  *           description: The unique ID of the employee to delete.
  *           schema:
  *             type: string
- *             example: "60b8d8f776cfae53d0d1a8f3"
+ *             example: "admin"
  *       responses:
  *         '200':
  *           description: <b>OK</b>, employee deleted successfully.
@@ -495,9 +495,9 @@ const employeeUpdateOne = async (req, res) => {
 
 const employeeDeleteOne = async (req, res) => {
   try {
-    const { employeeId } = req.params;
+    const { username } = req.params;
 
-    const employee = await Employee.findByIdAndDelete(employeeId);
+    const employee = await Employee.findOneAndDelete({ userName: username });
 
     if (!employee) {
       return res.status(404).json({ message: "Employee not found." });
