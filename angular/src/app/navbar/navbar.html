@@ -18,6 +18,20 @@
   <div class="nav-link d-flex align-items-center h-100 p-2 cursor-pointer">
     <a [routerLink]="'/register'"> Register a user </a>
   </div>
+
+  <div
+    *ngIf="employeeService.logged_in"
+    class="nav-link d-flex align-items-center h-100 p-2 cursor-pointer ms-auto"
+  >
+    <div style="cursor: pointer" (click)="logout()">Log out</div>
+  </div>
+
+  <div
+    *ngIf="employeeService.logged_in"
+    class="d-flex align-items-center h-100 p-2 ms"
+  >
+    <strong>{{employeeService.username}}</strong>
+  </div>
 </div>
 
 <div class="navbar-height"></div>

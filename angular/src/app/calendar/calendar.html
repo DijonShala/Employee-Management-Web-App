@@ -17,6 +17,7 @@
     <div
       *ngFor="let day of week"
       (click)="show(day.date)"
+      [ngStyle]="{'opacity' : day.isCurrentMonth ? 1 : .25}"
       [class.bg-light]="day.isCurrentMonth"
       [class.bg-secondary]="!day.isCurrentMonth"
       class="col border"
@@ -25,8 +26,8 @@
     >
       {{day.date.getDate()}}
       <app-horizontal-timeline
-        [attendances]="attendances"
         [timeline_start]="day.date"
+        [type]="'block'"
       ></app-horizontal-timeline>
     </div>
   </div>

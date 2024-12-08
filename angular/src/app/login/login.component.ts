@@ -2,7 +2,7 @@ import { Component } from "@angular/core";
 import { FormsModule, NgForm } from "@angular/forms";
 import { CommonModule, JsonPipe } from "@angular/common";
 import { EmployeeService } from "../employee.service";
-import { Router } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 
 @Component({
   selector: "app-login",
@@ -13,23 +13,32 @@ import { Router } from "@angular/router";
 export class LoginComponent {
   constructor(
     private employeeService: EmployeeService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) {}
 
-  userName: string = "";
-  password: string = "";
+  userName: string = "admin";
+  password: string = "123";
+
+  agreement: boolean = false;
+
+  invalid: boolean = false;
 
   login(employeeForm: NgForm) {
-    this.employeeService.getEmployee(this.userName).subscribe(
-      (data) => {
-        console.log(data.salary);
-        this.router.navigate(["/"]);
-      },
-      (error) => {
-        console.log("ERROR HAS OCCURED");
-      }
-    );
+    this.employeeService.login(this.userName);
+    this.router.navigate(["/clockin"]);
 
     employeeForm.reset();
+  }
+
+  redirected: boolean = false;
+  ngOnInit() {
+    this.route.queryParams.subscribe((params) => {
+      if (params["redirected"] == "true") {
+        this.redirected = true;
+      } else {
+        this.redirected = false;
+      }
+    });
   }
 }
