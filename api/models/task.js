@@ -4,7 +4,7 @@ import mongoose from "mongoose";
  * @openapi
  * components:
  *  schemas:
- *   Leave:
+ *   Task:
  *    type: object
  *    properties:
  *     _id:
@@ -14,33 +14,33 @@ import mongoose from "mongoose";
  *       type: string
  *       description: "The employee's username."
  *       example: John
- *     reason:
+ *     description:
  *       type: string
- *       description: "Reason for leave."
- *       example: Vacation
+ *       description: "Description of the task"
+ *       example: Angular web app
  *     startDate:
  *       type: string
  *       format: date-time
- *       description: "Start date of leave."
+ *       description: "Start date of task"
  *       example: 2024-12-25T17:43:00.000Z
- *     endDate:
+ *     dueDate:
  *       type: string
  *       format: date-time
- *       description: "End date of leave."
+ *       description: "End date of task"
  *       example: 2025-01-10T17:43:00.000Z
  *     status:
  *       type: string
  *       enum:
- *         - Pending
- *         - Approved
- *         - Rejected
- *       description: "Status of decision."
- *       default: Pending
- *       example: Pending
- *     appliedAt: 
+ *         - Todo
+ *         - In progress
+ *         - Done
+ *       description: "Status of task"
+ *       default: Todo
+ *       example: Todo
+ *     updatedAt: 
  *       type: string
  *       format: date-time
- *       description: "Date of application."
+ *       description: "Date of task update"
  *       example: 2024-12-10T17:43:00.000Z
  *     __v:
  *       type: integer
@@ -48,37 +48,37 @@ import mongoose from "mongoose";
  *       readOnly: true
  *    required:
  *      - userName
- *      - reason
+ *      - description
  *      - startDate
- *      - endDate 
+ *      - dueDate
  */
-const leaveSchema = new mongoose.Schema({
-    userName: {
+const taskSchema = new mongoose.Schema({
+    userName: { 
         type: String,
-        required: [true, "Username name is required!"],
+        required: [true, "Username is required!"],
     },
-    reason: {
+    description: {
         type: String,
-        required: [true, "Reason is required!"],
+        required: [true, "Description is required!"],
     },
     startDate: {
         type: Date,
         required: [true, "Start date is required!"],
     },
-    endDate: {
+    dueDate: {
         type: Date,
-        required: [true, "End date is required!"],
+        required: [true, "Due Date is required!"],
     },
     status: {
         type: String,
-        enum: ["Pending", "Approved", "Rejected"],
-        default: "Pending",
+        enum: ["Todo", "In progress", "Done"],
+        default: "Todo",
     },
-    appliedAt: {
+    updatedAt: {
         type: Date,
         default: Date.now
     }
 });
 
-const Leave = mongoose.model("Leave", leaveSchema, "Leaves");
-export default Leave;
+const Task = mongoose.model("Task", taskSchema, "Tasks");
+export default Task;

@@ -6,45 +6,6 @@ import hbsRouter from "./hbs/routes/hbs.js";
 import apiRouter from "./api/routes/api.js";
 
 /**
- * Database connection
- */
-import "./api/models/db.js";
-
-/**
- * Create server
- */
-const port = process.env.PORT || 3000;
-const app = express();
-const __dirname = dirname(fileURLToPath(import.meta.url));
-app.use(express.json());
-
-/**
- * Static pages
- */
-app.use(express.static(join(__dirname, "public")));
-
-/**
- * Body parser (application/x-www-form-urlencoded)
- */
-app.use(bodyParser.urlencoded({ extended: false }));
-
-/**
- * View engine (HBS) setup
- */
-app.set("views", join(__dirname, "hbs", "views"));
-app.set("view engine", "hbs");
-
-/**
- * HBS routing
- */
-app.use("/", hbsRouter);
-
-/**
- * API routing
- */
-app.use("/api", apiRouter);
-
-/**
  * Swagger and OpenAPI
  */
 import swaggerJsDoc from "swagger-jsdoc";
@@ -54,9 +15,9 @@ const swaggerDocument = swaggerJsDoc({
   definition: {
     openapi: "3.1.0",
     info: {
-      title: "Clockin",
+      title: "Clock In",
       version: "0.1.0",
-      description: "",
+      description: " **Rest API** used for LP-12 project" ,
     },
     tags: [
       {
@@ -66,6 +27,18 @@ const swaggerDocument = swaggerJsDoc({
       {
         name: "Attendance",
         description: "Employee's <b>attendance</b>",
+      },
+      {
+        name: "Task",
+        description: "Employee's <b>tasks</b>",
+      },
+      {
+        name: "Leave",
+        description: "Employee's <b>leaves</b>",
+      },
+      {
+        name: "Salary",
+        description: "Employee's <b>salaries</b>",
       },
       {
         name: "Department",
@@ -187,6 +160,135 @@ const swaggerDocument = swaggerJsDoc({
         },
         required: ["userName"],
       },
+      Leave: {
+        type: "object",
+        properties: {
+          userName: {
+            type: "string",
+            description: "The employee's username.",
+            example: "admin",
+          },
+          leaveType: {
+            type: "string",
+            description: "Type of leave (e.g., Sick, Casual, Vacation).",
+            example: "Sick",
+          },
+          startDate: {
+            type: "string",
+            format: "date",
+            description: "Start date of leave.",
+            example: "2024-11-25",
+          },
+          endDate: {
+            type: "string",
+            format: "date",
+            description: "End date of leave.",
+            example: "2024-11-30",
+          },
+          status: {
+            type: "string",
+            enum: ["Pending", "Approved", "Rejected"],
+            description: "Status of the leave request.",
+            example: "Pending",
+          },
+          reason: {
+            type: "string",
+            description: "Reason for the leave request.",
+            example: "Medical reasons",
+          },
+        },
+        required: [
+          "userName",
+          "leaveType",
+          "startDate",
+          "endDate",
+          "status",
+        ],
+      },
+      Task: {
+        type: "object",
+        properties: {
+          userName: {
+            type: "string",
+            description: "The employee's username.",
+            example: "admin",
+          },
+          description: {
+            type: "string",
+            description: "Description of the task.",
+            example: "Complete the monthly report",
+          },
+          startDate: {
+            type: "string",
+            format: "date-time",
+            description: "Task start date.",
+            example: "2024-11-25T08:00:00.000Z",
+          },
+          dueDate: {
+            type: "string",
+            format: "date-time",
+            description: "Due date for the task.",
+            example: "2024-11-30T17:00:00.000Z",
+          },
+          status: {
+            type: "string",
+            enum: ["Todo", "In Progress", "Done"],
+            description: "Current status of the task.",
+            example: "Todo",
+          },
+        },
+        required: [
+          "userName",
+          "description",
+          "startDate",
+          "dueDate",
+          "status",
+        ],
+      },
+      Salary: {
+        type: "object",
+        properties: {
+          userName: {
+            type: "string",
+            description: "The employee's username.",
+            example: "admin",
+          },
+          basicSalary: {
+            type: "number",
+            description: "Basic salary amount.",
+            example: 5000,
+          },
+          allowances: {
+            type: "number",
+            description: "Additional allowances.",
+            example: 1000,
+          },
+          deductions: {
+            type: "number",
+            description: "Salary deductions.",
+            example: 500,
+          },
+          netSalary: {
+            type: "number",
+            description: "Net salary after deductions.",
+            example: 4500,
+          },
+          payDate: {
+            type: "string",
+            format: "date-time",
+            description: "Date of salary payment.",
+            example: "2024-11-25T12:00:00.000Z",
+          },
+        },
+        required: [
+          "userName",
+          "basicSalary",
+          "allowances",
+          "deductions",
+          "netSalary",
+          "payDate",
+        ],
+      },
       ErrorMessage: {
         type: "object",
         properties: {
@@ -202,6 +304,9 @@ const swaggerDocument = swaggerJsDoc({
   apis: [
     "./api/models/employee.js",
     "./api/models/attendance.js",
+    "./api/models/leave.js",
+    "./api/models/salary.js",
+    "./api/models/task.js",
     "./api/models/department.js",
     "./api/models/db.js",
     "./api/controllers/*.js",
@@ -209,17 +314,54 @@ const swaggerDocument = swaggerJsDoc({
 });
 
 /**
+ * Database connection
+ */
+import "./api/models/db.js";
+
+/**
+ * Create server
+ */
+const port = process.env.PORT || 3000;
+const app = express();
+const __dirname = dirname(fileURLToPath(import.meta.url));
+app.use(express.json());
+
+/**
+ * Static pages
+ */
+app.use(express.static(join(__dirname, "public")));
+
+/**
+ * Body parser (application/x-www-form-urlencoded)
+ */
+app.use(bodyParser.urlencoded({ extended: false }));
+
+/**
+ * View engine (HBS) setup
+ */
+app.set("views", join(__dirname, "hbs", "views"));
+app.set("view engine", "hbs");
+
+/**
+ * HBS routing
+ */
+app.use("/", hbsRouter);
+
+/**
+ * API routing
+ */
+app.use("/api", apiRouter);
+/**
  * Swagger file and explorer
  */
-app.get("/swagger.json", (req, res) => res.status(200).json(swaggerDocument));
-app.use(
+apiRouter.get("/swagger.json", (req, res) => res.status(200).json(swaggerDocument));
+apiRouter.use(
   "/docs",
   swaggerUi.serve,
   swaggerUi.setup(swaggerDocument, {
     customCss: ".swagger-ui .topbar { display: none }",
   })
 );
-
 /**
  * Start server
  */

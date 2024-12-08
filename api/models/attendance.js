@@ -7,6 +7,9 @@ import mongoose from "mongoose";
  *   Attendance:
  *    type: object
  *    properties:
+ *     _id:
+ *       type: string
+ *       description: unique identifier
  *     userName:
  *       type: string
  *       description: "The employee's username."
@@ -15,10 +18,12 @@ import mongoose from "mongoose";
  *       type: string
  *       format: date-time
  *       description: "Clock in time."
+ *       example: 2024-12-25T08:15:00.000Z
  *     clock_out_time:
  *       type: string
  *       format: date-time
  *       description: "Clock out time."
+ *       example: 2024-12-25T16:15:00.000Z
  *     status:
  *       enum:
  *         - present
@@ -26,8 +31,6 @@ import mongoose from "mongoose";
  *       type: string
  *       description: "Status of clockin."
  *       example: Present
- *     _id:
- *      type: string
  *     __v:
  *       type: integer
  *       description: "Version key for document changes in MongoDB."

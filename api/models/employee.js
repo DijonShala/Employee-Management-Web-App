@@ -7,21 +7,28 @@ import mongoose from "mongoose";
  *   Employee:
  *    type: object
  *    properties:
+ *     _id:
+ *       type: string
+ *       description: unique identifier
  *     address:
  *       type: object
  *       properties:
  *         street:
  *           type: string
  *           description: "Street address of the employee."
+ *           example: Vecna pot 1
  *         city:
  *           type: string
  *           description: "City where the employee lives."
+ *           example: Ljubljana
  *         zipCode:
- *           type: string
+ *           type: integer
  *           description: "Zip code of the employee's address."
+ *           example: 1000
  *         country:
  *           type: string
  *           description: "Country where the employee resides."
+ *           example: Slovenia
  *       required:
  *         - street
  *         - city
@@ -31,44 +38,40 @@ import mongoose from "mongoose";
  *       type: string
  *       description: "The employee's username."
  *       example: admin
- *       required: true
  *     firstName:
  *       type: string
  *       description: "The employee's first name."
  *       example: Admin
- *       required: true
  *     lastName:
  *       type: string
  *       description: "The employee's last name."
  *       example: User
- *       required: true
  *     email:
  *       type: string
  *       format: email
  *       description: "The employee's email address."
- *       required: true
  *     phoneNumber:
  *       type: string
  *       description: "The employee's phone number."
- *       required: true
+ *       example: 030-123-345
  *     jobTitle:
  *       type: string
  *       description: "The employee's job title."
- *       required: true
+ *       example: administrator
  *     departmentId:
  *       type: string
  *       description: "The department ID to which the employee belongs."
- *       required: true
+ *       example: Database
  *     hireDate:
  *       type: string
  *       format: date-time
  *       description: "The employee's hire date."
- *       required: true
+ *       example: 2020-12-10T00:00:00.000Z
  *     salary:
  *       type: number
  *       format: float
  *       description: "The employee's salary."
- *       required: true
+ *       example: 5000
  *     status:
  *       type: string
  *       enum:
@@ -76,11 +79,22 @@ import mongoose from "mongoose";
  *         - inactive
  *       description: "The employee's status (active or inactive)."
  *       default: "active"
- *       required: true
+ *       example: active
  *     __v:
  *       type: integer
  *       description: "Version key for document changes in MongoDB."
  *       readOnly: true
+ *    required:
+ *      - userName
+ *      - firstName
+ *      - lastName
+ *      - email
+ *      - phoneNumber
+ *      - jobTitle
+ *      - departmentId
+ *      - hireDate
+ *      - salary
+ *      - status
  */
 const employeeSchema = mongoose.Schema({
   userName: {

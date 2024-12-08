@@ -57,7 +57,3 @@ process.on("SIGINT", () => {
 process.on("SIGTERM", () => {
   gracefulShutdown("Cloud-based app shutdown", () => process.exit(0));
 });
-
-import "./leave.js"
-import "./employee.js"
-import "./salary.js"
