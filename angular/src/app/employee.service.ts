@@ -1,133 +1,115 @@
 import { Injectable } from "@angular/core";
 import { Attendance, Employee } from "./employee";
 import { HttpClient } from "@angular/common/http";
+import { Subject } from "rxjs";
 
 @Injectable({
   providedIn: "root",
 })
 export class EmployeeService {
-  constructor(private http: HttpClient) {}
+  logged_in: boolean = false;
+  username = "";
 
-  employee: Employee = {
-    userName: "",
-    firstName: "",
-    lastName: "",
-    email: "",
-    phoneNumber: "",
-    jobTitle: "",
-    departmentId: "",
-    hireDate: "",
-    salary: 0,
+  constructor(private http: HttpClient) {
+    this.initialize();
+  }
 
-    clock_in_time: 33300000,
-    clock_out_time: 36300000,
+  initialize() {
+    let username_or_null = window.sessionStorage.getItem("username");
 
-    clocked_in: false,
-    clocked_in_time: 0,
-  };
+    if (username_or_null != null && username_or_null != "") {
+      this.username = username_or_null;
+      this.logged_in = true;
+    }
+
+    if (this.logged_in) {
+      this.getEmployee();
+    }
+  }
+
+  login(username: string) {
+    window.sessionStorage.setItem("username", "admin");
+    this.initialize();
+  }
+
+  logout() {
+    window.sessionStorage.setItem("username", "");
+
+    this.logged_in = false;
+    this.username = "";
+  }
 
   addEmployee(employee: Employee) {
     return this.http.post<Employee[]>("/api/employee", employee);
   }
 
-  getEmployeeMock(): Employee {
-    // TODO
-    return this.employee;
-  }
+  getEmployee() {
+    this.http.get<Employee>("/api/employee/".concat(this.username)).subscribe(
+      (data) => {
+        this.employee = data;
 
-  getEmployee(username: string) {
-    return this.http.get<Employee>("/api/employee/".concat(username));
+        this.employee_set = true;
+        return this.employee;
+      },
+      (error) => {}
+    );
   }
 
   getEmployees() {
     return this.http.get<Employee[]>("/api/employee-all");
   }
 
-  start_hour = new Date("Tue Dec 05 2024 00:00:00 GMT+0100");
+  employee_ID = "674737c3aaed835895f993d1";
+  updateEmployee() {
+    this.http
+      .put<Employee>("api/employee/".concat(this.employee_ID), this.employee)
+      .subscribe(
+        (data) => {},
+        (error) => {}
+      );
+  }
 
-  getEmployeeClocks(username: string) {
-    return this.attendances;
+  getEmployeeAttendance() {
+    return this.http.get<Attendance[]>(
+      "/api/attendanceByUsername/".concat(this.username)
+    );
   }
 
   clockEmployee() {
-    // TODO
-    let date = new Date();
-
-    this.employee.clocked_in = !this.employee.clocked_in; // TODO
-    this.employee.clocked_in_time = date.getTime(); // TODO
+    if (this.employee.status == "active") {
+      this.clockOut();
+    } else {
+      this.clockIn();
+    }
   }
 
-  // LONG Attendance LIST
+  clockIn() {
+    console.log("Clocked in");
 
-  attendances: Attendance[] = [
-    {
-      employee_ID: "admin",
-      clock_in_time: new Date(
-        this.start_hour.getFullYear(),
-        this.start_hour.getMonth(),
-        this.start_hour.getDate(),
-        this.start_hour.getHours() + 1
-      ),
-      clock_out_time: new Date(
-        this.start_hour.getFullYear(),
-        this.start_hour.getMonth(),
-        this.start_hour.getDate(),
-        this.start_hour.getHours() + 3
-      ),
-      status: "work",
-    },
+    this.employee.status = "active";
+    this.updateEmployee();
+    this.http
+      .post<Attendance[]>("/api/clockIn/".concat(this.username), "")
+      .subscribe(
+        (data) => {},
+        (error) => {}
+      );
+  }
 
-    {
-      employee_ID: "admin",
-      clock_in_time: new Date(
-        this.start_hour.getFullYear(),
-        this.start_hour.getMonth(),
-        this.start_hour.getDate(),
-        this.start_hour.getHours() + 6
-      ),
-      clock_out_time: new Date(
-        this.start_hour.getFullYear(),
-        this.start_hour.getMonth(),
-        this.start_hour.getDate(),
-        this.start_hour.getHours() + 9
-      ),
-      status: "work",
-    },
+  clockOut() {
+    console.log("Clocked out");
 
-    {
-      employee_ID: "admin",
-      clock_in_time: new Date(
-        this.start_hour.getFullYear(),
-        this.start_hour.getMonth(),
-        this.start_hour.getDate(),
-        this.start_hour.getHours() + 11
-      ),
-      clock_out_time: new Date(
-        this.start_hour.getFullYear(),
-        this.start_hour.getMonth(),
-        this.start_hour.getDate(),
-        this.start_hour.getHours() + 12,
-        this.start_hour.getMinutes() + 30
-      ),
-      status: "work",
-    },
+    this.employee.status = "inactive";
+    this.updateEmployee();
+    this.http
+      .post<Attendance[]>("/api/clockOut/".concat(this.username), "")
+      .subscribe(
+        (data) => {},
+        (error) => {}
+      );
+  }
 
-    {
-      employee_ID: "admin",
-      clock_in_time: new Date(
-        this.start_hour.getFullYear(),
-        this.start_hour.getMonth(),
-        this.start_hour.getDate() + 3,
-        this.start_hour.getHours() + 11
-      ),
-      clock_out_time: new Date(
-        this.start_hour.getFullYear(),
-        this.start_hour.getMonth(),
-        this.start_hour.getDate() + 5,
-        this.start_hour.getHours() + 2,
-        this.start_hour.getMinutes() + 30
-      ),
-      status: "work",
-    },
-  ];
+  employee_set: boolean = false;
+
+  employee!: Employee;
 }

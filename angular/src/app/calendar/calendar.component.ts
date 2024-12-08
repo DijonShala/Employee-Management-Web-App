@@ -3,6 +3,7 @@ import { CommonModule, NgClass, NgFor } from "@angular/common";
 import { Attendance, Employee } from "../employee";
 import { EmployeeService } from "../employee.service";
 import { HorizontalTimelineComponent } from "../horizontal-timeline/horizontal-timeline.component";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-calendar",
@@ -17,12 +18,12 @@ export class CalendarComponent {
 
   calendarDays: { date: Date; isCurrentMonth: boolean }[][] = [];
 
-  attendances!: Attendance[];
-
-  constructor(private employeeService: EmployeeService) {}
+  constructor(
+    private employeeService: EmployeeService,
+    private router: Router
+  ) {}
 
   ngOnInit() {
-    this.attendances = this.employeeService.getEmployeeClocks("admin");
     this.generateCalendar();
   }
 

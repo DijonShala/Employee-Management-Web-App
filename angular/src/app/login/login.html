@@ -3,7 +3,14 @@
     <h3>Sign in</h3>
     <p>Sign in to gain access to more clocking features.</p>
 
-    {{password}}
+    <div *ngIf="redirected" class="alert alert-danger">
+      You must sign in before accessing clocking and calendar features.
+    </div>
+
+    <div *ngIf="invalid" class="alert alert-danger">
+      Username or password incorrect! Try again using the correct username and
+      password!
+    </div>
 
     <form
       #employeeForm="ngForm"
@@ -20,12 +27,7 @@
           name="uname"
           required
         />
-        <div
-          *ngIf="!(employeeUserName.dirty && employeeUserName.errors?.['required'])"
-          class="valid-feedback"
-        >
-          Valid.
-        </div>
+
         <div
           *ngIf="employeeUserName.dirty && employeeUserName.errors?.['required']"
           class="invalid-feedback"
@@ -45,12 +47,6 @@
           required
         />
         <div
-          *ngIf="!(employeePassword.dirty && employeePassword.errors?.['required'])"
-          class="valid-feedback"
-        >
-          Valid.
-        </div>
-        <div
           *ngIf="employeePassword.dirty && employeePassword.errors?.['required']"
           class="invalid-feedback"
         >
@@ -64,6 +60,8 @@
           id="myCheck"
           name="remember"
           required
+          #employeeAgreement="ngModel"
+          [(ngModel)]="agreement"
         />
 
         <label class="form-check-label" for="myCheck"

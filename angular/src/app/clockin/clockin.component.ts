@@ -3,6 +3,7 @@ import { Component } from "@angular/core";
 import { Attendance, Employee } from "../employee";
 import { EmployeeService } from "../employee.service";
 import { HorizontalTimelineComponent } from "../horizontal-timeline/horizontal-timeline.component";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-clockin",
@@ -11,10 +12,7 @@ import { HorizontalTimelineComponent } from "../horizontal-timeline/horizontal-t
   styles: ``,
 })
 export class ClockinComponent {
-  timeline_start: Date = new Date("Tue Dec 05 2024 00:00:00 GMT+0100"); // Timeline shows 24 hours
-  attendances!: Attendance[];
-
-  employee!: Employee;
+  timeline_start: Date = new Date(); // Timeline shows 24 hours
 
   ontime: boolean = false;
   clocked_time: number = 0;
@@ -23,10 +21,10 @@ export class ClockinComponent {
     let day_time = this.current_time.getTime() % 86400000;
 
     if (
-      this.employee.clock_out_time != null &&
-      day_time < this.employee.clock_out_time &&
-      this.employee.clock_in_time != null &&
-      day_time > this.employee.clock_in_time
+      this.employeeService.employee.clock_out_time != null &&
+      day_time < this.employeeService.employee.clock_out_time &&
+      this.employeeService.employee.clock_in_time != null &&
+      day_time > this.employeeService.employee.clock_in_time
     ) {
       this.ontime = true;
     } else {
@@ -38,24 +36,30 @@ export class ClockinComponent {
 
   set_time() {
     this.current_time = new Date();
-    this.check_onTime();
+    //this.check_onTime();
   }
 
   clock() {
     this.employeeService.clockEmployee();
-    this.employee = this.employeeService.getEmployeeMock();
 
-    if (this.employee.clocked_in_time != null) {
+    if (this.employeeService.employee.clocked_in_time != null) {
       this.clocked_time =
-        this.current_time.getTime() - this.employee.clocked_in_time;
+        this.current_time.getTime() -
+        this.employeeService.employee.clocked_in_time;
     }
   }
 
-  constructor(private employeeService: EmployeeService) {}
+  constructor(
+    public employeeService: EmployeeService,
+    private router: Router
+  ) {}
 
   ngOnInit() {
-    this.employee = this.employeeService.getEmployeeMock();
-    this.attendances = this.employeeService.getEmployeeClocks("admin");
+    this.timeline_start = new Date(
+      this.timeline_start.getFullYear(),
+      this.timeline_start.getMonth(),
+      this.timeline_start.getDate()
+    );
 
     this.set_time();
 

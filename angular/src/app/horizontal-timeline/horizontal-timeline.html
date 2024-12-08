@@ -2,7 +2,16 @@
   <div
     *ngFor="let item of timelineData"
     class="timeline-item border"
-    [ngStyle]="{'background-color': 'green', 'opacity': item}"
-    [title]="'Work done: ' + item"
+    [ngStyle]="{'background-color': 'green', 'opacity': item.portion}"
+    [title]="item.date | date: 'HH:mm'"
   ></div>
+</div>
+
+<div
+  *ngIf="type != 'block'"
+  class="timeline-container d-flex justify-content-center"
+>
+  <div *ngFor="let item of timelineData" class="timeline-axis">
+    {{ item.date | date: "HH:mm" }}
+  </div>
 </div>
