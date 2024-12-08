@@ -509,10 +509,167 @@ const employeeDeleteOne = async (req, res) => {
   }
 };
 
+/**
+ * @openapi
+ * paths:
+ *   /employee-filter:
+ *     get:
+ *       summary: List employees with multi-filters
+ *       description: Retrieve a list of **employees** filtered by query parameters such as `firstName`, `lastName`, `email`, `jobTitle`, and `address`.
+ *       tags:
+ *         - Employee
+ *       parameters:
+ *         - name: firstName
+ *           in: query
+ *           required: false
+ *           description: Filter employees by first name.
+ *           schema:
+ *             type: string
+ *         - name: lastName
+ *           in: query
+ *           required: false
+ *           description: Filter employees by last name.
+ *           schema:
+ *             type: string
+ *         - name: email
+ *           in: query
+ *           required: false
+ *           description: Filter employees by email address.
+ *           schema:
+ *             type: string
+ *         - name: phoneNumber
+ *           in: query
+ *           required: false
+ *           description: Filter employees by phone number.
+ *           schema:
+ *             type: string
+ *         - name: jobTitle
+ *           in: query
+ *           required: false
+ *           description: Filter employees by job title.
+ *           schema:
+ *             type: string
+ *         - name: departmentId
+ *           in: query
+ *           required: false
+ *           description: Filter employees by department ID.
+ *           schema:
+ *             type: string
+ *         - name: hireDate
+ *           in: query
+ *           required: false
+ *           description: Filter employees by hire date.
+ *           schema:
+ *             type: string
+ *             format: date
+ *         - name: salary
+ *           in: query
+ *           required: false
+ *           description: Filter employees by salary.
+ *           schema:
+ *             type: integer
+ *         - name: address.city
+ *           in: query
+ *           required: false
+ *           description: Filter employees by their address (e.g., address.city or address.street).
+ *           schema:
+ *             type: string
+ *         - name: address.street
+ *           in: query
+ *           required: false
+ *           description: Filter employees by their address (e.g., address.city or address.street).
+ *           schema:
+ *             type: string
+ *         - name: address.zipcode
+ *           in: query
+ *           required: false
+ *           description: Filter employees by their address (e.g., address.city or address.street).
+ *           schema:
+ *             type: string
+ *         - name: nResults
+ *           in: query
+ *           required: false
+ *           description: The maximum number of employees to return in the response (defaults to 10).
+ *           schema:
+ *             type: integer
+ *             example: 10
+ *       responses:
+ *         '200':
+ *           description: <b>OK</b>, with employee list.
+ *           content:
+ *             application/json:
+ *               schema:
+ *                 type: array
+ *                 items:
+ *                   $ref: '#/components/schemas/Employee'
+ *         '404':
+ *           description: <b>Not Found</b>, no employees found matching the provided filters.
+ *           content:
+ *             application/json:
+ *               example:
+ *                 message: "No employee found."
+ *         '500':
+ *           description: <b>Internal Server Error</b>, with error message.
+ *           content:
+ *             application/json:
+ *               schema:
+ *                 $ref: '#/components/schemas/ErrorMessage'
+ *               example:
+ *                 message: "Unknown error"
+ */
+
+const allowedCodelists = [
+  "firstName",
+  "lastName",
+  "email",
+  "phoneNumber",
+  "jobTitle",
+  "departmentId",
+  "hireDate",
+  "salary",
+  "address.city",
+  "address.street",
+  "address.zipcode",
+];
+
+const employeeListByMultiFilter = async (req, res) => {
+  let filter = [];
+
+  allowedCodelists.forEach((codelist) => {
+    let value = req.query[codelist];
+    if (value) {
+      if (codelist === "address") {
+        Object.keys(req.query).forEach((key) => {
+          if (key.startsWith("address.")) {
+            let field = key.split(".")[1];
+            filter.push({ $match: { [`address.${field}`]: req.query[key] } });
+          }
+        });
+      } else {
+        filter.push({ $match: { [codelist]: value } });
+      }
+    }
+  });
+
+  let nResults = parseInt(req.query.nResults);
+  nResults = isNaN(nResults) ? 10 : nResults;
+  filter.push({ $limit: nResults });
+
+  try {
+    let employee = await Employee.aggregate(filter).exec();
+    if (!employee || employee.length === 0)
+      res.status(404).json({ message: "No employee found." });
+    else res.status(200).json(employee);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
 export default {
   employeeAll,
   employeeReadOne,
   employeeCreate,
   employeeDeleteOne,
   employeeUpdateOne,
+  employeeListByMultiFilter,
 };
