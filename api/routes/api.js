@@ -52,7 +52,6 @@ router.delete("/tasks/:taskId", ctrlTask.deleteTask);
 /**
  * Department
  */
-
 router.get("/departments", ctrlDepartment.getAllDepartments);
 router.get("/department/:id", ctrlDepartment.findDepartmentById);
 router.post("/department", ctrlDepartment.insertDepartment);

@@ -1,6 +1,6 @@
 import Department from "../models/department.js";
 import mongoose from "mongoose";
-
+import { joiInsertDepartmentSchema, joiUpdateDepartmentSchema } from "../utils/joivalidate.js"
 /**
  * @openapi
  * paths:
@@ -88,15 +88,18 @@ const getAllDepartments = async (req, res) => {
 
 const insertDepartment = async (req, res) => {
   try {
-    if (!req.body.name) {
-      return res
-        .status(400)
-        .json({ message: "Query parameter 'name' is required" });
+    const { error, value } = joiInsertDepartmentSchema.validate(req.body, { abortEarly: false });
+    if (error) {
+      return res.status(400).json({
+        message: "Validation error.",
+        details: error.details.map((detail) => detail.message)
+      });
     }
+    const { name, description } = value;
 
     const newDepartment = await Department.create({
-      name: req.body.name,
-      description: req.body.description,
+      name,
+      description,
     });
 
     res.status(201).json(newDepartment);
@@ -328,19 +331,30 @@ const deleteDepartment = async (req, res) => {
 
 const findDepartmentById = async (req, res) => {
   try {
-    if (!req.params.id || !mongoose.Types.ObjectId.isValid(req.params.id)) {
+    const { id } = req.params;
+    if (!id || !mongoose.Types.ObjectId.isValid(id)) {
       res.status(400).json({
         message: "Valid query parameter 'id' is required",
       });
       return;
     }
+    const { error, value } = joiUpdateDepartmentSchema.validate(req.body, { abortEarly: false });
+    if (error) {
+      return res.status(400).json({
+        message: "Validation error.",
+        details: error.details.map((detail) => detail.message)
+      });
+    }
 
-    const department = await Department.findById(req.params.id);
+    const department = await Department.findById(id);
     if (!department) {
       return res.status(404).json({ message: "Department not found" });
     }
+    department.name = value.name;
+    department.description = value.description;
 
-    res.status(200).json(department);
+    const updatedDepartment = await department.save()
+    res.status(200).json(updatedDepartment);
   } catch (err) {
     console.error("Error finding department:", err);
     res.status(500).json({ message: err.message });

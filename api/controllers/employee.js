@@ -1,5 +1,5 @@
 import Employee from "../models/employee.js";
-
+import { joiemployeeSchema, joiemployeeUpdateSchema } from "../utils/joivalidate.js";
 /**
  * @openapi
  * paths:
@@ -225,23 +225,17 @@ const employeeReadOne = async (req, res) => {
 
 const employeeCreate = async (req, res) => {
   try {
-    if (!req.body.userName) {
-      res.status(400).json({
-        message: "Query parameter 'username' is required.",
+    const result = joiemployeeSchema.validate(req.body, { abortEarly: false });
+    const { error, value } = result;
+    if (error) {
+      return res.status(400).json({
+        message: "Validation error.",
+        details: error.details.map((detail) => detail.message),
       });
-      return;
-    }
-
-    if (!req.body.email || !req.body.firstName || !req.body.lastName) {
-      res.status(400).json({
-        message:
-          "Query parameters 'email', 'firstName', 'lastName' are required.",
-      });
-      return;
     }
 
     const employee = await Employee.findOne({
-      userName: req.body.userName,
+      userName: value.userName,
     }).exec();
     if (employee) {
       res.status(400).json({
@@ -251,7 +245,7 @@ const employeeCreate = async (req, res) => {
     }
 
     const email = await Employee.findOne({
-      email: req.body.email,
+      email: value.email,
     }).exec();
     if (email) {
       res.status(400).json({
@@ -260,31 +254,31 @@ const employeeCreate = async (req, res) => {
       return;
     }
 
-    doAddEmployee(req, res);
+    doAddEmployee(value, res);
   } catch (error) {
     res.status(500).json({ status: "Error", message: error.message });
   }
 };
 
-const doAddEmployee = async (req, res) => {
+const doAddEmployee = async (value, res) => {
   try {
     const newEmployee = await Employee.create({
       address: {
-        street: req.body.street,
-        city: req.body.city,
-        zipCode: req.body.zipCode,
-        country: req.body.country,
+        street: value.street,
+        city: value.city,
+        zipCode: value.zipCode,
+        country: value.country,
       },
-      userName: req.body.userName,
-      firstName: req.body.firstName,
-      lastName: req.body.lastName,
-      email: req.body.email,
-      phoneNumber: req.body.phoneNumber,
-      jobTitle: req.body.jobTitle,
-      departmentId: "674573519322d092552e31a4", // TODO
-      hireDate: req.body.hireDate,
-      salary: req.body.salary,
-      status: "active",
+      userName: value.userName,
+      firstName: value.firstName,
+      lastName: value.lastName,
+      email: value.email,
+      phoneNumber: value.phoneNumber,
+      jobTitle: value.jobTitle,
+      departmentId: value.departmentId,
+      hireDate: value.hireDate,
+      salary: value.salary,
+      status: value.status,
     });
 
     res.status(200).json({ data: newEmployee });
@@ -424,28 +418,34 @@ const doAddEmployee = async (req, res) => {
 const employeeUpdateOne = async (req, res) => {
   try {
     const { username } = req.params;
-
+    const { error, value } = joiemployeeUpdateSchema.validate(req.body, { abortEarly: false });
+    if (error) {
+      return res.status(400).json({
+        message: "Validation error.",
+        details: error.details.map((detail) => detail.message),
+      });
+    }
     const employee = await Employee.findOne({ userName: username });
 
     if (!employee) {
       return res.status(404).json({ message: "Employee not found." });
     }
 
-    employee.userName = req.body.userName || employee.userName;
-    employee.firstName = req.body.firstName || employee.firstName;
-    employee.lastName = req.body.lastName || employee.lastName;
-    employee.email = req.body.email || employee.email;
-    employee.phoneNumber = req.body.phoneNumber || employee.phoneNumber;
-    employee.jobTitle = req.body.jobTitle || employee.jobTitle;
-    employee.departmentId = req.body.departmentId || employee.departmentId;
-    employee.hireDate = req.body.hireDate || employee.hireDate;
-    employee.salary = req.body.salary || employee.salary;
-    employee.status = req.body.status || employee.status;
+    employee.userName = value.userName || employee.userName;
+    employee.firstName = value.firstName || employee.firstName;
+    employee.lastName = value.lastName || employee.lastName;
+    employee.email = value.email || employee.email;
+    employee.phoneNumber = value.phoneNumber || employee.phoneNumber;
+    employee.jobTitle = value.jobTitle || employee.jobTitle;
+    employee.departmentId = value.departmentId || employee.departmentId;
+    employee.hireDate = value.hireDate || employee.hireDate;
+    employee.salary = value.salary || employee.salary;
+    employee.status = value.status || employee.status;
 
-    if (req.body.street) employee.address.street = req.body.street;
-    if (req.body.city) employee.address.city = req.body.city;
-    if (req.body.zipCode) employee.address.zipCode = req.body.zipCode;
-    if (req.body.country) employee.address.country = req.body.country;
+    if (value.street) employee.address.street = value.street;
+    if (value.city) employee.address.city = value.city;
+    if (value.zipCode) employee.address.zipCode = value.zipCode;
+    if (value.country) employee.address.country = value.country;
 
     const updatedEmployee = await employee.save();
 

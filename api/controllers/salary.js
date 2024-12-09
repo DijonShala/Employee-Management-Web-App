@@ -1,6 +1,7 @@
 import Salary from "../models/salary.js";
 import Employee from "../models/employee.js";
 import sendEmail from "../utils/mailer.js";
+import { joiAddSalarySchema } from "../utils/joivalidate.js"
 
 /**
  * @openapi
@@ -85,13 +86,18 @@ import sendEmail from "../utils/mailer.js";
 
 const addSalary = async (req, res) => {
     try {
-        const { userName, basicSalary, allowances, deductions, payDate } = req.body;
+        const { error, value } = joiAddSalarySchema.validate(req.body, { abortEarly: false });
+    
+        if (error) {
+          return res.status(400).json({
+            message: "Validation error.",
+            details: error.details.map((detail) => detail.message)
+          });
+        }
+        const { userName, basicSalary, allowances, deductions, payDate } = value;
         const employee = await Employee.findOne({ userName });
         if (!employee) {
             return res.status(404).json({ message: "Employee not found!" });
-        }
-        if (!userName || !basicSalary || !payDate) {
-            return res.status(400).json({ message: "Missing required fields!" });
         }
 
         const netSalary = (basicSalary + (allowances || 0)) - (deductions || 0);

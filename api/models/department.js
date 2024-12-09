@@ -30,6 +30,7 @@ const DepartmentSchema = mongoose.Schema({
   name: {
     type: String,
     required: [true, "Name of department is required"],
+    unique: true
   },
   description: {
     type: String,

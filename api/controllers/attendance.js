@@ -1,6 +1,6 @@
 import Attendance from "../models/attendance.js";
 import mongoose from "mongoose";
-
+import { joiClockInSchema } from "../utils/joivalidate.js"
 /**
  * @openapi
  * paths:
@@ -113,16 +113,14 @@ const attendanceByUsername = async (req, res) => {
 
 const clockIn = async (req, res) => {
   try {
-    if (
-      !req.params.username ||
-      req.params.username == undefined ||
-      !req.params.username.length < 0
-    ) {
-      res.status(400).json({
-        message: "Query parameter 'username' is required",
+    const { error, value } = joiClockInSchema.validate({ username: req.params.username });
+    if (error) {
+      return res.status(400).json({
+        message: "Validation error.",
+        details: error.details.map((detail) => detail.message),
       });
-      return;
     }
+    const { username } = value;
 
     const a = await Attendance.findOne({
       userName: req.params.username,
@@ -138,7 +136,7 @@ const clockIn = async (req, res) => {
     }
 
     const attendance = await Attendance.create({
-      userName: req.params.username,
+      userName: username,
       clock_in_time: new Date(),
       clock_out_time: null,
       status: "present",
@@ -196,19 +194,18 @@ const clockIn = async (req, res) => {
 
 const clockOut = async (req, res) => {
   try {
-    if (
-      !req.params.username ||
-      req.params.username == undefined ||
-      !req.params.username.length < 0
-    ) {
-      res.status(400).json({
-        message: "Query parameter 'username' is required",
+    const { error, value } = joiClockInSchema.validate({ username: req.params.username });
+    if (error) {
+      return res.status(400).json({
+        message: "Validation error.",
+        details: error.details.map((detail) => detail.message),
       });
-      return;
     }
 
+    const { username } = value;
+
     const attendace = await Attendance.findOne({
-      userName: req.params.username,
+      userName: username,
       clock_out_time: null,
       status: "present",
     });

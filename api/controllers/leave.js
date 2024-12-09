@@ -1,5 +1,6 @@
 import Leave from "../models/leave.js";
 import Employee from "../models/employee.js";
+import { joiAddLeaveSchema, joiUpdateLeaveStatusSchema } from "../utils/joivalidate.js"
 
 /**
  * @openapi
@@ -81,25 +82,15 @@ import Employee from "../models/employee.js";
 
 const addLeave = async (req, res) => {
     try {
-      const { userName, reason, startDate, endDate } = req.body;
-      if ( !userName || userName == undefined || !userName.length < 0) {
-        res.status(400).json({
-          message: "Query parameter 'userName' is required",
+      const { error, value } = joiAddLeaveSchema.validate(req.body, { abortEarly: false });
+      if (error) {
+        return res.status(400).json({
+          message: "Validation error.",
+          details: error.details.map((detail) => detail.message)
         });
-        return;
       }
-      if ( !reason || reason == undefined || !reason.length < 0) {
-        res.status(400).json({
-          message: "Query parameter 'reason' is required",
-        });
-        return;
-      }
-      if ( !startDate || !endDate) {
-        res.status(400).json({
-          message: "Query parametera 'startDate and endDate' are required",
-        });
-        return;
-      }
+      const { userName, reason, startDate, endDate } = value;
+  
       const employee = await Employee.findOne({ userName });
       if (!employee) {
         return res.status(404).json({ message: "Employee not found!" });
@@ -293,12 +284,16 @@ const getEmployeeLeaves = async (req, res) => {
 export const updateLeaveStatus = async (req, res) => {
     try {
       const { leaveId } = req.params;
-      const { status } = req.body;
-  
-      const validStatuses = ["Pending", "Approved", "Rejected"];
-      if (!validStatuses.includes(status)) {
-        return res.status(400).json({ message: "Invalid status value!" });
+      const { error, value } = joiUpdateLeaveStatusSchema.validate(req.body, { abortEarly: false });
+
+      if (error) {
+        return res.status(400).json({
+          message: "Validation error.",
+          details: error.details.map((detail) => detail.message)
+        });
       }
+
+      const { status } = value;
       const leave = await Leave.findByIdAndUpdate(
         leaveId,
         { status },
@@ -308,7 +303,6 @@ export const updateLeaveStatus = async (req, res) => {
       if (!leave) {
         return res.status(404).json({ message: "Leave not found!" });
       }
-  
       res.status(200).json({ message: "Leave status updated successfully!", leave });
     } catch (error) {
       res.status(500).json({ message: "Error updating leave status", error: error.message });

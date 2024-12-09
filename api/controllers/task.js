@@ -1,6 +1,6 @@
 import Task from "../models/task.js"
 import Employee from "../models/employee.js"
-
+import { joiAddTaskSchema, joiUpdateTaskStatusSchema } from "../utils/joivalidate.js"
 /**
  * @openapi
  * paths:
@@ -77,10 +77,16 @@ import Employee from "../models/employee.js"
  */
 const addTask = async (req, res) => {
     try {
-        const { userName, description, startDate, dueDate } = req.body;
-        if (!userName || !description || !startDate || !dueDate) {
-            return res.status(400).json({ message: "Missing required fields!" });
+        const { error, value } = joiAddTaskSchema.validate(req.body, { abortEarly: false });
+
+        if (error) {
+            return res.status(400).json({
+                message: "Validation error.",
+                details: error.details.map((detail) => detail.message)
+            });
         }
+        const { userName, description, startDate, dueDate } = value;
+
         const employee = await Employee.findOne({ userName });
         if (!employee) {
             return res.status(404).json({ message: "Employee not found!" });
@@ -271,13 +277,15 @@ const getTasksByUserName = async (req, res) => {
 const updateTaskStatus = async (req, res) => {
     try {
         const { taskId } = req.params;
-        const { status } = req.body;
 
-        const validStatuses = ["Todo", "In progress", "Done"];
-        if (!validStatuses.includes(status)) {
-            return res.status(400).json({ message: "Invalid status value!" });
+        const { error, value } = joiUpdateTaskStatusSchema.validate(req.body, { abortEarly: false });
+        if (error) {
+            return res.status(400).json({
+                message: "Validation error.",
+                details: error.details.map((detail) => detail.message)
+            });
         }
-
+        const { status } = value;
         const task = await Task.findByIdAndUpdate(taskId, { status }, { new: true });
 
         if (!task) {
