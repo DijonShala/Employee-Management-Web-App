@@ -4,7 +4,8 @@
     <p>Sign in to gain access to more clocking features.</p>
 
     <div *ngIf="redirected" class="alert alert-danger">
-      You must sign in before accessing clocking and calendar features.
+      You must sign in before accessing clocking and calendar features.<br />
+      You must have administrator priviliges to access registration menu.
     </div>
 
     <div *ngIf="invalid" class="alert alert-danger">
@@ -12,75 +13,9 @@
       password!
     </div>
 
-    <form
-      #employeeForm="ngForm"
-      (ngSubmit)="login(employeeForm)"
-      class="was-validated"
-    >
-      <div class="mb-3 mt-3">
-        <input
-          type="text"
-          class="form-control"
-          #employeeUserName="ngModel"
-          [(ngModel)]="userName"
-          placeholder="Email or username"
-          name="uname"
-          required
-        />
-
-        <div
-          *ngIf="employeeUserName.dirty && employeeUserName.errors?.['required']"
-          class="invalid-feedback"
-        >
-          Please fill out this field.
-        </div>
-      </div>
-
-      <div class="mb-3">
-        <input
-          type="password"
-          class="form-control"
-          #employeePassword="ngModel"
-          [(ngModel)]="password"
-          placeholder="Password"
-          name="pswd"
-          required
-        />
-        <div
-          *ngIf="employeePassword.dirty && employeePassword.errors?.['required']"
-          class="invalid-feedback"
-        >
-          Please fill out this field.
-        </div>
-      </div>
-      <div class="form-check mb-3">
-        <input
-          class="form-check-input"
-          type="checkbox"
-          id="myCheck"
-          name="remember"
-          required
-          #employeeAgreement="ngModel"
-          [(ngModel)]="agreement"
-        />
-
-        <label class="form-check-label" for="myCheck"
-          >I have read and agreed to the
-          <strong><a href="">Terms of Service</a> *</strong></label
-        >
-        <div class="valid-feedback">Valid.</div>
-        <div class="invalid-feedback">Check this checkbox to continue.</div>
-      </div>
-
-      <div class="text-center">
-        <button
-          [disabled]="employeeForm.invalid"
-          type="submit"
-          class="btn btn-primary w-75"
-        >
-          Sign in
-        </button>
-      </div>
-    </form>
+    <app-nice-form
+      [formcontrol]="formcontrol"
+      (result)="login($event)"
+    ></app-nice-form>
   </div>
 </main>

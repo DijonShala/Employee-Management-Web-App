@@ -1,10 +1,14 @@
+import { ɵHttpInterceptingHandler } from "@angular/common/http";
+import { provideExperimentalZonelessChangeDetection } from "@angular/core";
+import { ValidatorFn } from "@angular/forms";
+
 export interface Attendance {
-  employee_ID: string;
+  employee_ID: string; // username
 
   clock_in_time: Date;
   clock_out_time: Date;
 
-  status: string;
+  status?: string;
 }
 
 export interface Employee {
@@ -37,4 +41,49 @@ export interface Employee {
 
   clocked_in?: boolean;
   clocked_in_time?: number;
+}
+
+export interface Salary {
+  userName: string;
+  basicSalary: number;
+
+  allowances?: number;
+  deductions?: number;
+  netSalary?: number;
+
+  payDate: string;
+}
+
+export interface Leave {
+  userName: string;
+  reason: string;
+  startDate: string;
+  endDate: string;
+  status?: string;
+  appliedAt?: string;
+}
+
+export interface Task {
+  userName: string;
+  description: string;
+  startDate: string;
+  dueDate: string;
+  status?: string;
+  updatedAt?: string;
+}
+
+export interface Department {
+  name: string;
+  description?: string;
+}
+
+// Form interface
+
+export interface niceForm {
+  name: string;
+  type: string;
+  title?: string;
+  placeholder?: string;
+  default: string | boolean;
+  validators: ValidatorFn[];
 }

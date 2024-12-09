@@ -1,0 +1,63 @@
+<!-- formArrayName = "infinite values"  formGroupName = "i" hasError -->
+
+<!-- {{formgroup.value | json}} -->
+
+<!-- FORM -->
+
+<form [formGroup]="formgroup" (ngSubmit)="submit()">
+  <div *ngFor="let control of formcontrol">
+    <div *ngIf="typeof(control.default) == 'string'" class="mb-3 mt-3">
+      <label
+        class="form-label"
+        for="myCheck"
+        [innerHTML]="control.title"
+      ></label>
+      <input
+        class="form-control"
+        [ngClass]="formgroup.get(control.name)?.valid? formgroup.get(control.name)?.hasValidator(property_validators_required)? 'is-valid' : '' : 'is-invalid'"
+        [type]="control.type"
+        [placeholder]="control.placeholder"
+        [formControlName]="control.name"
+      />
+
+      <div
+        *ngIf="formgroup.get(control.name)?.dirty && !formgroup.get(control.name)?.valid"
+        class="invalid-feedback"
+      >
+        Invalid input.
+      </div>
+    </div>
+
+    <div *ngIf="typeof(control.default)  == 'boolean'" class="form-check mb-3">
+      <input
+        class="form-check-input"
+        [ngClass]="formgroup.get(control.name)?.validator? formgroup.get(control.name)?.valid? 'is-valid' : 'is-invalid' : ''"
+        type="checkbox"
+        [formControlName]="control.name"
+      />
+      <label
+        class="form-check-label"
+        for="myCheck"
+        [innerHTML]="control.title"
+      ></label>
+
+      <div
+        *ngIf="formgroup.get(control.name)?.dirty && !formgroup.get(control.name)?.valid"
+        class="invalid-feedback"
+      >
+        Check this box to continue
+      </div>
+    </div>
+  </div>
+
+  <!-- BUTTON -->
+  <div class="text-center">
+    <button
+      [disabled]="!formgroup.valid"
+      type="submit"
+      class="btn btn-primary w-75"
+    >
+      Submit
+    </button>
+  </div>
+</form>

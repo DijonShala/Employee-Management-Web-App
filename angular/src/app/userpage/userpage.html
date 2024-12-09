@@ -1,0 +1,91 @@
+<div class="row">
+  <div class="col-2 bd-sidebar">
+    <app-sidebar></app-sidebar>
+  </div>
+  <div class="col-8">
+    <main *ngIf="employee!=null" class="align-items-center">
+      <div class="container-sm p-5 bg-light">
+        <div *ngIf="success_status=='SUCCESS'" class="alert alert-success">
+          Employee updated successfully!
+        </div>
+
+        <div *ngIf="success_status=='ERROR'" class="alert alert-danger">
+          Attempting to update an employee resulted in an error. Try again.
+        </div>
+
+        <h3>Change {{employee.userName}}'s user data</h3>
+        <p>Update the data of this user.</p>
+
+        <app-nice-form
+          [formcontrol]="formcontrol"
+          (result)="update($event)"
+        ></app-nice-form>
+      </div>
+      <br />
+      <div class="container-sm p-5 bg-light">
+        <h3>Delete {{employee.userName}}'s user profile</h3>
+        <p>Remove the data of this user from the database.</p>
+        <div class="text-center">
+          <button (click)="remove()" type="submit" class="btn btn-danger w-75">
+            Delete
+          </button>
+        </div>
+      </div>
+      <br />
+      <div class="container-sm p-5 bg-light">
+        <h3>Add a salary to this employee</h3>
+        <app-nice-form
+          [formcontrol]="salaryform"
+          (result)="addSalary($event)"
+        ></app-nice-form>
+
+        <div *ngIf="(employee_salaries | async) as salaries">
+          <div>{{salaries | json}}</div>
+        </div>
+      </div>
+
+      <br />
+      <div class="container-sm p-5 bg-light">
+        <h3>Request a leave</h3>
+        <app-nice-form
+          [formcontrol]="leaverequestform"
+          (result)="requestLeave($event)"
+        ></app-nice-form>
+
+        <div *ngIf="(employee_leaves | async) as leaves">
+          <div>{{leaves | json}}</div>
+        </div>
+      </div>
+
+      <br />
+      <div class="container-sm p-5 bg-light">
+        <h3>Create a task</h3>
+        <app-nice-form
+          [formcontrol]="createtaskform"
+          (result)="createTask($event)"
+        ></app-nice-form>
+
+        <div *ngIf="(employee_tasks | async) as tasks">
+          <div>{{tasks | json}}</div>
+        </div>
+      </div>
+
+      <br />
+      <div class="container-sm p-5 bg-light">
+        <h3>Create a department</h3>
+        <app-nice-form
+          [formcontrol]="createdepartmentform"
+          (result)="createDepartment($event)"
+        ></app-nice-form>
+
+        <div *ngIf="departments != null">
+          <div
+            *ngFor="let department of departments"
+            [innerHTML]="department.name"
+          ></div>
+        </div>
+      </div>
+    </main>
+  </div>
+  <div class="col-2"></div>
+</div>

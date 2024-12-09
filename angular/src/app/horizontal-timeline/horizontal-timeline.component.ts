@@ -7,45 +7,7 @@ import { EmployeeService } from "../employee.service";
   selector: "app-horizontal-timeline",
   imports: [CommonModule],
   templateUrl: "horizontal-timeline.html",
-  styles: [
-    `
-      .timeline-container {
-        display: flex;
-        overflow-x: auto;
-        padding: 0px;
-        align-items: center;
-
-        //flex-direction: column;
-      }
-
-      .timeline-items-wrapper {
-        display: flex;
-        flex-direction: row;
-        margin-bottom: 10px;
-      }
-
-      .timeline-item {
-        border-radius: 4px;
-        transition: background-color 0.3s ease;
-        display: block;
-        height: 20px;
-        width: 4.16%;
-        float: left;
-      }
-
-      .timeline-axis {
-        //border-radius: 4px;
-        transition: background-color 0.3s ease;
-        display: block;
-        width: 4.16%;
-        float: left;
-
-        font-size: 12px;
-        text-align: center;
-        margin-top: 5px;
-      }
-    `,
-  ],
+  styleUrl: "horizontal-timeline.css",
 })
 export class HorizontalTimelineComponent {
   @Input() timeline_start: Date = new Date();

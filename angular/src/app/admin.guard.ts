@@ -3,8 +3,8 @@ import { EmployeeService } from "./employee.service";
 
 import { inject } from "@angular/core";
 
-export const loginGuard: CanActivateFn = (route, state) => {
-  return inject(EmployeeService).logged_in
+export const adminGuard: CanActivateFn = (route, state) => {
+  return inject(EmployeeService).administrator
     ? true
     : inject(Router).navigate(["/login"], {
         queryParams: { redirected: "true" },

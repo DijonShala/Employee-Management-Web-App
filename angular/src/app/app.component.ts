@@ -17,8 +17,10 @@ import { CalendarComponent } from "./calendar/calendar.component";
     LoginComponent,
   ],
   template: `
-    <app-navbar></app-navbar>
-    <router-outlet></router-outlet>
+    <div class="container-fluid">
+      <app-navbar></app-navbar>
+      <router-outlet></router-outlet>
+    </div>
   `,
   styles: [],
 })
