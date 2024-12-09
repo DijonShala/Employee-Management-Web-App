@@ -1,5 +1,6 @@
 import Salary from "../models/salary.js";
 import Employee from "../models/employee.js";
+import sendEmail from "../utils/mailer.js";
 
 /**
  * @openapi
@@ -88,7 +89,7 @@ const addSalary = async (req, res) => {
         const employee = await Employee.findOne({ userName });
         if (!employee) {
             return res.status(404).json({ message: "Employee not found!" });
-          }
+        }
         if (!userName || !basicSalary || !payDate) {
             return res.status(400).json({ message: "Missing required fields!" });
         }
@@ -106,6 +107,22 @@ const addSalary = async (req, res) => {
 
         await salary.save();
 
+        const emailText = `
+          Hi ${employee.firstName},
+    
+          Your salary has been processed successfully.
+    
+          Basic Salary: $${basicSalary}
+          Allowances: $${allowances || 0}
+          Deductions: $${deductions || 0}
+          Net Salary: $${netSalary}
+          Pay Date: ${payDate}
+    
+          Best Regards,
+          Employee Management Team
+        `;
+        await sendEmail(employee.email, "Salary Notification", emailText);
+        
         res.status(201).json({
             message: "Salary added successfully!",
             salary,
