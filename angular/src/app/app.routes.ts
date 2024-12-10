@@ -8,6 +8,8 @@ import { CalendarComponent } from "./calendar/calendar.component";
 import { loginGuard } from "./login.guard";
 import { UserpageComponent } from "./userpage/userpage.component";
 import { adminGuard } from "./admin.guard";
+import { DepartmentsComponent } from "./departments/departments.component";
+import { DepartmentComponent } from "./departments/department.component";
 
 export const routes: Routes = [
   { path: "clockin", component: ClockinComponent, canActivate: [loginGuard] },
@@ -17,6 +19,16 @@ export const routes: Routes = [
   {
     path: "user/:name",
     component: UserpageComponent,
+    canActivate: [adminGuard],
+  },
+  {
+    path: "departments",
+    component: DepartmentsComponent,
+    canActivate: [adminGuard],
+  },
+  {
+    path: "department/:id",
+    component: DepartmentComponent,
     canActivate: [adminGuard],
   },
   //{ path: "analytics/:id", component: SidebarComponent },

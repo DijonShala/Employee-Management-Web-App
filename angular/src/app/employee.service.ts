@@ -201,21 +201,18 @@ export class EmployeeService {
     return this.http.post<Department>("/api/department", department);
   }
   getDepartments() {
-    return this.http.get("/api/departments");
+    return this.http.get<Department[]>("/api/departments");
   }
   getDepartment(departmentid: string) {
-    return this.http.get("/api/department/".concat(departmentid));
+    return this.http.get<Department>("/api/department/".concat(departmentid));
   }
-  updateDepartment(
-    departmentid: string,
-    data: { name: string; description: string }
-  ) {
-    return this.http.put<{ name: string; description: string }>(
+  updateDepartment(departmentid: string, data: Department) {
+    return this.http.put<Department>(
       "/api/department/".concat(departmentid),
       data
     );
   }
-  deleteApartment(departmentid: string) {
-    this.http.delete("/api/department/".concat(departmentid));
+  deleteDepartment(departmentid: string) {
+    return this.http.delete("/api/department/".concat(departmentid));
   }
 }
