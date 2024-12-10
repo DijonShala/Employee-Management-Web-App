@@ -75,6 +75,7 @@ export interface Task {
 export interface Department {
   name: string;
   description?: string;
+  _id?: string;
 }
 
 // Form interface

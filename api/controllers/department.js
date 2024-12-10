@@ -1,6 +1,9 @@
 import Department from "../models/department.js";
 import mongoose from "mongoose";
-import { joiInsertDepartmentSchema, joiUpdateDepartmentSchema } from "../utils/joivalidate.js"
+import {
+  joiInsertDepartmentSchema,
+  joiUpdateDepartmentSchema,
+} from "../utils/joivalidate.js";
 /**
  * @openapi
  * paths:
@@ -88,11 +91,13 @@ const getAllDepartments = async (req, res) => {
 
 const insertDepartment = async (req, res) => {
   try {
-    const { error, value } = joiInsertDepartmentSchema.validate(req.body, { abortEarly: false });
+    const { error, value } = joiInsertDepartmentSchema.validate(req.body, {
+      abortEarly: false,
+    });
     if (error) {
       return res.status(400).json({
         message: "Validation error.",
-        details: error.details.map((detail) => detail.message)
+        details: error.details.map((detail) => detail.message),
       });
     }
     const { name, description } = value;
@@ -338,23 +343,13 @@ const findDepartmentById = async (req, res) => {
       });
       return;
     }
-    const { error, value } = joiUpdateDepartmentSchema.validate(req.body, { abortEarly: false });
-    if (error) {
-      return res.status(400).json({
-        message: "Validation error.",
-        details: error.details.map((detail) => detail.message)
-      });
-    }
 
     const department = await Department.findById(id);
     if (!department) {
       return res.status(404).json({ message: "Department not found" });
     }
-    department.name = value.name;
-    department.description = value.description;
 
-    const updatedDepartment = await department.save()
-    res.status(200).json(updatedDepartment);
+    res.status(200).json(department);
   } catch (err) {
     console.error("Error finding department:", err);
     res.status(500).json({ message: err.message });

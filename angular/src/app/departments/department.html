@@ -1,0 +1,19 @@
+<div class="d-flex flex-column gap-4">
+  <div class="container-sm p-5 bg-light" *ngIf="department!=null">
+    <h3>Update department</h3>
+    <app-nice-form
+      [formcontrol]="formcontrol"
+      (result)="update($event)"
+    ></app-nice-form>
+  </div>
+
+  <div class="container-sm p-5 bg-light">
+    <h3>Delete {{department.name}}</h3>
+    <p>Remove the department from the database.</p>
+    <div class="text-center">
+      <button (click)="remove()" type="submit" class="btn btn-danger w-75">
+        Delete
+      </button>
+    </div>
+  </div>
+</div>
