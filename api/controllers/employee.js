@@ -1,6 +1,6 @@
 import Employee from "../models/employee.js";
-import { joiemployeeSchema, joiemployeeUpdateSchema } from "../utils/joivalidate.js";
-
+import { joiemployeeSchema, joiemployeeUpdateSchema, joichangePasswordSchema } from "../utils/joivalidate.js";
+import sendEmail from "../utils/mailer.js";
 /**
  * @openapi
  * paths:
@@ -404,6 +404,26 @@ const employeeCreate = async (req, res) => {
 
     newEmployee.setPassword(value.password);
     await newEmployee.save();
+      
+    const emailText = `
+    Hi ${value.firstName},
+
+    Your account has been created.
+
+    Here is your username and password which you will use
+    to log in in our website.
+
+    Make sure to change
+    your password as soon as possible!
+
+
+    Username:${value.userName}
+    Password: ${value.password}
+
+    Best Regards,
+    Employee Management Team
+    `;
+    await sendEmail(value.email, "Account created", emailText);
 
       res.status(201).json({ message: "Employee created successfully", token: newEmployee.generateJwt() });
     } catch (error) {
@@ -601,7 +621,6 @@ const employeeUpdateOne = async (req, res) => {
       if (value.city) employee.address.city = value.city;
       if (value.zipCode) employee.address.zipCode = value.zipCode;
       if (value.country) employee.address.country = value.country;
-
       const updatedEmployee = await employee.save();
 
       res.status(200).json({ data: updatedEmployee });
@@ -884,26 +903,22 @@ const employeeListByMultiFilter = async (req, res) => {
 /**
  * @openapi
  * paths:
- *   /employee/change-password:
+ *   /change-password:
  *     put:
  *       summary: Change an employee's password
- *       description: Allows an employee to change their password by providing their username, old password, and a new password.
+ *       description: Allows an employee to change their password by providing their old password and a new password.
  *       tags:
  *         - Employee
  *       security:
  *        - jwt: []
  *       requestBody:
- *         description: The request body containing the username, old password and new password.
+ *         description: The request body containing the old password and new password.
  *         required: true
  *         content:
  *           application/json:
  *             schema:
  *               type: object
  *               properties:
- *                 userName:
- *                   type: string
- *                   description: The unique username of the employee.
- *                   example: "admin"
  *                 oldPassword:
  *                   type: string
  *                   description: The current password of the employee.
@@ -913,7 +928,6 @@ const employeeListByMultiFilter = async (req, res) => {
  *                   description: The new password to set for the employee.
  *                   example: "new1234"
  *               required:
- *                 - userName
  *                 - oldPassword
  *                 - newPassword
  *       responses:
@@ -922,9 +936,13 @@ const employeeListByMultiFilter = async (req, res) => {
  *           content:
  *             application/json:
  *               schema:
- *                 $ref: '#/components/schemas/ErrorMessage'
- *               example:
- *                 message: "Password updated succesfully"
+ *                 type: object
+ *                 properties:
+ *                   message:
+ *                     type: string
+ *                     example: "Password status updated successfully!"
+ *                   leave:
+ *                     $ref: '#/components/schemas/Employee'
  *         '400':
  *           description: Bad request due to validation errors or incorrect old password.
  *           content:
@@ -971,23 +989,24 @@ const employeeListByMultiFilter = async (req, res) => {
  *               example:
  *                 message: "Error"
  */
-const changePassword = async (req, res) => {
+const employeePasswordChange = async (req, res) => {
   getEmployee(req, res, async (req, res, emp) => {
     try {
-      if(emp.role != "admin" && emp.userName !== req.body.userName ){
-        return res.status(403).json({
-          message: "Not authorized to add new employee.",
+      const { error, value } = joichangePasswordSchema.validate(req.body, { abortEarly: false });
+      if (error) {
+        return res.status(400).json({
+          message: "Validation error.",
+          details: error.details.map((detail) => detail.message)
         });
       }
-      const {userName, oldPassword, newPassword} = req.body;
-      
-      const employee = await Employee.findOne({ userName });
+      const {oldPassword, newPassword} = value;
+      const employee = await Employee.findOne({ userName: emp.userName });
       if(!employee) {
-      return res.status(404).json({ message: "User not found"})
+      return res.status(401).json({ message: "Employee not found"})
       }
       const isMatch = await employee.validPassword(oldPassword)
       if(!isMatch) {
-      return res.status(404).json({ message: "Wrong password" })
+      return res.status(404).json({ message: "Wrong old password" })
       }
       employee.setPassword(newPassword);
       await employee.save();
@@ -1019,5 +1038,5 @@ export default {
   employeeDeleteOne,
   employeeUpdateOne,
   employeeListByMultiFilter,
-  changePassword
+  employeePasswordChange
 };

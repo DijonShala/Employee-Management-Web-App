@@ -413,6 +413,98 @@ const deleteDepartment = async (req, res) => {
 /**
  * @openapi
  * paths:
+ *   /department/{id}:
+ *     get:
+ *       summary: Retrieve a department by its ID.
+ *       description: Get the details of a **department** by its ID.
+ *       tags:
+ *         - Department
+ *       parameters:
+ *         - name: id
+ *           in: path
+ *           required: true
+ *           description: "ID of the department to retrieve."
+ *           schema:
+ *             type: string
+ *       responses:
+ *         '200':
+ *           description: <b>OK</b>, with the department details.
+ *           content:
+ *             application/json:
+ *               schema:
+ *                 $ref: '#/components/schemas/Department'
+ *         '400':
+ *           description: <b>Bad Request</b>, with validation error message.
+ *           content:
+ *             application/json:
+ *               schema:
+ *                 $ref: '#/components/schemas/ErrorMessage'
+ *               example:
+ *                 message: "Valid id required"
+ *         '401':
+ *           description: <b>Unauthorized</b>, with error message.
+ *           content:
+ *             application/json:
+ *               schema:
+ *                 $ref: '#/components/schemas/ErrorMessage'
+ *               examples:
+ *                 no token provided:
+ *                   value:
+ *                     message: No authorization token was found.
+ *                 user not found:
+ *                   value:
+ *                     message: User not found.
+ *         403:
+ *           description: User is not authorized to access this resource.
+ *           content:
+ *             application/json:
+ *               schema:
+ *                 type: object
+ *                 properties:
+ *                   message:
+ *                     type: string
+ *                     example: "Not authorized to access this data"
+ *         '404':
+ *           description: <b>Not Found</b>, department with the given ID does not exist.
+ *           content:
+ *             application/json:
+ *               schema:
+ *                 $ref: '#/components/schemas/ErrorMessage'
+ *               example:
+ *                 message: "Department not found"
+ *         '500':
+ *           description: <b>Internal Server Error</b>, with error message.
+ *           content:
+ *             application/json:
+ *               schema:
+ *                 $ref: '#/components/schemas/ErrorMessage'
+ *               example:
+ *                 message: "Unknown error"
+ */
+const findDepartmentById = async (req, res) => {
+  getEmployee(req, res, async (req, res, emp) => {
+    try {
+      if (!req.params.id || !mongoose.Types.ObjectId.isValid(req.params.id)) {
+        res.status(400).json({
+          message: "Valid query parameter 'id' is required",
+        });
+        return;
+      }
+      const department = await Department.findById(req.params.id);
+      if (!department) {
+        return res.status(404).json({ message: "Department not found" });
+      }
+      res.status(200).json(department);
+    } catch (err) {
+      console.error("Error finding department:", err);
+      res.status(500).json({ message: err.message });
+    }
+  });
+};
+
+/**
+ * @openapi
+ * paths:
  *   /department/{depname}:
  *     get:
  *       summary: Retrieve employees from a specific department
@@ -487,7 +579,7 @@ const deleteDepartment = async (req, res) => {
  *                 properties:
  *                   message:
  *                     type: string
- *                     example: "Not authorized to delete department."
+ *                     example: "Not authorized to access this data"
  *         404:
  *           description: Department not found.
  *           content:
@@ -552,5 +644,6 @@ export default {
   insertDepartment,
   updateDepartment,
   deleteDepartment,
+  findDepartmentById,
   findEmployeeAtDepartment
 };

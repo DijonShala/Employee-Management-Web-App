@@ -26,7 +26,7 @@ router.get("/employee-all", auth, ctrlEmployee.employeeAll);
 router.get("/employee/:username",auth, ctrlEmployee.employeeReadOne);
 router.post("/employee", auth, ctrlEmployee.employeeCreate);
 router.put("/employee/:username", auth, ctrlEmployee.employeeUpdateOne);
-router.put("/employee/change-password", auth, ctrlEmployee.changePassword);
+router.put("/change-password", auth, ctrlEmployee.employeePasswordChange);
 router.delete("/employee/:username", auth, ctrlEmployee.employeeDeleteOne);
 router.get("/employee-filter", auth, ctrlEmployee.employeeListByMultiFilter);
 /**
@@ -67,6 +67,7 @@ router.delete("/tasks/:taskId", auth, ctrlTask.deleteTask);
  */
 router.get("/departments", auth, ctrlDepartment.getAllDepartments);
 router.get("/department/:depname", auth, ctrlDepartment.findEmployeeAtDepartment);
+router.get("/department/:id", auth, ctrlDepartment.findDepartmentById);
 router.post("/department", auth, ctrlDepartment.insertDepartment);
 router.put("/department/:id", auth, ctrlDepartment.updateDepartment);
 router.delete("/department/:id", auth, ctrlDepartment.deleteDepartment);

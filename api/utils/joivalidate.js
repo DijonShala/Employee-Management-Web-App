@@ -175,6 +175,11 @@ const joiUpdateDepartmentSchema = Joi.object({
   })
 });
 
+const joichangePasswordSchema = Joi.object({
+  oldPassword: Joi.string().required().min(6),
+  newPassword: Joi.string().required().min(6),
+});
+
   export {
     joiemployeeSchema,
     joiemployeeUpdateSchema,
@@ -185,4 +190,5 @@ const joiUpdateDepartmentSchema = Joi.object({
     joiUpdateTaskStatusSchema,
     joiInsertDepartmentSchema,
     joiUpdateDepartmentSchema,
+    joichangePasswordSchema
   }
