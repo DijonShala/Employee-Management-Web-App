@@ -16,9 +16,9 @@ import { Subject } from "rxjs";
 export class EmployeeService {
   logged_in: boolean = false;
   administrator: boolean = false;
-  username = "";
 
-  token: string = "superSecretPassword";
+  username: string = "";
+  token: string = "";
 
   constructor(private http: HttpClient) {
     this.initialize();
@@ -29,9 +29,19 @@ export class EmployeeService {
     this.username =
       sessionStored_username == null ? "" : sessionStored_username;
 
-    if (this.username != "") {
+    let sessionStored_token = window.sessionStorage.getItem("token");
+    this.token = sessionStored_token == null ? "" : sessionStored_token;
+
+    //console.log(this.username);
+    //console.log(this.token);
+
+    if (this.username != "" && this.token != "") {
       this.http.get<Employee>("/api/employee/".concat(this.username)).subscribe(
         (data) => {
+          console.log("GOOD TOKEN");
+          console.log(this.username);
+          console.log(this.token);
+
           this.logged_in = true;
           if (data.jobTitle == "Administrator") {
             this.administrator = true;
@@ -40,15 +50,25 @@ export class EmployeeService {
           }
         },
         (error) => {
+          console.log("BAD TOKEN");
+          console.log(this.username);
+          console.log(this.token);
+
           this.username = "";
+          this.token = "";
         }
       );
     }
   }
 
-  login(username: string) {
-    window.sessionStorage.setItem("username", username);
-    this.initialize();
+  login(username: string, password: string) {
+    return this.http.post<{ userName: string; password: string }>(
+      "/api/login",
+      {
+        userName: username,
+        password: password,
+      }
+    );
   }
 
   logout() {

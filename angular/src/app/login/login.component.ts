@@ -35,7 +35,7 @@ export class LoginComponent {
       type: "password",
       title: "Password",
       placeholder: "Password",
-      default: "123",
+      default: "admin123",
       validators: [Validators.required],
     },
     {
@@ -49,8 +49,17 @@ export class LoginComponent {
   ];
 
   login(result: { username: string; password: string; check: boolean }) {
-    this.employeeService.login(result.username);
-    this.router.navigate(["/clockin"]);
+    this.employeeService.login(result.username, result.password).subscribe(
+      (data) => {
+        let token = JSON.stringify(data).slice(10, -2); // standarden typescript
+        window.sessionStorage.setItem("username", result.username);
+        window.sessionStorage.setItem("token", token);
+        this.employeeService.initialize();
+
+        //this.router.navigate(["/clockin"]);
+      },
+      (error) => {}
+    );
   }
 
   redirected: boolean = false;
