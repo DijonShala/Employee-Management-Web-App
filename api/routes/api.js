@@ -6,7 +6,7 @@ import ctrlSalary from "../controllers/salary.js";
 import ctrlAttendance from "../controllers/attendance.js";
 import ctrlTask from "../controllers/task.js";
 import ctrlDepartment from "../controllers/department.js";
-//import ctrlBase from "../controllers/base.js";
+import ctrlBase from "../controllers/base.js";
 import ctrlAuthentication from "../controllers/authentication.js";
 import { expressjwt as jwt } from "express-jwt";
 const auth = jwt({
@@ -74,9 +74,8 @@ router.delete("/department/:id", auth, ctrlDepartment.deleteDepartment);
 /**
  * Add and delete database
  */
-/**
- * router.route("/db")
-    .post(ctrlBase.addInitialData)
-    .delete(ctrlBase.deleteData);
- */
+router.route("/db")
+  .post(ctrlBase.addInitialData)
+  .delete(ctrlBase.deleteData);
+
 export default router;

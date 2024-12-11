@@ -1,0 +1,22 @@
+[
+    {
+      "name": "Programming",
+      "description": "Responsible for programming."
+    },
+    {
+      "name": "Engineering",
+      "description": "Handles product development, system maintenance, and technical support."
+    },
+    {
+      "name": "Marketing",
+      "description": "Focuses on promoting the company's products and managing branding."
+    },
+    {
+      "name": "Finance",
+      "description": "Oversees budgets, financial planning, and record-keeping."
+    },
+    {
+      "name": "Sales",
+      "description": "Drives revenue by acquiring and managing customer accounts."
+    }
+  ]

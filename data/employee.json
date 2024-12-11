@@ -1,0 +1,213 @@
+[
+    {
+      "userName": "johndoe",
+      "firstName": "John",
+      "lastName": "Doe",
+      "email": "johndoe@example.com",
+      "phoneNumber": "1234567890",
+      "jobTitle": "Software Engineer",
+      "role": "employee",
+      "departmentId": "ObjectId_1",
+      "hireDate": "2020-01-15",
+      "salary": 7000,
+      "status": "active",
+      "address": {
+        "street": "123 Main St",
+        "city": "Metropolis",
+        "zipCode": "12345",
+        "country": "USA"
+      },
+      "hash": "hashed_password_1",
+      "salt": "random_salt_1"
+    },
+    {
+      "userName": "janesmith",
+      "firstName": "Jane",
+      "lastName": "Smith",
+      "email": "janesmith@example.com",
+      "phoneNumber": "9876543210",
+      "jobTitle": "Marketing Manager",
+      "role": "employee",
+      "departmentId": "ObjectId_2",
+      "hireDate": "2019-05-20",
+      "salary": 8000,
+      "status": "active",
+      "address": {
+        "street": "456 Elm St",
+        "city": "Star City",
+        "zipCode": "54321",
+        "country": "USA"
+      },
+      "hash": "hashed_password_2",
+      "salt": "random_salt_2"
+    },
+    {
+      "userName": "mikebrown",
+      "firstName": "Mike",
+      "lastName": "Brown",
+      "email": "mikebrown@example.com",
+      "phoneNumber": "5556667777",
+      "jobTitle": "HR Specialist",
+      "role": "employee",
+      "departmentId": "ObjectId_3",
+      "hireDate": "2021-03-01",
+      "salary": 6000,
+      "status": "active",
+      "address": {
+        "street": "789 Maple Ave",
+        "city": "Gotham",
+        "zipCode": "67890",
+        "country": "USA"
+      },
+      "hash": "hashed_password_3",
+      "salt": "random_salt_3"
+    },
+    {
+      "userName": "emilyclark",
+      "firstName": "Emily",
+      "lastName": "Clark",
+      "email": "emilyclark@example.com",
+      "phoneNumber": "4445556666",
+      "jobTitle": "Finance Analyst",
+      "role": "employee",
+      "departmentId": "ObjectId_4",
+      "hireDate": "2020-07-11",
+      "salary": 7500,
+      "status": "active",
+      "address": {
+        "street": "321 Pine Rd",
+        "city": "Central City",
+        "zipCode": "98765",
+        "country": "USA"
+      },
+      "hash": "hashed_password_4",
+      "salt": "random_salt_4"
+    },
+    {
+      "userName": "davidlee",
+      "firstName": "David",
+      "lastName": "Lee",
+      "email": "davidlee@example.com",
+      "phoneNumber": "2223334444",
+      "jobTitle": "Sales Executive",
+      "role": "employee",
+      "departmentId": "ObjectId_5",
+      "hireDate": "2022-01-05",
+      "salary": 6500,
+      "status": "active",
+      "address": {
+        "street": "654 Cedar St",
+        "city": "Smallville",
+        "zipCode": "24680",
+        "country": "USA"
+      },
+      "hash": "hashed_password_5",
+      "salt": "random_salt_5"
+    },
+    {
+      "userName": "sarajones",
+      "firstName": "Sara",
+      "lastName": "Jones",
+      "email": "sarajones@example.com",
+      "phoneNumber": "7778889999",
+      "jobTitle": "Product Manager",
+      "role": "employee",
+      "departmentId": "ObjectId_1",
+      "hireDate": "2021-06-17",
+      "salary": 8500,
+      "status": "active",
+      "address": {
+        "street": "987 Willow Ave",
+        "city": "Metropolis",
+        "zipCode": "10203",
+        "country": "USA"
+      },
+      "hash": "hashed_password_6",
+      "salt": "random_salt_6"
+    },
+    {
+      "userName": "robertwhite",
+      "firstName": "Robert",
+      "lastName": "White",
+      "email": "robertwhite@example.com",
+      "phoneNumber": "3334445555",
+      "jobTitle": "Software Architect",
+      "role": "employee",
+      "departmentId": "ObjectId_2",
+      "hireDate": "2018-09-14",
+      "salary": 9000,
+      "status": "active",
+      "address": {
+        "street": "111 Birch St",
+        "city": "Star City",
+        "zipCode": "30120",
+        "country": "USA"
+      },
+      "hash": "hashed_password_7",
+      "salt": "random_salt_7"
+    },
+    {
+      "userName": "karenmiller",
+      "firstName": "Karen",
+      "lastName": "Miller",
+      "email": "karenmiller@example.com",
+      "phoneNumber": "8889990000",
+      "jobTitle": "HR Manager",
+      "role": "employee",
+      "departmentId": "ObjectId_3",
+      "hireDate": "2019-11-09",
+      "salary": 7000,
+      "status": "active",
+      "address": {
+        "street": "222 Oak Rd",
+        "city": "Gotham",
+        "zipCode": "45678",
+        "country": "USA"
+      },
+      "hash": "hashed_password_8",
+      "salt": "random_salt_8"
+    },
+    {
+      "userName": "chriswilson",
+      "firstName": "Chris",
+      "lastName": "Wilson",
+      "email": "chriswilson@example.com",
+      "phoneNumber": "5554443333",
+      "jobTitle": "Financial Controller",
+      "role": "employee",
+      "departmentId": "ObjectId_4",
+      "hireDate": "2020-02-12",
+      "salary": 7800,
+      "status": "active",
+      "address": {
+        "street": "333 Palm Ave",
+        "city": "Central City",
+        "zipCode": "65432",
+        "country": "USA"
+      },
+      "hash": "hashed_password_9",
+      "salt": "random_salt_9"
+    },
+    {
+      "userName": "annataylor",
+      "firstName": "Anna",
+      "lastName": "Taylor",
+      "email": "annataylor@example.com",
+      "phoneNumber": "1112223333",
+      "jobTitle": "Account Executive",
+      "role": "employee",
+      "departmentId": "ObjectId_5",
+      "hireDate": "2021-12-01",
+      "salary": 6800,
+      "status": "active",
+      "address": {
+        "street": "444 Spruce St",
+        "city": "Smallville",
+        "zipCode": "78910",
+        "country": "USA"
+      },
+      "hash": "hashed_password_10",
+      "salt": "random_salt_10"
+    }
+  ]
+  

@@ -1,0 +1,404 @@
+[
+    {
+      "userName": "annataylor",
+      "basicSalary": 4500,
+      "allowances": 500,
+      "deductions": 300,
+      "netSalary": 4700,
+      "payDate": "2024-12-01T00:00:00.000Z"
+    },
+    {
+      "userName": "annataylor",
+      "basicSalary": 4500,
+      "allowances": 550,
+      "deductions": 350,
+      "netSalary": 4700,
+      "payDate": "2024-11-01T00:00:00.000Z"
+    },
+    {
+      "userName": "annataylor",
+      "basicSalary": 4400,
+      "allowances": 480,
+      "deductions": 330,
+      "netSalary": 4550,
+      "payDate": "2024-10-01T00:00:00.000Z"
+    },
+    {
+      "userName": "annataylor",
+      "basicSalary": 4400,
+      "allowances": 460,
+      "deductions": 300,
+      "netSalary": 4560,
+      "payDate": "2024-09-01T00:00:00.000Z"
+    },
+    {
+      "userName": "annataylor",
+      "basicSalary": 4300,
+      "allowances": 520,
+      "deductions": 280,
+      "netSalary": 4540,
+      "payDate": "2024-08-01T00:00:00.000Z"
+    },
+    {
+        "userName": "chriswilson",
+        "basicSalary": 5000,
+        "allowances": 600,
+        "deductions": 400,
+        "netSalary": 5200,
+        "payDate": "2024-12-01T00:00:00.000Z"
+    },
+    {
+        "userName": "chriswilson",
+        "basicSalary": 5000,
+        "allowances": 620,
+        "deductions": 420,
+        "netSalary": 5200,
+        "payDate": "2024-11-01T00:00:00.000Z"
+    },
+    {
+        "userName": "chriswilson",
+        "basicSalary": 4900,
+        "allowances": 580,
+        "deductions": 410,
+        "netSalary": 5070,
+        "payDate": "2024-10-01T00:00:00.000Z"
+    },
+    {
+        "userName": "chriswilson",
+        "basicSalary": 4900,
+        "allowances": 570,
+        "deductions": 380,
+        "netSalary": 5090,
+        "payDate": "2024-09-01T00:00:00.000Z"
+    },
+    {
+        "userName": "chriswilson",
+        "basicSalary": 4800,
+        "allowances": 550,
+        "deductions": 350,
+        "netSalary": 5000,
+        "payDate": "2024-08-01T00:00:00.000Z"
+    },
+    {
+        "userName": "karenmiller",
+        "basicSalary": 4200,
+        "allowances": 450,
+        "deductions": 300,
+        "netSalary": 4350,
+        "payDate": "2024-12-01T00:00:00.000Z"
+    },
+    {
+        "userName": "karenmiller",
+        "basicSalary": 4200,
+        "allowances": 470,
+        "deductions": 320,
+        "netSalary": 4350,
+        "payDate": "2024-11-01T00:00:00.000Z"
+    },
+    {
+        "userName": "karenmiller",
+        "basicSalary": 4100,
+        "allowances": 440,
+        "deductions": 310,
+        "netSalary": 4230,
+        "payDate": "2024-10-01T00:00:00.000Z"
+    },
+    {
+        "userName": "karenmiller",
+        "basicSalary": 4100,
+        "allowances": 430,
+        "deductions": 290,
+        "netSalary": 4240,
+        "payDate": "2024-09-01T00:00:00.000Z"
+    },
+    {
+        "userName": "karenmiller",
+        "basicSalary": 4000,
+        "allowances": 410,
+        "deductions": 280,
+        "netSalary": 4130,
+        "payDate": "2024-08-01T00:00:00.000Z"
+    },       
+    {
+        "userName": "robertwhite",
+        "basicSalary": 4600,
+        "allowances": 550,
+        "deductions": 350,
+        "netSalary": 4800,
+        "payDate": "2024-12-01T00:00:00.000Z"
+    },
+    {
+        "userName": "robertwhite",
+        "basicSalary": 4600,
+        "allowances": 580,
+        "deductions": 360,
+        "netSalary": 4820,
+        "payDate": "2024-11-01T00:00:00.000Z"
+    },
+    {
+        "userName": "robertwhite",
+        "basicSalary": 4500,
+        "allowances": 540,
+        "deductions": 340,
+        "netSalary": 4700,
+        "payDate": "2024-10-01T00:00:00.000Z"
+    },
+    {
+        "userName": "robertwhite",
+        "basicSalary": 4500,
+        "allowances": 520,
+        "deductions": 320,
+        "netSalary": 4700,
+        "payDate": "2024-09-01T00:00:00.000Z"
+    },
+    {
+        "userName": "robertwhite",
+        "basicSalary": 4400,
+        "allowances": 510,
+        "deductions": 310,
+        "netSalary": 4600,
+        "payDate": "2024-08-01T00:00:00.000Z"
+    },
+    {
+        "userName": "sarajones",
+        "basicSalary": 4800,
+        "allowances": 600,
+        "deductions": 400,
+        "netSalary": 5000,
+        "payDate": "2024-12-01T00:00:00.000Z"
+    },
+    {
+        "userName": "sarajones",
+        "basicSalary": 4800,
+        "allowances": 630,
+        "deductions": 420,
+        "netSalary": 5010,
+        "payDate": "2024-11-01T00:00:00.000Z"
+    },
+    {
+        "userName": "sarajones",
+        "basicSalary": 4700,
+        "allowances": 590,
+        "deductions": 410,
+        "netSalary": 4880,
+        "payDate": "2024-10-01T00:00:00.000Z"
+    },
+    {
+        "userName": "sarajones",
+        "basicSalary": 4700,
+        "allowances": 570,
+        "deductions": 380,
+        "netSalary": 4890,
+        "payDate": "2024-09-01T00:00:00.000Z"
+    },
+    {
+        "userName": "sarajones",
+        "basicSalary": 4600,
+        "allowances": 550,
+        "deductions": 370,
+        "netSalary": 4780,
+        "payDate": "2024-08-01T00:00:00.000Z"
+    },
+    {
+        "userName": "davidlee",
+        "basicSalary": 5500,
+        "allowances": 700,
+        "deductions": 450,
+        "netSalary": 5750,
+        "payDate": "2024-12-01T00:00:00.000Z"
+    },
+    {
+        "userName": "davidlee",
+        "basicSalary": 5500,
+        "allowances": 720,
+        "deductions": 460,
+        "netSalary": 5760,
+        "payDate": "2024-11-01T00:00:00.000Z"
+    },
+    {
+        "userName": "davidlee",
+        "basicSalary": 5400,
+        "allowances": 690,
+        "deductions": 440,
+        "netSalary": 5650,
+        "payDate": "2024-10-01T00:00:00.000Z"
+    },
+    {
+        "userName": "davidlee",
+        "basicSalary": 5400,
+        "allowances": 670,
+        "deductions": 430,
+        "netSalary": 5640,
+        "payDate": "2024-09-01T00:00:00.000Z"
+    },
+    {
+        "userName": "davidlee",
+        "basicSalary": 5300,
+        "allowances": 650,
+        "deductions": 420,
+        "netSalary": 5630,
+        "payDate": "2024-08-01T00:00:00.000Z"
+    },
+    {
+        "userName": "emilyclark",
+        "basicSalary": 4800,
+        "allowances": 600,
+        "deductions": 400,
+        "netSalary": 5000,
+        "payDate": "2024-12-01T00:00:00.000Z"
+    },
+    {
+        "userName": "emilyclark",
+        "basicSalary": 4800,
+        "allowances": 620,
+        "deductions": 410,
+        "netSalary": 5010,
+        "payDate": "2024-11-01T00:00:00.000Z"
+    },
+    {
+        "userName": "emilyclark",
+        "basicSalary": 4700,
+        "allowances": 590,
+        "deductions": 390,
+        "netSalary": 4900,
+        "payDate": "2024-10-01T00:00:00.000Z"
+    },
+    {
+        "userName": "emilyclark",
+        "basicSalary": 4700,
+        "allowances": 580,
+        "deductions": 370,
+        "netSalary": 4910,
+        "payDate": "2024-09-01T00:00:00.000Z"
+    },
+    {
+        "userName": "emilyclark",
+        "basicSalary": 4600,
+        "allowances": 570,
+        "deductions": 360,
+        "netSalary": 4810,
+        "payDate": "2024-08-01T00:00:00.000Z"
+    },
+    {
+        "userName": "mikebrown",
+        "basicSalary": 5300,
+        "allowances": 650,
+        "deductions": 430,
+        "netSalary": 5520,
+        "payDate": "2024-12-01T00:00:00.000Z"
+    },
+    {
+        "userName": "mikebrown",
+        "basicSalary": 5300,
+        "allowances": 670,
+        "deductions": 440,
+        "netSalary": 5530,
+        "payDate": "2024-11-01T00:00:00.000Z"
+    },
+    {
+        "userName": "mikebrown",
+        "basicSalary": 5200,
+        "allowances": 640,
+        "deductions": 420,
+        "netSalary": 5460,
+        "payDate": "2024-10-01T00:00:00.000Z"
+    },
+    {
+        "userName": "mikebrown",
+        "basicSalary": 5200,
+        "allowances": 620,
+        "deductions": 400,
+        "netSalary": 5420,
+        "payDate": "2024-09-01T00:00:00.000Z"
+    },
+    {
+        "userName": "mikebrown",
+        "basicSalary": 5100,
+        "allowances": 600,
+        "deductions": 390,
+        "netSalary": 5310,
+        "payDate": "2024-08-01T00:00:00.000Z"
+    },  
+    {
+        "userName": "janesmith",
+        "basicSalary": 4600,
+        "allowances": 560,
+        "deductions": 380,
+        "netSalary": 4780,
+        "payDate": "2024-12-01T00:00:00.000Z"
+    },
+    {
+        "userName": "janesmith",
+        "basicSalary": 4600,
+        "allowances": 580,
+        "deductions": 390,
+        "netSalary": 4790,
+        "payDate": "2024-11-01T00:00:00.000Z"
+    },
+    {
+        "userName": "janesmith",
+        "basicSalary": 4500,
+        "allowances": 550,
+        "deductions": 370,
+        "netSalary": 4680,
+        "payDate": "2024-10-01T00:00:00.000Z"
+    },
+    {
+        "userName": "janesmith",
+        "basicSalary": 4500,
+        "allowances": 540,
+        "deductions": 350,
+        "netSalary": 4690,
+        "payDate": "2024-09-01T00:00:00.000Z"
+    },
+    {
+        "userName": "janesmith",
+        "basicSalary": 4400,
+        "allowances": 530,
+        "deductions": 340,
+        "netSalary": 4590,
+        "payDate": "2024-08-01T00:00:00.000Z"
+    },
+    {
+        "userName": "johndoe",
+        "basicSalary": 4700,
+        "allowances": 600,
+        "deductions": 400,
+        "netSalary": 4900,
+        "payDate": "2024-12-01T00:00:00.000Z"
+    },
+    {
+        "userName": "johndoe",
+        "basicSalary": 4700,
+        "allowances": 620,
+        "deductions": 410,
+        "netSalary": 4910,
+        "payDate": "2024-11-01T00:00:00.000Z"
+    },
+    {
+        "userName": "johndoe",
+        "basicSalary": 4600,
+        "allowances": 590,
+        "deductions": 390,
+        "netSalary": 4800,
+        "payDate": "2024-10-01T00:00:00.000Z"
+    },
+    {
+        "userName": "johndoe",
+        "basicSalary": 4600,
+        "allowances": 570,
+        "deductions": 380,
+        "netSalary": 4790,
+        "payDate": "2024-09-01T00:00:00.000Z"
+    },
+    {
+        "userName": "johndoe",
+        "basicSalary": 4500,
+        "allowances": 550,
+        "deductions": 360,
+        "netSalary": 4690,
+        "payDate": "2024-08-01T00:00:00.000Z"
+    }           
+  ]
+  
+  

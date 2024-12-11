@@ -1,0 +1,83 @@
+[
+    {
+      "userName": "annataylor",
+      "reason": "Family obligation",
+      "startDate": "2024-12-14T00:00:00.000Z",
+      "endDate": "2024-12-16T00:00:00.000Z",
+      "status": "Pending",
+      "appliedAt": "2024-12-11T00:00:00.000Z"
+    },
+    {
+      "userName": "chriswilson",
+      "reason": "Medical leave",
+      "startDate": "2024-12-18T00:00:00.000Z",
+      "endDate": "2024-12-20T00:00:00.000Z",
+      "status": "Pending",
+      "appliedAt": "2024-12-11T00:00:00.000Z"
+    },
+    {
+      "userName": "karenmiller",
+      "reason": "Vacation",
+      "startDate": "2024-12-20T00:00:00.000Z",
+      "endDate": "2024-12-25T00:00:00.000Z",
+      "status": "Pending",
+      "appliedAt": "2024-12-11T00:00:00.000Z"
+    },
+    {
+      "userName": "robertwhite",
+      "reason": "Training program",
+      "startDate": "2024-12-25T00:00:00.000Z",
+      "endDate": "2024-12-27T00:00:00.000Z",
+      "status": "Pending",
+      "appliedAt": "2024-12-11T00:00:00.000Z"
+    },
+    {
+      "userName": "sarajones",
+      "reason": "Conference attendance",
+      "startDate": "2024-12-28T00:00:00.000Z",
+      "endDate": "2024-12-30T00:00:00.000Z",
+      "status": "Pending",
+      "appliedAt": "2024-12-11T00:00:00.000Z"
+    },
+    {
+      "userName": "davidlee",
+      "reason": "Personal leave",
+      "startDate": "2024-12-15T00:00:00.000Z",
+      "endDate": "2024-12-17T00:00:00.000Z",
+      "status": "Pending",
+      "appliedAt": "2024-12-11T00:00:00.000Z"
+    },
+    {
+      "userName": "emilyclark",
+      "reason": "Holiday travel",
+      "startDate": "2024-12-24T00:00:00.000Z",
+      "endDate": "2024-12-28T00:00:00.000Z",
+      "status": "Pending",
+      "appliedAt": "2024-12-11T00:00:00.000Z"
+    },
+    {
+      "userName": "mikebrown",
+      "reason": "Family emergency",
+      "startDate": "2024-12-16T00:00:00.000Z",
+      "endDate": "2024-12-18T00:00:00.000Z",
+      "status": "Pending",
+      "appliedAt": "2024-12-11T00:00:00.000Z"
+    },
+    {
+      "userName": "janesmith",
+      "reason": "Maternity leave",
+      "startDate": "2024-12-10T00:00:00.000Z",
+      "endDate": "2024-12-20T00:00:00.000Z",
+      "status": "Pending",
+      "appliedAt": "2024-12-11T00:00:00.000Z"
+    },
+    {
+      "userName": "johndoe",
+      "reason": "Personal leave",
+      "startDate": "2024-12-18T00:00:00.000Z",
+      "endDate": "2024-12-20T00:00:00.000Z",
+      "status": "Pending",
+      "appliedAt": "2024-12-11T00:00:00.000Z"
+    }
+  ]
+  
