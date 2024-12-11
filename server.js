@@ -4,7 +4,7 @@ import { fileURLToPath } from "url";
 import bodyParser from "body-parser";
 import hbsRouter from "./hbs/routes/hbs.js";
 import apiRouter from "./api/routes/api.js";
-
+import passport from "passport";
 /**
  * Swagger and OpenAPI
  */
@@ -44,6 +44,10 @@ const swaggerDocument = swaggerJsDoc({
         name: "Department",
         description: "<b>Department</b>",
       },
+      {
+        name: "Authentication",
+        description: "<b>Employee management</b> and authentication.",
+      }
     ],
     servers: [
       {
@@ -55,8 +59,15 @@ const swaggerDocument = swaggerJsDoc({
         description: "Production server",
       },
     ],
-  },
   components: {
+    securitySchemes: {
+      jwt: {
+        type: "http",
+        scheme: "bearer",
+        in: "header",
+        bearerFormat: "JWT",
+      },
+    },
     schemas: {
       Employee: {
         type: "object",
@@ -82,6 +93,11 @@ const swaggerDocument = swaggerJsDoc({
             description: "The employee's email address.",
             example: "admin@test.com",
           },
+          password: {
+            type: "string",
+            description: "The password of the employee",
+            example: "pass123"
+          },
           phoneNumber: {
             type: "string",
             description: "The employee's phone number.",
@@ -91,6 +107,13 @@ const swaggerDocument = swaggerJsDoc({
             type: "string",
             description: "The employee's job title.",
             example: "Administrator",
+          },
+          role: {
+            type: "string",
+            description: "The employee role.",
+            enum: ["admin", "employee"],
+            default: "employee",
+            example: "employee"
           },
           departmentId: {
             type: "string",
@@ -115,12 +138,23 @@ const swaggerDocument = swaggerJsDoc({
             description: "The employee's status.",
             example: "active",
           },
+          _id: {
+            type: "string",
+            description: "Unique identifier for the department.",
+          },
+          __v: {
+            type: "integer",
+            description: "MongoDB version key.",
+            readOnly: true,
+          },
         },
         required: [
           "userName",
           "firstName",
           "lastName",
           "email",
+          "role",
+          "password",
           "phoneNumber",
           "jobTitle",
           "departmentId",
@@ -196,6 +230,15 @@ const swaggerDocument = swaggerJsDoc({
             description: "Reason for the leave request.",
             example: "Medical reasons",
           },
+          _id: {
+            type: "string",
+            description: "Unique identifier for the department.",
+          },
+          __v: {
+            type: "integer",
+            description: "MongoDB version key.",
+            readOnly: true,
+          },
         },
         required: [
           "userName",
@@ -235,6 +278,15 @@ const swaggerDocument = swaggerJsDoc({
             enum: ["Todo", "In Progress", "Done"],
             description: "Current status of the task.",
             example: "Todo",
+          },
+          _id: {
+            type: "string",
+            description: "Unique identifier for the department.",
+          },
+          __v: {
+            type: "integer",
+            description: "MongoDB version key.",
+            readOnly: true,
           },
         },
         required: [
@@ -278,6 +330,15 @@ const swaggerDocument = swaggerJsDoc({
             format: "date-time",
             description: "Date of salary payment.",
             example: "2024-11-25T12:00:00.000Z",
+          },
+          _id: {
+            type: "string",
+            description: "Unique identifier for the department.",
+          },
+          __v: {
+            type: "integer",
+            description: "MongoDB version key.",
+            readOnly: true,
           },
         },
         required: [
@@ -324,17 +385,22 @@ const swaggerDocument = swaggerJsDoc({
         },
         required: ["message"],
       },
+      Authentication: {
+        type: "object",
+        properties: {
+          message: {
+            type: "string",
+            description: "Message describing the action.",
+          },
+        },
+        required: ["message"],
+      },
     },
   },
+},
   apis: [
-    "./api/models/employee.js",
-    "./api/models/attendance.js",
-    "./api/models/leave.js",
-    "./api/models/salary.js",
-    "./api/models/task.js",
-    "./api/models/department.js",
-    "./api/models/db.js",
-    "./api/controllers/*.js",
+    "./api/models/*.js",
+    "./api/controllers/*.js"
   ],
 });
 
@@ -342,6 +408,7 @@ const swaggerDocument = swaggerJsDoc({
  * Database connection
  */
 import "./api/models/db.js";
+import "./api/config/passport.js";
 
 /**
  * Create server
@@ -351,11 +418,15 @@ const app = express();
 const __dirname = dirname(fileURLToPath(import.meta.url));
 app.use(express.json());
 
+
 /**
  * Static pages
  */
 app.use(express.static(join(__dirname, "public")));
-
+/**
+ * Passport
+ */
+app.use(passport.initialize());
 /**
  * Body parser (application/x-www-form-urlencoded)
  */
@@ -387,6 +458,13 @@ apiRouter.use(
     customCss: ".swagger-ui .topbar { display: none }",
   })
 );
+/**
+ * Authorization error handler
+ */
+app.use((err, req, res, next) => {
+  if (err.name === "UnauthorizedError")
+    res.status(401).json({ message: err.message });
+});
 /**
  * Start server
  */

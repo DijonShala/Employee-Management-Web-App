@@ -1,6 +1,7 @@
 import Task from "../models/task.js"
 import Employee from "../models/employee.js"
 import { joiAddTaskSchema, joiUpdateTaskStatusSchema } from "../utils/joivalidate.js"
+
 /**
  * @openapi
  * paths:
@@ -10,6 +11,8 @@ import { joiAddTaskSchema, joiUpdateTaskStatusSchema } from "../utils/joivalidat
  *       description: Creates a new task for an employee, including required information about the task.
  *       tags:
  *         - Task
+ *       security:
+ *        - jwt: []
  *       requestBody:
  *         description: Task details to be added.
  *         required: true
@@ -58,6 +61,27 @@ import { joiAddTaskSchema, joiUpdateTaskStatusSchema } from "../utils/joivalidat
  *                 $ref: '#/components/schemas/ErrorMessage'
  *               example:
  *                 message: "Missing required fields!"
+ *         '401':
+ *            description: <b>Unauthorized</b>, with error message.
+ *            content:
+ *              application/json:
+ *               schema:
+ *                 $ref: '#/components/schemas/ErrorMessage'
+ *               examples:
+ *                no token provided:
+ *                 value:
+ *                  message: No authorization token was found.
+ *                user not found:
+ *                 value:
+ *                  message: User not found.
+ *         '403':
+ *          description: <b>Forbidden</b>, with error message.
+ *          content:
+ *           application/json:
+ *            schema:
+ *             $ref: '#/components/schemas/ErrorMessage'
+ *            example:
+ *             message: Not authorized to access this info.
  *         '404':
  *           description: Employee not found.
  *           content:
@@ -76,29 +100,36 @@ import { joiAddTaskSchema, joiUpdateTaskStatusSchema } from "../utils/joivalidat
  *                 message: "Error adding task"
  */
 const addTask = async (req, res) => {
-    try {
-        const { error, value } = joiAddTaskSchema.validate(req.body, { abortEarly: false });
+    getEmployee(req, res, async (req, res, emp) => {
+        try {
+            const { error, value } = joiAddTaskSchema.validate(req.body, { abortEarly: false });
 
-        if (error) {
-            return res.status(400).json({
-                message: "Validation error.",
-                details: error.details.map((detail) => detail.message)
-            });
+            if (error) {
+                return res.status(400).json({
+                    message: "Validation error.",
+                    details: error.details.map((detail) => detail.message)
+                });
+            }
+            if(emp.role != "admin"){
+                return res.status(403).json({
+                  message: "Not authorized to make changes.",
+                });
+              }
+            const { userName, description, startDate, dueDate } = value;
+
+            const employee = await Employee.findOne({ userName });
+            if (!employee) {
+                return res.status(404).json({ message: "Employee not found!" });
+            }
+
+            const task = new Task({ userName, description, startDate, dueDate });
+            await task.save();
+
+            res.status(201).json({ message: "Task added successfully!", task });
+        } catch (error) {
+            res.status(500).json({ message: "Error adding task", error: error.message });
         }
-        const { userName, description, startDate, dueDate } = value;
-
-        const employee = await Employee.findOne({ userName });
-        if (!employee) {
-            return res.status(404).json({ message: "Employee not found!" });
-        }
-
-        const task = new Task({ userName, description, startDate, dueDate });
-        await task.save();
-
-        res.status(201).json({ message: "Task added successfully!", task });
-    } catch (error) {
-        res.status(500).json({ message: "Error adding task", error: error.message });
-    }
+    });
 };
 
 /**
@@ -110,6 +141,8 @@ const addTask = async (req, res) => {
  *       description: Fetches a list of all tasks from the database.
  *       tags:
  *         - Task
+ *       security:
+ *        - jwt: []
  *       responses:
  *         '200':
  *           description: Successfully retrieved all tasks.
@@ -125,6 +158,27 @@ const addTask = async (req, res) => {
  *                     type: array
  *                     items:
  *                       $ref: '#/components/schemas/Task'
+ *         '401':
+ *            description: <b>Unauthorized</b>, with error message.
+ *            content:
+ *              application/json:
+ *               schema:
+ *                 $ref: '#/components/schemas/ErrorMessage'
+ *               examples:
+ *                no token provided:
+ *                 value:
+ *                  message: No authorization token was found.
+ *                user not found:
+ *                 value:
+ *                  message: User not found.
+ *         '403':
+ *          description: <b>Forbidden</b>, with error message.
+ *          content:
+ *           application/json:
+ *            schema:
+ *             $ref: '#/components/schemas/ErrorMessage'
+ *            example:
+ *             message: Not authorized to access this info.
  *         '500':
  *           description: Internal server error while fetching tasks.
  *           content:
@@ -135,12 +189,19 @@ const addTask = async (req, res) => {
  *                 message:  "Error fetching tasks"
  */
 const getAllTasks = async (req, res) => {
-    try {
-        const tasks = await Task.find();
-        res.status(200).json({ message: "Tasks fetched successfully!", tasks });
-    } catch (error) {
-        res.status(500).json({ message: "Error fetching tasks", error: error.message });
-    }
+    getEmployee(req, res, async (req, res, emp) => {
+        try {
+            if(emp.role != "admin"){
+                return res.status(403).json({
+                  message: "Not authorized to access this info.",
+                });
+              }
+            const tasks = await Task.find();
+            res.status(200).json({ message: "Tasks fetched successfully!", tasks });
+        } catch (error) {
+            res.status(500).json({ message: "Error fetching tasks", error: error.message });
+        }
+    });
 };
 
 /**
@@ -152,6 +213,8 @@ const getAllTasks = async (req, res) => {
  *       description: Fetch all tasks associated with a specific employee's username.
  *       tags:
  *         - Task
+ *       security:
+ *        - jwt: []
  *       parameters:
  *         - name: userName
  *           in: path
@@ -182,6 +245,27 @@ const getAllTasks = async (req, res) => {
  *                 $ref: '#/components/schemas/ErrorMessage'
  *               example:
  *                 message: "Employee not found!"
+ *         '401':
+ *            description: <b>Unauthorized</b>, with error message.
+ *            content:
+ *              application/json:
+ *               schema:
+ *                 $ref: '#/components/schemas/ErrorMessage'
+ *               examples:
+ *                no token provided:
+ *                 value:
+ *                  message: No authorization token was found.
+ *                user not found:
+ *                 value:
+ *                  message: User not found.
+ *         '403':
+ *          description: <b>Forbidden</b>, with error message.
+ *          content:
+ *           application/json:
+ *            schema:
+ *             $ref: '#/components/schemas/ErrorMessage'
+ *            example:
+ *             message: Not authorized to access this info.
  *         '500':
  *           description: Internal server error while fetching employee tasks.
  *           content:
@@ -192,20 +276,27 @@ const getAllTasks = async (req, res) => {
  *                 message: "Error fetching employee tasks"
  */
 const getTasksByUserName = async (req, res) => {
-    try {
-        const { userName } = req.params;
-        const employee = await Employee.findOne({ userName });
-        if (!employee) {
-            return res.status(404).json({ message: "Employee not found!" });
+    getEmployee(req, res, async (req, res, emp) => {
+        try {
+            const { userName } = req.params;
+            if(emp.role != "admin" && emp.userName != userName){
+                return res.status(403).json({
+                  message: "Not authorized to access this info.",
+                });
+              }
+            const employee = await Employee.findOne({ userName });
+            if (!employee) {
+                return res.status(404).json({ message: "Employee not found!" });
+            }
+            const tasks = await Task.find({ userName });
+            if (!tasks.length) {
+                return res.status(404).json({ message: "No tasks found for the specified employee!" });
+            }
+            res.status(200).json({ message: "Employee tasks fetched successfully!", tasks });
+        } catch (error) {
+            res.status(500).json({ message: "Error fetching employee tasks", error: error.message });
         }
-        const tasks = await Task.find({ userName });
-        if (!tasks.length) {
-            return res.status(404).json({ message: "No tasks found for the specified employee!" });
-        }
-        res.status(200).json({ message: "Employee tasks fetched successfully!", tasks });
-    } catch (error) {
-        res.status(500).json({ message: "Error fetching employee tasks", error: error.message });
-    }
+    });
 };
 
 /**
@@ -217,6 +308,8 @@ const getTasksByUserName = async (req, res) => {
  *       description: Update the status of a specific task. Valid statuses are "Todo", "In progress", and "Done".
  *       tags:
  *         - Task
+ *       security:
+ *        - jwt: []
  *       parameters:
  *         - name: taskId
  *           in: path
@@ -257,6 +350,27 @@ const getTasksByUserName = async (req, res) => {
  *                 $ref: '#/components/schemas/ErrorMessage'
  *               example:
  *                 message: "Invalid status value!"
+ *         '401':
+ *            description: <b>Unauthorized</b>, with error message.
+ *            content:
+ *              application/json:
+ *               schema:
+ *                 $ref: '#/components/schemas/ErrorMessage'
+ *               examples:
+ *                no token provided:
+ *                 value:
+ *                  message: No authorization token was found.
+ *                user not found:
+ *                 value:
+ *                  message: User not found.
+ *         '403':
+ *          description: <b>Forbidden</b>, with error message.
+ *          content:
+ *           application/json:
+ *            schema:
+ *             $ref: '#/components/schemas/ErrorMessage'
+ *            example:
+ *             message: Not authorized to access this info.
  *         '404':
  *           description: Task not found.
  *           content:
@@ -275,27 +389,33 @@ const getTasksByUserName = async (req, res) => {
  *                 message: "Error updating task status"
  */
 const updateTaskStatus = async (req, res) => {
-    try {
-        const { taskId } = req.params;
 
-        const { error, value } = joiUpdateTaskStatusSchema.validate(req.body, { abortEarly: false });
-        if (error) {
-            return res.status(400).json({
-                message: "Validation error.",
-                details: error.details.map((detail) => detail.message)
-            });
+        try {
+            const { taskId } = req.params;
+
+            const { error, value } = joiUpdateTaskStatusSchema.validate(req.body, { abortEarly: false });
+            if (error) {
+                return res.status(400).json({
+                    message: "Validation error.",
+                    details: error.details.map((detail) => detail.message)
+                });
+            }
+            const { status } = value;
+
+            const task = await Task.findById(taskId);
+            if (!task) {
+                return res.status(404).json({ message: "Task not found!" });
+            }
+            if (task.userName !== req.auth?.userName) {
+                return res.status(403).json({ message: "Access denied. You are not authorized to update this task." });
+            }
+            
+            const updatetask = await Task.findByIdAndUpdate(taskId, { status }, { new: true });
+
+            res.status(200).json({ message: "Task status updated successfully!", updatetask });
+        } catch (error) {
+            res.status(500).json({ message: "Error updating task status", error: error.message });
         }
-        const { status } = value;
-        const task = await Task.findByIdAndUpdate(taskId, { status }, { new: true });
-
-        if (!task) {
-            return res.status(404).json({ message: "Task not found!" });
-        }
-
-        res.status(200).json({ message: "Task status updated successfully!", task });
-    } catch (error) {
-        res.status(500).json({ message: "Error updating task status", error: error.message });
-    }
 };
 
 /**
@@ -307,6 +427,8 @@ const updateTaskStatus = async (req, res) => {
  *       description: Deletes a specific task identified by its unique ID.
  *       tags:
  *         - Task
+ *       security:
+ *        - jwt: []
  *       parameters:
  *         - name: taskId
  *           in: path
@@ -325,6 +447,27 @@ const updateTaskStatus = async (req, res) => {
  *                   message:
  *                     type: string
  *                     example: "Task deleted successfully!"
+ *         '401':
+ *            description: <b>Unauthorized</b>, with error message.
+ *            content:
+ *              application/json:
+ *               schema:
+ *                 $ref: '#/components/schemas/ErrorMessage'
+ *               examples:
+ *                no token provided:
+ *                 value:
+ *                  message: No authorization token was found.
+ *                user not found:
+ *                 value:
+ *                  message: User not found.
+ *         '403':
+ *          description: <b>Forbidden</b>, with error message.
+ *          content:
+ *           application/json:
+ *            schema:
+ *             $ref: '#/components/schemas/ErrorMessage'
+ *            example:
+ *             message: Not authorized to access this info.
  *         '404':
  *           description: Task not found.
  *           content:
@@ -343,20 +486,39 @@ const updateTaskStatus = async (req, res) => {
  *                 message: "Error deleting task"
  */
 const deleteTask = async (req, res) => {
-    try {
-        const { taskId } = req.params;
+    getEmployee(req, res, async (req, res, emp) => {
+        try {
+            if(emp.role != "admin"){
+                return res.status(403).json({
+                  message: "Not authorized to make changes.",
+                });
+              }
+            const { taskId } = req.params;
 
-        const task = await Task.findByIdAndDelete(taskId);
+            const task = await Task.findByIdAndDelete(taskId);
 
-        if (!task) {
-            return res.status(404).json({ message: "Task not found!" });
+            if (!task) {
+                return res.status(404).json({ message: "Task not found!" });
+            }
+
+            res.status(200).json({ message: "Task deleted successfully!" });
+        } catch (error) {
+            res.status(500).json({ message: "Error deleting task", error: error.message });
         }
-
-        res.status(200).json({ message: "Task deleted successfully!" });
-    } catch (error) {
-        res.status(500).json({ message: "Error deleting task", error: error.message });
-    }
+    });
 };
+
+const getEmployee = async (req, res, cbResult) => {
+    if (req.auth?.userName) {
+      try {
+        let employee = await Employee.findOne({ userName: req.auth.userName }).exec();
+        if (!employee) res.status(401).json({ message: "Not authenticated." });
+        else cbResult(req, res, employee);
+      } catch (err) {
+        res.status(500).json({ message: err.message });
+      }
+    }
+  };
 
 export default {
     addTask,

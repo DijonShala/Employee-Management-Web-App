@@ -25,19 +25,23 @@ const joiemployeeSchema = Joi.object({
     .messages({
       "string.email": "Email must be a valid email address.",
       "any.required": "Email is required.",
-    }),
-  phoneNumber: Joi.string().optional(),
-  jobTitle: Joi.string().optional(),
-  departmentId: Joi.string().optional(),
-  hireDate: Joi.date().iso().optional(),
-  salary: Joi.number().optional(),
-  status: Joi.string().valid('Active', 'Inactive').optional().messages({
-    'any.only': `"status" must be one of the following: Active, Inactive`
   }),
-  street: Joi.string().optional(),
-  city: Joi.string().optional(),
-  zipCode: Joi.string().optional(),
-  country: Joi.string().optional(),
+  password: Joi.string().min(6).required(),
+  phoneNumber: Joi.string().required(),
+  jobTitle: Joi.string().required(),
+  role: Joi.string().valid('admin', 'employee').required().messages({
+    'any.only': `"role" must be one of the following: admin, employee`
+  }),
+  departmentId: Joi.string().required(),
+  hireDate: Joi.date().iso().required(),
+  salary: Joi.number().required(),
+  status: Joi.string().valid('active', 'inactive').required().messages({
+    'any.only': `"status" must be one of the following: active, inactive`
+  }),
+  street: Joi.string().required(),
+  city: Joi.string().required(),
+  zipCode: Joi.string().required(),
+  country: Joi.string().required(),
 });
 
 const joiemployeeUpdateSchema = Joi.object({
@@ -53,6 +57,9 @@ const joiemployeeUpdateSchema = Joi.object({
   }),
   phoneNumber: Joi.string().optional(),
   jobTitle: Joi.string().optional(),
+  role: Joi.string().valid('admin', 'employee').optional().messages({
+    'any.only': `"role" must be one of the following: admin, employee`
+  }),
   departmentId: Joi.string().optional(),
   hireDate: Joi.date().iso().optional(),
   salary: Joi.number().optional(),
@@ -60,19 +67,15 @@ const joiemployeeUpdateSchema = Joi.object({
   city: Joi.string().optional(),
   zipCode: Joi.string().optional(),
   country: Joi.string().optional(),
-  status: Joi.string().valid('Active', 'Inactive').optional().messages({
-    'any.only': `"status" must be one of the following: Active, Inactive`
+  status: Joi.string().valid('active', 'inactive').optional().messages({
+    'any.only': `"status" must be one of the following: active, inactive`
   })
 });
+
 /**
  * Leave
  */
 const joiAddLeaveSchema = Joi.object({
-  userName: Joi.string().min(3).max(20).required().messages({
-    'string.empty': `"userName" is a required field`,
-    'string.min': `"userName" must have at least 3 characters`,
-    'string.max': `"userName" cannot exceed 20 characters`
-  }),
   reason: Joi.string().min(1).max(500).required().messages({
     'string.empty': `"reason" is a required field`,
     'string.min': `"reason" must have at least 1 character`,
@@ -172,18 +175,6 @@ const joiUpdateDepartmentSchema = Joi.object({
   })
 });
 
-/**
- * Attendance
- */
-const joiClockInSchema = Joi.object({
-  username: Joi.string().alphanum().min(3).max(50).required().messages({
-    'string.base': `"username" should be a type of 'text'`,
-    'string.empty': `"username" cannot be empty`,
-    'string.min': `"username" should have a minimum length of 3 characters`,
-    'string.max': `"username" should have a maximum length of 50 characters`,
-    'any.required': `"username" is a required field`
-  })
-});
   export {
     joiemployeeSchema,
     joiemployeeUpdateSchema,
@@ -194,5 +185,4 @@ const joiClockInSchema = Joi.object({
     joiUpdateTaskStatusSchema,
     joiInsertDepartmentSchema,
     joiUpdateDepartmentSchema,
-    joiClockInSchema
   }

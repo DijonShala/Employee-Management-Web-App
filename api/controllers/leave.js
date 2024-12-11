@@ -11,6 +11,8 @@ import { joiAddLeaveSchema, joiUpdateLeaveStatusSchema } from "../utils/joivalid
  *       description: Adds a new leave request for an employee.
  *       tags:
  *         - Leave
+ *       security:
+ *        - jwt: []
  *       requestBody:
  *         description: Leave details to be added.
  *         required: true
@@ -19,10 +21,6 @@ import { joiAddLeaveSchema, joiUpdateLeaveStatusSchema } from "../utils/joivalid
  *             schema:
  *               type: object
  *               properties:
- *                 userName:
- *                   type: string
- *                   description: The unique username of the employee.
- *                   example: admin
  *                 reason:
  *                   type: string
  *                   description: Reason for the leave request.
@@ -38,7 +36,6 @@ import { joiAddLeaveSchema, joiUpdateLeaveStatusSchema } from "../utils/joivalid
  *                   description: End date of the leave.
  *                   example: 2024-12-10
  *               required:
- *                 - userName
  *                 - reason
  *                 - startDate
  *                 - endDate
@@ -50,7 +47,6 @@ import { joiAddLeaveSchema, joiUpdateLeaveStatusSchema } from "../utils/joivalid
  *               example:
  *                 message: Leave added successfully!
  *                 leave:
- *                   userName: admin
  *                   reason: Vacation
  *                   startDate: 2024-11-26
  *                   endDate: 2024-12-10
@@ -62,6 +58,27 @@ import { joiAddLeaveSchema, joiUpdateLeaveStatusSchema } from "../utils/joivalid
  *                 $ref: '#/components/schemas/ErrorMessage'
  *               example:
  *                 message: "Missing required fields."
+ *         '401':
+ *            description: <b>Unauthorized</b>, with error message.
+ *            content:
+ *              application/json:
+ *               schema:
+ *                 $ref: '#/components/schemas/ErrorMessage'
+ *               examples:
+ *                no token provided:
+ *                 value:
+ *                  message: No authorization token was found.
+ *                user not found:
+ *                 value:
+ *                  message: User not found.
+ *         '403':
+ *          description: <b>Forbidden</b>, with error message.
+ *          content:
+ *           application/json:
+ *            schema:
+ *             $ref: '#/components/schemas/ErrorMessage'
+ *            example:
+ *             message: Not authorized to access this info.
  *         '404':
  *           description: Employee not found.
  *           content:
@@ -81,6 +98,7 @@ import { joiAddLeaveSchema, joiUpdateLeaveStatusSchema } from "../utils/joivalid
  */
 
 const addLeave = async (req, res) => {
+  getEmployee(req, res, async (req, res, emp) => {
     try {
       const { error, value } = joiAddLeaveSchema.validate(req.body, { abortEarly: false });
       if (error) {
@@ -89,13 +107,12 @@ const addLeave = async (req, res) => {
           details: error.details.map((detail) => detail.message)
         });
       }
-      const { userName, reason, startDate, endDate } = value;
-  
-      const employee = await Employee.findOne({ userName });
+      const { reason, startDate, endDate } = value;
+      const employee = await Employee.findOne({ userName: emp.userName });
       if (!employee) {
         return res.status(404).json({ message: "Employee not found!" });
       }
-  
+      const userName = emp.userName;
       const leave = new Leave({ userName, reason, startDate, endDate });
       await leave.save();
   
@@ -103,7 +120,8 @@ const addLeave = async (req, res) => {
     } catch (error) {
       res.status(500).json({ message: "Error adding leave", error: error.message });
     }
-  };
+  });
+};
   
 /**
  * @openapi
@@ -114,6 +132,8 @@ const addLeave = async (req, res) => {
  *       description: Retrieve **leave requests** of all employees.
  *       tags:
  *         - Leave
+ *       security:
+ *        - jwt: []
  *       responses:
  *         '200':
  *           description: Successful message, with leave data.
@@ -123,6 +143,27 @@ const addLeave = async (req, res) => {
  *                 type: array
  *                 items:
  *                   $ref: '#/components/schemas/Leaves'
+ *         '401':
+ *            description: <b>Unauthorized</b>, with error message.
+ *            content:
+ *              application/json:
+ *               schema:
+ *                 $ref: '#/components/schemas/ErrorMessage'
+ *               examples:
+ *                no token provided:
+ *                 value:
+ *                  message: No authorization token was found.
+ *                user not found:
+ *                 value:
+ *                  message: User not found.
+ *         '403':
+ *          description: <b>Forbidden</b>, with error message.
+ *          content:
+ *           application/json:
+ *            schema:
+ *             $ref: '#/components/schemas/ErrorMessage'
+ *            example:
+ *             message: Not authorized to access this info.
  *         '500':
  *           description: Internal Server Error, with error message.
  *           content:
@@ -134,12 +175,19 @@ const addLeave = async (req, res) => {
  */
 
 const getAllLeaves = async (req, res) => {
+  getEmployee(req, res, async (req, res, emp) => {
     try {
+      if(emp.role != "admin"){
+        return res.status(403).json({
+          message: "Not authorized to access this info.",
+        });
+      }
       const leaves = await Leave.find().populate("userName");
       res.status(200).json({ message: "Leaves fetched successfully!", leaves });
     } catch (error) {
       res.status(500).json({ message: "Error fetching leaves", error: error.message });
     }
+  });
 };
 
 /**
@@ -151,6 +199,8 @@ const getAllLeaves = async (req, res) => {
  *       description: Retrieve all leave requests associated with the specified employee by their `userName`.
  *       tags:
  *         - Leave
+ *       security:
+ *        - jwt: []
  *       parameters:
  *         - name: userName
  *           in: path
@@ -174,6 +224,27 @@ const getAllLeaves = async (req, res) => {
  *                 $ref: '#/components/schemas/ErrorMessage'
  *               example:
  *                 message: "Query parameter 'userName' is required"
+ *         '401':
+ *            description: <b>Unauthorized</b>, with error message.
+ *            content:
+ *              application/json:
+ *               schema:
+ *                 $ref: '#/components/schemas/ErrorMessage'
+ *               examples:
+ *                no token provided:
+ *                 value:
+ *                  message: No authorization token was found.
+ *                user not found:
+ *                 value:
+ *                  message: User not found.
+ *         '403':
+ *          description: <b>Forbidden</b>, with error message.
+ *          content:
+ *           application/json:
+ *            schema:
+ *             $ref: '#/components/schemas/ErrorMessage'
+ *            example:
+ *             message: Not authorized to access this info.
  *         '404':
  *           description: Employee <b>not found</b>.
  *           content:
@@ -192,6 +263,7 @@ const getAllLeaves = async (req, res) => {
  *                 message: "Unknown error"
  */
 const getEmployeeLeaves = async (req, res) => {
+  getEmployee(req, res, async (req, res, emp) => {
     try {
       if (!req.params.userName) {
         res.status(400).json({
@@ -199,17 +271,22 @@ const getEmployeeLeaves = async (req, res) => {
         });
         return;
       }
-      const { userName } = req.params;
-      const employee = await Employee.findOne({ userName });
+      if(emp.role != "admin" && emp.userName != req.params.userName){
+        return res.status(403).json({
+          message: "Not authorized to access this info.",
+        });
+      }
+      const employee = await Employee.findOne({ userName: req.params.userName });
       if (!employee) {
         return res.status(404).json({ message: "Employee not found!" });
       }
   
-      const leaves = await Leave.find({ userName });
+      const leaves = await Leave.find({ userName: req.params.userName });
       res.status(200).json({ message: "Employee leaves fetched successfully!", leaves });
     } catch (error) {
       res.status(500).json({ message: "Error fetching employee leaves", error: error.message });
     }
+  });
 };
 /**
  * @openapi
@@ -220,6 +297,8 @@ const getEmployeeLeaves = async (req, res) => {
  *       description: Update the status of a leave request using its ID. The status can only be updated to "Pending", "Approved", or "Rejected".
  *       tags:
  *         - Leave
+ *       security:
+ *        - jwt: []
  *       parameters:
  *         - name: leaveId
  *           in: path
@@ -264,6 +343,27 @@ const getEmployeeLeaves = async (req, res) => {
  *                 $ref: '#/components/schemas/ErrorMessage'
  *               example:
  *                 message: "Invalid status value!"
+ *         '401':
+ *            description: <b>Unauthorized</b>, with error message.
+ *            content:
+ *              application/json:
+ *               schema:
+ *                 $ref: '#/components/schemas/ErrorMessage'
+ *               examples:
+ *                no token provided:
+ *                 value:
+ *                  message: No authorization token was found.
+ *                user not found:
+ *                 value:
+ *                  message: User not found.
+ *         '403':
+ *          description: <b>Forbidden</b>, with error message.
+ *          content:
+ *           application/json:
+ *            schema:
+ *             $ref: '#/components/schemas/ErrorMessage'
+ *            example:
+ *             message: Not authorized to access this info.
  *         '404':
  *           description: Leave <b>not found</b>.
  *           content:
@@ -282,6 +382,7 @@ const getEmployeeLeaves = async (req, res) => {
  *                 message: "Unknown error"
  */
 export const updateLeaveStatus = async (req, res) => {
+  getEmployee(req, res, async (req, res, emp) => {
     try {
       const { leaveId } = req.params;
       const { error, value } = joiUpdateLeaveStatusSchema.validate(req.body, { abortEarly: false });
@@ -292,7 +393,11 @@ export const updateLeaveStatus = async (req, res) => {
           details: error.details.map((detail) => detail.message)
         });
       }
-
+      if(emp.role != "admin"){
+        return res.status(403).json({
+          message: "Not authorized to make changes.",
+        });
+      }
       const { status } = value;
       const leave = await Leave.findByIdAndUpdate(
         leaveId,
@@ -307,6 +412,7 @@ export const updateLeaveStatus = async (req, res) => {
     } catch (error) {
       res.status(500).json({ message: "Error updating leave status", error: error.message });
     }
+  });
 };
 
 /**
@@ -318,6 +424,8 @@ export const updateLeaveStatus = async (req, res) => {
  *       description: Delete a leave request using its unique ID.
  *       tags:
  *         - Leave
+ *       security:
+ *        - jwt: []
  *       parameters:
  *         - name: leaveId
  *           in: path
@@ -347,6 +455,27 @@ export const updateLeaveStatus = async (req, res) => {
  *                 $ref: '#/components/schemas/ErrorMessage'
  *               example:
  *                 message: "Leave ID is required"
+ *         '401':
+ *            description: <b>Unauthorized</b>, with error message.
+ *            content:
+ *              application/json:
+ *               schema:
+ *                 $ref: '#/components/schemas/ErrorMessage'
+ *               examples:
+ *                no token provided:
+ *                 value:
+ *                  message: No authorization token was found.
+ *                user not found:
+ *                 value:
+ *                  message: User not found.
+ *         '403':
+ *          description: <b>Forbidden</b>, with error message.
+ *          content:
+ *           application/json:
+ *            schema:
+ *             $ref: '#/components/schemas/ErrorMessage'
+ *            example:
+ *             message: Not authorized to access this info.
  *         '404':
  *           description: Leave not found.
  *           content:
@@ -366,27 +495,46 @@ export const updateLeaveStatus = async (req, res) => {
  */
 
 const deleteLeave = async (req, res) => {
-  try {
-      const { leaveId } = req.params;
+  getEmployee(req, res, async (req, res, emp) => {
+    try {
+        const { leaveId } = req.params;
 
-      if (!leaveId) {
-          return res.status(400).json({ message: "Leave ID is required!" });
-      }
+        if (!leaveId) {
+            return res.status(400).json({ message: "Leave ID is required!" });
+        }
+        if(emp.role != "admin"){
+          return res.status(403).json({
+            message: "Not authorized to make changes.",
+          });
+        }
+        const deletedLeave = await Leave.findByIdAndDelete(leaveId);
 
-      const deletedLeave = await Leave.findByIdAndDelete(leaveId);
+        if (!deletedLeave) {
+            return res.status(404).json({ message: "Leave not found!" });
+        }
 
-      if (!deletedLeave) {
-          return res.status(404).json({ message: "Leave not found!" });
-      }
+        res.status(200).json({
+            message: "Leave deleted successfully!",
+            deletedLeave
+        });
+    } catch (error) {
+        res.status(500).json({ message: "Error deleting leave", error: error.message });
+    }
+  });
+};
 
-      res.status(200).json({
-          message: "Leave deleted successfully!",
-          deletedLeave
-      });
-  } catch (error) {
-      res.status(500).json({ message: "Error deleting leave", error: error.message });
+const getEmployee = async (req, res, cbResult) => {
+  if (req.auth?.userName) {
+    try {
+      let employee = await Employee.findOne({ userName: req.auth.userName }).exec();
+      if (!employee) res.status(401).json({ message: "Not authenticated." });
+      else cbResult(req, res, employee);
+    } catch (err) {
+      res.status(500).json({ message: err.message });
+    }
   }
 };
+
 export default {
     addLeave,
     getAllLeaves,
