@@ -142,7 +142,7 @@ const addLeave = async (req, res) => {
  *               schema:
  *                 type: array
  *                 items:
- *                   $ref: '#/components/schemas/Leaves'
+ *                   $ref: '#/components/schemas/Leave'
  *         '401':
  *            description: <b>Unauthorized</b>, with error message.
  *            content:

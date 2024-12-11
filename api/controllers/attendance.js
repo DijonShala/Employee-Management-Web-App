@@ -376,6 +376,107 @@ const attendaceDeleteOne = async (req, res) => {
   });
 };
 
+/**
+ * @openapi
+ * paths:
+ *   /attendance/startDate/{startDate}/endDate/{endDate}:
+ *     get:
+ *       summary: Retrieve employee's attendance by date range.
+ *       description: Retrieve **attendances** by date range.
+ *       tags:
+ *         - Attendance
+ *       security:
+ *        - jwt: []
+ *       parameters:
+ *         - name: startDate
+ *           in: path
+ *           required: true
+ *           description: The start date for the attendance range.
+ *           schema:
+ *             type: string
+ *             format: date-time
+ *             example: "2024-12-01T00:00:00Z"
+ *         - name: endDate
+ *           in: path
+ *           required: true
+ *           description: The end date for the attendance range.
+ *           schema:
+ *             type: string
+ *             format: date-time
+ *             example: "2024-12-10T23:59:59Z"
+ *       responses:
+ *         '200':
+ *           description: <b>OK</b>, with attendances array.
+ *           content:
+ *             application/json:
+ *               schema:
+ *                 $ref: '#/components/schemas/Attendance'
+ *         '400':
+ *           description: <b>Bad Request</b>, with error message.
+ *           content:
+ *             application/json:
+ *               schema:
+ *                 $ref: '#/components/schemas/ErrorMessage'
+ *               example:
+ *                 message: "Both 'startDate' and 'endDate' query parameters are required."
+ *         '401':
+ *            description: <b>Unauthorized</b>, with error message.
+ *            content:
+ *              application/json:
+ *               schema:
+ *                 $ref: '#/components/schemas/ErrorMessage'
+ *               examples:
+ *                no token provided:
+ *                 value:
+ *                  message: No authorization token was found.
+ *                user not found:
+ *                 value:
+ *                  message: User not found.
+ *         '403':
+ *          description: <b>Forbidden</b>, with error message.
+ *          content:
+ *           application/json:
+ *            schema:
+ *             $ref: '#/components/schemas/ErrorMessage'
+ *            example:
+ *             message: Not authorized to access this info.
+ *         '500':
+ *           description: <b>Internal Server Error</b>, with error message.
+ *           content:
+ *             application/json:
+ *               schema:
+ *                 $ref: '#/components/schemas/ErrorMessage'
+ *               example:
+ *                 message: "Unknown error"
+ */
+const attendanceByDateRange = async (req, res) => {
+  getEmployee(req, res, async (req, res, emp) => {
+    try {
+      if(emp.role != "admin"){
+        return res.status(403).json({
+          message: "Not authorized to make changes.",
+        });
+      }
+      const { start, end } = req.params;
+      if (!start || !end) {
+        return res.status(400).json({
+          message: "Both 'startDate' and 'endDate' parameters are required.",
+        });
+      }
+      const startDate = new Date(start);
+      const endDate = new Date(end);
+
+      const attendances = await Attendance.find({
+        clock_in_time: { $lt: endDate },
+        clock_out_time: { $gt: startDate },
+      });
+
+      res.status(200).json({message: "Attendances fetched successfully!", attendances});
+    } catch (error) {
+      res.status(500).json({ message: "Error fetching attendances", error: error.message });
+    }
+  });
+};
 
 const getEmployee = async (req, res, cbResult) => {
   if (req.auth?.userName) {
@@ -393,4 +494,5 @@ export default {
   clockIn,
   clockOut,
   attendaceDeleteOne,
+  attendanceByDateRange
 };

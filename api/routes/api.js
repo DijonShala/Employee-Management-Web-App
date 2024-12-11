@@ -36,6 +36,10 @@ router.get(
   "/attendanceByUsername/:username",auth ,
   ctrlAttendance.attendanceByUsername
 );
+router.get(
+  "/attendance/startDate/:start/endDate/:end",auth ,
+  ctrlAttendance.attendanceByDateRange
+);
 router.post("/clockIn", auth, ctrlAttendance.clockIn);
 router.post("/clockOut", auth, ctrlAttendance.clockOut);
 router.delete("/attendance/:_id", auth, ctrlAttendance.attendaceDeleteOne);
