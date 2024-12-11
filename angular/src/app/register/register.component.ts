@@ -104,6 +104,7 @@ export class RegisterComponent {
 
   register(data: {
     username: string;
+    password: string;
     firstname: string;
     lastname: string;
     email: string;
@@ -111,10 +112,10 @@ export class RegisterComponent {
     jobtitle: string;
     departmentid: string;
     salary: string;
-    password: string;
   }) {
     let employee: Employee = {
       userName: data.username,
+      password: data.password,
       firstName: data.firstname,
       lastName: data.lastname,
       email: data.email,

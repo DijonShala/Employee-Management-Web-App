@@ -1,0 +1,26 @@
+<div class="card">
+  <div class="card-header bg-warning text-gray">
+    <span class="badge bg-secondary float-right"> {{task.status}} </span>
+    <span class=""> {{task.updatedAt | date: "dd/MM/Y hh:mm:ss"}}</span>
+  </div>
+  <div class="card-body">
+    <strong>Description: </strong><br />
+    {{task.description}}<br />
+    <hr />
+    <strong>Start date: </strong>
+    {{task.startDate | date: "dd/MM/Y hh:mm:ss"}}<br />
+    <strong>Due date: </strong>
+    {{task.dueDate | date: "dd/MM/Y hh:mm:ss"}}
+    <br />
+  </div>
+  <div class="card-footer">
+    <div class="input-group mb-3">
+      <button type="button" class="btn btn-primary">Change status</button>
+      <select class="form-select">
+        <option>To do</option>
+        <option>Doing</option>
+        <option>Done</option>
+      </select>
+    </div>
+  </div>
+</div>

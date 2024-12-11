@@ -18,6 +18,8 @@ export class EmployeeService {
   administrator: boolean = false;
   username = "";
 
+  token: string = "superSecretPassword";
+
   constructor(private http: HttpClient) {
     this.initialize();
   }
@@ -30,11 +32,8 @@ export class EmployeeService {
     if (this.username != "") {
       this.http.get<Employee>("/api/employee/".concat(this.username)).subscribe(
         (data) => {
-          this.employee = data;
-          this.employee_set = true;
-
           this.logged_in = true;
-          if (this.employee.jobTitle == "Administrator") {
+          if (data.jobTitle == "Administrator") {
             this.administrator = true;
           } else {
             this.administrator = false;
@@ -65,7 +64,7 @@ export class EmployeeService {
     return this.http.post<Employee[]>("/api/employee", employee);
   }
 
-  getEmployee(username: string) {
+  getEmployee(username: string = this.username) {
     return this.http.get<Employee>("/api/employee/".concat(username));
   }
 
@@ -79,10 +78,7 @@ export class EmployeeService {
     return this.http.get<Employee[]>("/api/employee-all");
   }
 
-  updateEmployee(
-    username: string = this.username,
-    employee: any = this.employee
-  ) {
+  updateEmployee(username: string = this.username, employee: any) {
     return this.http.put<Employee>("/api/employee/".concat(username), employee);
   }
 
@@ -96,42 +92,13 @@ export class EmployeeService {
     );
   }
 
-  clockEmployee() {
-    if (this.employee.status == "active") {
-      this.clockOut();
-    } else {
-      this.clockIn();
-    }
+  clockIn(username: string = this.username) {
+    return this.http.post<Attendance[]>("/api/clockIn/".concat(username), "");
   }
 
-  clockIn() {
-    console.log("Clocked in");
-
-    this.employee.status = "active";
-    this.updateEmployee();
-    this.http
-      .post<Attendance[]>("/api/clockIn/".concat(this.username), "")
-      .subscribe(
-        (data) => {},
-        (error) => {}
-      );
+  clockOut(username: string = this.username) {
+    return this.http.post<Attendance[]>("/api/clockOut/".concat(username), "");
   }
-
-  clockOut() {
-    console.log("Clocked out");
-
-    this.employee.status = "inactive";
-    this.updateEmployee();
-    this.http
-      .post<Attendance[]>("/api/clockOut/".concat(this.username), "")
-      .subscribe(
-        (data) => {},
-        (error) => {}
-      );
-  }
-
-  employee_set: boolean = false;
-  employee!: Employee;
 
   // TASKS
 

@@ -6,6 +6,8 @@ import { CommonModule } from "@angular/common";
 import { SidebarComponent } from "./sidebar/sidebar.component";
 import { LoginComponent } from "./login/login.component";
 import { CalendarComponent } from "./calendar/calendar.component";
+import { HTTP_INTERCEPTORS } from "@angular/common/http";
+import { tokenInterceptor } from "./token.interceptor";
 
 @Component({
   selector: "app-root",

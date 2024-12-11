@@ -13,6 +13,7 @@ export interface Attendance {
 
 export interface Employee {
   userName: string;
+  password: string;
 
   firstName: string;
   lastName: string;
