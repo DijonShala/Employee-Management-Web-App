@@ -2,8 +2,9 @@ import express from "express";
 import { dirname, join } from "path";
 import { fileURLToPath } from "url";
 import bodyParser from "body-parser";
-import hbsRouter from "./hbs/routes/hbs.js";
+//import hbsRouter from "./hbs/routes/hbs.js";
 import apiRouter from "./api/routes/api.js";
+import cors from "cors";
 import passport from "passport";
 /**
  * Swagger and OpenAPI
@@ -415,14 +416,16 @@ import "./api/config/passport.js";
  */
 const port = process.env.PORT || 3000;
 const app = express();
-const __dirname = dirname(fileURLToPath(import.meta.url));
 app.use(express.json());
-
-
+/**
+ * CORS
+ */
+app.use(cors());
+const __dirname = dirname(fileURLToPath(import.meta.url));
 /**
  * Static pages
  */
-app.use(express.static(join(__dirname, "public")));
+app.use(express.static(join(__dirname, "angular", "build", "browser")));
 /**
  * Passport
  */
@@ -431,22 +434,16 @@ app.use(passport.initialize());
  * Body parser (application/x-www-form-urlencoded)
  */
 app.use(bodyParser.urlencoded({ extended: false }));
-
-/**
- * View engine (HBS) setup
- */
-app.set("views", join(__dirname, "hbs", "views"));
-app.set("view engine", "hbs");
-
-/**
- * HBS routing
- */
-app.use("/", hbsRouter);
-
 /**
  * API routing
  */
 app.use("/api", apiRouter);
+/**
+ * Angular routing
+ */
+app.get("*", (req, res) => {
+  res.sendFile(join(__dirname, "angular", "build", "browser", "index.html"));
+});
 /**
  * Swagger file and explorer
  */
