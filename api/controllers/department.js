@@ -419,6 +419,8 @@ const deleteDepartment = async (req, res) => {
  *       description: Get the details of a **department** by its ID.
  *       tags:
  *         - Department
+ *       security:
+ *        - jwt: []
  *       parameters:
  *         - name: id
  *           in: path

@@ -3,7 +3,7 @@
 Lastni projekt pri predmetu **Spletno programiranje** v študijskem letu **2024/2025**.
 
 # Dostopno na
-https://clock-in.onrender.com/login
+https://clock-in.onrender.com
 
 ## Zaganjanje pri razvijanju:
 

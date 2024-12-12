@@ -9,10 +9,11 @@ import {
 } from "./employee";
 import { HttpClient } from "@angular/common/http";
 import { Subject } from "rxjs";
-
+import { environment } from '../environments/environment';
 @Injectable({
   providedIn: "root",
 })
+
 export class EmployeeService {
   logged_in: boolean = false;
   administrator: boolean = false;
@@ -20,7 +21,10 @@ export class EmployeeService {
   username: string = "";
   token: string = "";
 
+  private apiUrl = environment.apiUrl;
+
   constructor(private http: HttpClient) {
+    //private apiUrl = environment.apiUrl
     this.initialize();
   }
 
@@ -36,7 +40,7 @@ export class EmployeeService {
     //console.log(this.token);
 
     if (this.username != "" && this.token != "") {
-      this.http.get<Employee>("/api/employee/".concat(this.username)).subscribe(
+      this.http.get<Employee>(`${this.apiUrl}/employee/${this.username}`).subscribe(
         (data) => {
           console.log("GOOD TOKEN");
           console.log(this.username);
@@ -63,7 +67,7 @@ export class EmployeeService {
 
   login(username: string, password: string) {
     return this.http.post<{ userName: string; password: string }>(
-      "/api/login",
+      `${this.apiUrl}/login`,
       {
         userName: username,
         password: password,
@@ -81,125 +85,122 @@ export class EmployeeService {
   }
 
   addEmployee(employee: Employee) {
-    return this.http.post<Employee[]>("/api/employee", employee);
+    return this.http.post<Employee[]>(`${this.apiUrl}/employee`, employee);
   }
 
   getEmployee(username: string = this.username) {
-    return this.http.get<Employee>("/api/employee/".concat(username));
+    return this.http.get<Employee>(`${this.apiUrl}/employee/${username}`);
   }
 
   filterEmployee() {
     return this.http
-      .get<Employee>("/api/employee-filter?firstName=Admin&nResults=10")
+      .get<Employee>(`${this.apiUrl}/employee-filter?firstName=Admin&nResults=10`)
       .subscribe();
   }
 
   getEmployees() {
-    return this.http.get<Employee[]>("/api/employee-all");
+    return this.http.get<Employee[]>(`${this.apiUrl}/employee-all`);
   }
 
   updateEmployee(username: string = this.username, employee: any) {
-    return this.http.put<Employee>("/api/employee/".concat(username), employee);
+    return this.http.put<Employee>(`${this.apiUrl}/employee/${username}`, employee);
   }
 
   removeEmployee(username: string) {
-    return this.http.delete<Employee>("/api/employee/".concat(username));
+    return this.http.delete<Employee>(`${this.apiUrl}/employee/${username}`);
   }
 
   getEmployeeAttendance() {
     return this.http.get<Attendance[]>(
-      "/api/attendanceByUsername/".concat(this.username)
+      `${this.apiUrl}/attendanceByUsername/${this.username}`
     );
   }
 
   clockIn(username: string = this.username) {
-    return this.http.post<Attendance[]>("/api/clockIn/".concat(username), "");
+    return this.http.post<Attendance[]>(`${this.apiUrl}/clockIn/${username}`, "");
   }
 
   clockOut(username: string = this.username) {
-    return this.http.post<Attendance[]>("/api/clockOut/".concat(username), "");
+    return this.http.post<Attendance[]>(`${this.apiUrl}/clockOut/${username}`, "");
   }
 
   // TASKS
 
   addTask(task: Task) {
-    return this.http.post<Task>("/api/tasks", task);
+    return this.http.post<Task>(`${this.apiUrl}/tasks`, task);
   }
   getTasks() {
-    return this.http.get("/api/tasks");
+    return this.http.get(`${this.apiUrl}/tasks`);
   }
   getEmployeeTasks(username: string) {
-    return this.http.get("/api/tasks/".concat(username));
+    return this.http.get(`${this.apiUrl}/tasks/${username}`);
   }
   updateTask(taskid: string, status: { status: string }) {
     return this.http.put<string>(
-      "/api/tasks/".concat(taskid).concat("/status"),
+      `${this.apiUrl}/tasks/${taskid}/status`,
       status
     );
   }
   removeTask(taskid: string) {
-    return this.http.delete("/api/tasks/".concat(taskid));
+    return this.http.delete(`${this.apiUrl}/tasks/${taskid}`);
   }
 
   // LEAVES
 
   addLeave(leave: Leave) {
-    return this.http.post<Leave>("/api/leaves", leave);
+    return this.http.post<Leave>(`${this.apiUrl}/leaves`, leave);
   }
   getLeaves() {
-    return this.http.get("/api/leaves");
+    return this.http.get(`${this.apiUrl}/leaves`);
   }
   getEmployeeLeaves(username: string) {
-    return this.http.get("/api/leaves/".concat(username));
+    return this.http.get(`${this.apiUrl}/leaves/${username}`);
   }
   updateLeave(leaveid: string, status: { status: string }) {
     return this.http.put<{ status: string }>(
-      "/api/leaves/".concat(leaveid).concat("/status"),
+      `${this.apiUrl}/leaves/${leaveid}/status`,
       status
     );
   }
   removeLeave(leaveid: string) {
-    return this.http.delete("/api/leaves/".concat(leaveid));
+    return this.http.delete(`${this.apiUrl}/leaves/${leaveid}`);
   }
 
   // SALARIES
 
   addSalary(salary: Salary) {
-    return this.http.post<Salary>("/api/salaries", salary);
+    return this.http.post<Salary>(`${this.apiUrl}/salaries`, salary);
   }
   getSalaries(username: string) {
-    return this.http.get("/api/salaries/".concat(username));
+    return this.http.get(`${this.apiUrl}/salaries/${username}`);
   }
   getSalariesMonth(month: number, year: number) {
     return this.http.get(
-      "/api/salaries/month/"
-        .concat(String(month))
-        .concat("/year/")
-        .concat(String(year))
+      `${this.apiUrl}/salaries/month/${month}/year/${year}`
     );
   }
   removeSalary(salaryid: string) {
-    return this.http.delete("/api/salaries/".concat(salaryid));
+    return this.http.delete(`${this.apiUrl}/salaries/${salaryid}`);
   }
 
   // DEPARTMENTS
 
   addDepartment(department: Department) {
-    return this.http.post<Department>("/api/department", department);
+    return this.http.post<Department>(`${this.apiUrl}/department`, department);
   }
   getDepartments() {
-    return this.http.get<Department[]>("/api/departments");
+    return this.http.get<Department[]>(`${this.apiUrl}/departments`);
   }
   getDepartment(departmentid: string) {
-    return this.http.get<Department>("/api/department/".concat(departmentid));
+    return this.http.get<Department>(`${this.apiUrl}/department/${departmentid}`);
   }
   updateDepartment(departmentid: string, data: Department) {
     return this.http.put<Department>(
-      "/api/department/".concat(departmentid),
+      `${this.apiUrl}/department/${departmentid}`,
       data
     );
   }
   deleteDepartment(departmentid: string) {
-    return this.http.delete("/api/department/".concat(departmentid));
+    return this.http.delete(`${this.apiUrl}/department/${departmentid}`);
   }
 }
