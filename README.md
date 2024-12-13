@@ -1,6 +1,29 @@
 # Spletno programiranje 2024/2025
-
 Lastni projekt pri predmetu **Spletno programiranje** v študijskem letu **2024/2025**.
+
+## Opis aplikacije
+Naša aplikacija je namenjena spremljanju delovnih ur in zahtevkov zaposlenih. Glavni cilj aplikacije je omogočiti učinkovit nadzor nad delovnimi procesi in zagotavljanje enostavnega dostopa do relavantnih podatkov za različne uporabniške vloge. Aplikacija vključuje funkcionalnosti za administratorje in zaposlene.
+
+Funkcionalnosti:
+
+- Več uporabniških vlog
+- Registracija novega uporabnika
+- Prijava in odjava uporabnika
+- Oddaja prošenj za odsotnost
+- Potrditev ali zavrnitev prošenj
+- Urejanje in pregled podatkov zaposlenih
+- Dodeljevanje nalog
+
+Povezave do zaslonskih mask:
+- [Login stran](./docs/login.html)
+- [Beleženje prisotnosti](./docs/clockin.html)
+- [Koledar za spremljanje nalog](./docs/calendar.html)
+- [Stran za oddajo prošenj](./docs/leaves.html)
+- [Nastavitve uporabnika](./docs/usersettings.html)
+- [Seznam uporabnikov (Admin)](./docs/users.html)
+- [Dodajanje zaposlenega (Admin)](./docs/adduser.html)
+
+Prikaz in delovanje strani v različnih brskalnikih deluje pravilno.
 
 ## Dostopno na
 https://clock-in.onrender.com

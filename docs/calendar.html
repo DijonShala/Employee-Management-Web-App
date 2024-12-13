@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Calendar</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@3.10.2/dist/fullcalendar.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            display: flex;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+        form {
+            justify-content: center;
+            align-items: center;
+        }
+        .sidebar {
+            height: 100%;
+            width: 0;
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            left: 0;
+            background-color: #111;
+            overflow-x: hidden;
+            padding-top: 60px;
+            transition: 0.5s;
+        }
+        .sidebar a {
+            padding: 8px 8px 8px 32px;
+            text-decoration: none;
+            font-size: 25px;
+            color: #818181;
+            display: block;
+            transition: 0.3s;
+        }
+        .sidebar a:hover {
+            color: #f1f1f1;
+        }
+        .sidebar .closebtn {
+            position: absolute;
+            top: 0;
+            right: 25px;
+            font-size: 35px;
+            margin-left: 50px;
+        }
+        .openbtn {
+            font-size: 20px;
+            cursor: pointer;
+            background-color: #007bff;
+            color: white;
+            padding: 0px 0px;
+            border: none;
+        }
+        #main {
+            transition: margin-left .5s;
+            padding: 20px;
+        }
+        .header {
+            font-size: 20px;
+            background-color: #007bff;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0px 20px;
+        }
+        .content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            overflow-y: auto;
+        }
+        .action-buttons button {
+            margin: 0 10px;
+        }
+        .form-control::placeholder {
+            color: grey;
+        }
+        #calendar {
+            width: 60%;
+            z-index: 0;
+        }
+        .action-buttons button {
+            margin: 0 10px;
+        }
+        .modal-content {
+            width: 80%;
+            margin: 0 auto;
+        }
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+            }
+            .sidebar a {
+                font-size: 1.5em;
+                text-align: left;
+            }
+            .form-control {
+                font-size: 14px;
+            }
+            .header {
+                flex-wrap: wrap;
+                text-align: center;
+            }
+            #calendar {
+                width: 100%;
+                margin-top: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="flex-grow-1 d-flex flex-column">
+        <div class="header">
+            <div id="main">
+                <button class="openbtn" onclick="openNav()">&#9776;</button>
+            </div>
+            <div id="mySidebar" class="sidebar">
+                <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+                <a href="#">Clock-in</a>
+                <a href="#">Calendar</a>
+                <a href="#">Leaves</a>
+                <a href="#">User Settings</a>
+            </div>
+            <span>Welcome User</span>
+            <button class="btn btn-light btn-sm">Log out</button>
+        </div>
+        <div class="content">
+            <div id="calendar"></div>
+            <div class="action-buttons mt-3 mb-3">
+                <button class="btn btn-primary me-3" onclick="showAddEventModal()">Add Event</button>
+                <button class="btn btn-danger ms-3">Remove Event</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" tabindex="-1" id="eventModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add Event</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="eventForm">
+                        <div class="mb-3">
+                            <label for="eventDate" class="form-label">Event Date</label>
+                            <input type="date" class="form-control" id="eventDate" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="eventTime" class="form-label">Event Time</label>
+                            <input type="time" class="form-control" id="eventTime" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="eventTitle" class="form-label">Title</label>
+                            <input type="text" class="form-control" id="eventTitle" placeholder="Enter event title" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="eventDescription" class="form-label">Description</label>
+                            <textarea class="form-control" id="eventDescription" rows="3" placeholder="Enter event description" required></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="saveEvent()">Save Event</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/moment@2.29.1/moment.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@3.10.2/dist/fullcalendar.min.js"></script>
+
+    <script>
+        function openNav() {
+            var screenWidth = window.innerWidth;
+            if (screenWidth <= 768) {
+                document.getElementById("mySidebar").style.width = "100%";
+                document.getElementById("main").style.marginLeft = "0";
+            } else {
+                document.getElementById("mySidebar").style.width = "250px";
+                document.getElementById("main").style.marginLeft = "250px";
+            }
+        }
+
+        function closeNav() {
+            document.getElementById("mySidebar").style.width = "0";
+            document.getElementById("main").style.marginLeft = "0";
+        }
+
+        $(document).ready(function() {
+            $('#calendar').fullCalendar({
+                header: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'month,agendaWeek,agendaDay'
+                },
+                events: [
+                    {
+                        title: 'Team Meeting',
+                        start: '2024-12-15T10:00:00',
+                        end: '2024-12-15T12:00:00'
+                    },
+                    {
+                        title: 'Client Presentation',
+                        start: '2024-12-17T14:00:00',
+                        end: '2024-12-17T16:00:00'
+                    },
+                    {
+                        title: 'Work Review',
+                        start: '2024-12-19T09:00:00',
+                        end: '2024-12-19T11:00:00'
+                    }
+                ]
+            });
+        });
+
+        function showAddEventModal() {
+            $('#eventModal').modal('show');
+        }
+
+        function saveEvent() {
+            const date = $('#eventDate').val();
+            const time = $('#eventTime').val();
+            const title = $('#eventTitle').val();
+            const description = $('#eventDescription').val();
+            const eventDateTime = date + 'T' + time;
+            $('#calendar').fullCalendar('renderEvent', {
+                title: title,
+                start: eventDateTime,
+                end: eventDateTime,
+                description: description
+            });
+            $('#eventModal').modal('hide');
+            $('#eventForm')[0].reset();
+        }
+    </script>
+</body>
+</html>
