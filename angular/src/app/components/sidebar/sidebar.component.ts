@@ -1,7 +1,7 @@
 import { Component } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { EmployeeService } from "../employee.service";
-import { Employee } from "../employee";
+import { EmployeeService } from "../../services/employee.service";
+import { Employee } from "../../employee";
 import { RouterModule } from "@angular/router";
 import { Observable } from "rxjs";
 

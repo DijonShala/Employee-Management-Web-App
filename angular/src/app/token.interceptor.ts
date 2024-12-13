@@ -1,5 +1,5 @@
 import { HttpInterceptorFn } from "@angular/common/http";
-import { EmployeeService } from "./employee.service";
+import { EmployeeService } from "./services/employee.service";
 import { inject } from "@angular/core";
 
 export const tokenInterceptor: HttpInterceptorFn = (req, next) => {

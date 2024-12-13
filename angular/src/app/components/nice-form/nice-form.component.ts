@@ -10,7 +10,7 @@ import {
   ValidatorFn,
   Validators,
 } from "@angular/forms";
-import { niceForm } from "../employee";
+import { niceForm } from "../../employee";
 
 @Component({
   selector: "app-nice-form",

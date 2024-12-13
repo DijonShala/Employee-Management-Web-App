@@ -1,8 +1,8 @@
 import { Component } from "@angular/core";
-import { Employee, niceForm } from "../employee";
+import { Employee, niceForm } from "../../employee";
 import { FormsModule, NgForm, Validators } from "@angular/forms";
 import { CommonModule, JsonPipe } from "@angular/common";
-import { EmployeeService } from "../employee.service";
+import { EmployeeService } from "../../services/employee.service";
 import { NiceFormComponent } from "../nice-form/nice-form.component";
 import { SidebarComponent } from "../sidebar/sidebar.component";
 

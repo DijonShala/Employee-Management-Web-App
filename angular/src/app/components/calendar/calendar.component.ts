@@ -1,7 +1,7 @@
 import { Component } from "@angular/core";
 import { CommonModule, NgClass, NgFor } from "@angular/common";
-import { Attendance, Employee } from "../employee";
-import { EmployeeService } from "../employee.service";
+import { Attendance, Employee } from "../../employee";
+import { EmployeeService } from "../../services/employee.service";
 import { HorizontalTimelineComponent } from "../horizontal-timeline/horizontal-timeline.component";
 import { Router } from "@angular/router";
 

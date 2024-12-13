@@ -9,10 +9,10 @@ import {
   niceForm,
   Salary,
   Task,
-} from "../employee";
+} from "../../employee";
 import { ActivatedRoute, Router } from "@angular/router";
 import { AsyncPipe, JsonPipe } from "@angular/common";
-import { EmployeeService } from "../employee.service";
+import { EmployeeService } from "../../services/employee.service";
 import { CommonModule } from "@angular/common";
 import { Observable } from "rxjs";
 

@@ -1,7 +1,8 @@
 import { CommonModule } from "@angular/common";
 import { Component } from "@angular/core";
 import { RouterModule, Router } from "@angular/router";
-import { EmployeeService } from "../employee.service";
+import { EmployeeService } from "../../services/employee.service";
+
 
 @Component({
   selector: "app-navbar",
@@ -20,5 +21,18 @@ export class NavbarComponent {
   logout() {
     this.employeeService.logout();
     this.router.navigate(["/login"]);
+  }
+  addData() {
+    this.employeeService.addInitialData().subscribe({
+      next: () => {},
+      error: (err) => {},
+    });
+  }
+
+  deleteData() {
+    this.employeeService.deleteData().subscribe({
+      next: () => {},
+      error: (err) => {},
+    });
   }
 }

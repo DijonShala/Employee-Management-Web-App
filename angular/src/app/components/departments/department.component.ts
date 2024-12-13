@@ -1,8 +1,8 @@
 import { Component, destroyPlatform } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { RouterLink } from "@angular/router";
-import { EmployeeService } from "../employee.service";
-import { Department, niceForm } from "../employee";
+import { EmployeeService } from "../../services/employee.service";
+import { Department, niceForm } from "../../employee";
 import { Validators } from "@angular/forms";
 import { NiceFormComponent } from "../nice-form/nice-form.component";
 import { retry } from "rxjs";

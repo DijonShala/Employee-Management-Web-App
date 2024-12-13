@@ -1,10 +1,10 @@
 import { Component, EventEmitter } from "@angular/core";
 import { FormsModule, NgForm, Validators } from "@angular/forms";
 import { CommonModule, JsonPipe } from "@angular/common";
-import { EmployeeService } from "../employee.service";
+import { EmployeeService } from "../../services/employee.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import { NiceFormComponent } from "../nice-form/nice-form.component";
-import { niceForm } from "../employee";
+import { niceForm } from "../../employee";
 
 @Component({
   selector: "app-login",

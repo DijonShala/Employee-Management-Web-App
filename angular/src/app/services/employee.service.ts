@@ -6,11 +6,11 @@ import {
   Leave,
   Salary,
   Task,
-} from "./employee";
+} from "../employee";
 import { HttpClient } from "@angular/common/http";
 import { Subject } from "rxjs";
-import { environment } from '../environments/environment';
-import { BROWSER_STORAGE } from "./classes/storage";
+import { environment } from '../../environments/environment';
+import { BROWSER_STORAGE } from "../classes/storage";
 @Injectable({
   providedIn: "root",
 })
@@ -203,5 +203,13 @@ export class EmployeeService {
   }
   deleteDepartment(departmentid: string) {
     return this.http.delete(`${this.apiUrl}/department/${departmentid}`);
+  }
+  // DB
+  addInitialData() {
+    return this.http.post(`${this.apiUrl}/db`, {});
+  }
+  
+  deleteData() {
+    return this.http.delete(`${this.apiUrl}/db`);
   }
 }

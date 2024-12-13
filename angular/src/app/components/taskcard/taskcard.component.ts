@@ -1,5 +1,5 @@
 import { Component, Input, input } from "@angular/core";
-import { Task } from "../employee";
+import { Task } from "../../employee";
 import { CommonModule } from "@angular/common";
 
 @Component({

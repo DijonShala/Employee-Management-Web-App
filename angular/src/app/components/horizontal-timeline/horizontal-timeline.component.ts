@@ -1,7 +1,7 @@
 import { CommonModule } from "@angular/common";
 import { Component, Input } from "@angular/core";
-import { Attendance } from "../employee";
-import { EmployeeService } from "../employee.service";
+import { Attendance } from "../../employee";
+import { EmployeeService } from "../../services/employee.service";
 
 @Component({
   selector: "app-horizontal-timeline",

@@ -22,6 +22,20 @@
   <div class="nav-link d-flex align-items-center h-100 p-2 cursor-pointer">
     <a [routerLink]="'/departments'"> Departments </a>
   </div>
+  
+  <div
+  class="nav-link d-flex align-items-center h-100 p-2 cursor-pointer"
+  (click)="addData()"
+>
+  <button class="btn btn-primary btn-sm">Add Data</button>
+</div>
+
+<div
+  class="nav-link d-flex align-items-center h-100 p-2 cursor-pointer"
+  (click)="deleteData()"
+>
+  <button class="btn btn-danger btn-sm">Delete Data</button>
+</div>
 
   <div
     *ngIf="employeeService.logged_in"
