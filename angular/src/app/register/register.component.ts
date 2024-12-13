@@ -72,6 +72,15 @@ export class RegisterComponent {
     },
 
     {
+      name: "role",
+      type: "text",
+      title: "Role",
+      placeholder: "Role",
+      default: "",
+      validators: [Validators.required],
+    },
+
+    {
       name: "departmentid",
       type: "text",
       title: "Department ID",
@@ -110,6 +119,7 @@ export class RegisterComponent {
     email: string;
     phonenumber: string;
     jobtitle: string;
+    role: string;
     departmentid: string;
     salary: string;
   }) {
@@ -121,6 +131,7 @@ export class RegisterComponent {
       email: data.email,
       phoneNumber: data.phonenumber,
       jobTitle: data.jobtitle,
+      role: data.role,
       departmentId: "674573519322d092552e31a4", //data.departmentid,
       hireDate: "2024-11-26T10:21:38.124Z", //new Date().toString(),
       salary: parseInt(data.salary),

@@ -22,6 +22,7 @@ export interface Employee {
   phoneNumber: string;
 
   jobTitle: string;
+  role: string;
   departmentId: string;
 
   hireDate: string;

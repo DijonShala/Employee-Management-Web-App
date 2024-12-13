@@ -8,7 +8,7 @@ services:
     networks:
       - sp-network
     environment:
-      - NODE_ENV=test # production/test
+      - NODE_ENV=production # production/test
   mongo-db:
     image: mongo
     container_name: sp-mongo-db

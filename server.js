@@ -56,7 +56,7 @@ const swaggerDocument = swaggerJsDoc({
         description: "Development server for testing",
       },
       {
-        url: "https://sp-2024-2025.fly.dev/api",
+        url: "https://clock-in.onrender.com/api",
         description: "Production server",
       },
     ],

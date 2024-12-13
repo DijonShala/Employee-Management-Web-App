@@ -1,4 +1,4 @@
-import { Injectable } from "@angular/core";
+import { Inject, Injectable } from "@angular/core";
 import {
   Attendance,
   Department,
@@ -10,6 +10,7 @@ import {
 import { HttpClient } from "@angular/common/http";
 import { Subject } from "rxjs";
 import { environment } from '../environments/environment';
+import { BROWSER_STORAGE } from "./classes/storage";
 @Injectable({
   providedIn: "root",
 })
@@ -21,13 +22,13 @@ export class EmployeeService {
   username: string = "";
   token: string = "";
 
-  private apiUrl = environment.apiUrl;
-
-  constructor(private http: HttpClient) {
-    //private apiUrl = environment.apiUrl
+  constructor(
+    private readonly http: HttpClient,
+    @Inject(BROWSER_STORAGE) private readonly storage: Storage,
+  ) {
     this.initialize();
   }
-
+  private apiUrl = environment.apiUrl;
   initialize() {
     let sessionStored_username = window.sessionStorage.getItem("username");
     this.username =
@@ -47,7 +48,7 @@ export class EmployeeService {
           console.log(this.token);
 
           this.logged_in = true;
-          if (data.jobTitle == "Administrator") {
+          if (data.role == "admin") {
             this.administrator = true;
           } else {
             this.administrator = false;

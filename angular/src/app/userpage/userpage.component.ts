@@ -82,6 +82,15 @@ export class UserpageComponent {
       },
 
       {
+        name: "role",
+        type: "text",
+        title: "Role: " + this.strongstring(this.employee.role),
+        placeholder: "Role",
+        default: "",
+        validators: [],
+      },
+
+      {
         name: "departmentid",
         type: "text",
         title:
@@ -96,15 +105,6 @@ export class UserpageComponent {
         type: "text",
         title: "Salary: " + this.strongstring(String(this.employee.salary)),
         placeholder: "Salary",
-        default: "",
-        validators: [],
-      },
-
-      {
-        name: "password",
-        type: "password",
-        title: "Password: " + this.strongstring("123"),
-        placeholder: "Password",
         default: "",
         validators: [],
       },
@@ -161,9 +161,9 @@ export class UserpageComponent {
     email: string;
     phonenumber: string;
     jobtitle: string;
+    role: string;
     departmentid: string;
     salary: string;
-    password: string;
   }) {
     let employee = {
       firstName: data.firstname == "" ? undefined : data.firstname,
@@ -171,6 +171,7 @@ export class UserpageComponent {
       email: data.email == "" ? undefined : data.email,
       phoneNumber: data.phonenumber == "" ? undefined : data.phonenumber,
       jobTitle: data.jobtitle == "" ? undefined : data.jobtitle,
+      role: data.role == "" ? undefined : data.role,
       departmentId: "674573519322d092552e31a4", //data.departmentid,
       hireDate: "2024-11-26T10:21:38.124Z", //new Date().toString(),
       salary: data.salary == "" ? undefined : parseInt(data.salary),
