@@ -122,18 +122,12 @@ export class EmployeeService {
     );
   }
 
-  clockIn(username: string = this.username) {
-    return this.http.post<Attendance[]>(
-      `${this.apiUrl}/clockIn/${username}`,
-      ""
-    );
+  clockIn() {
+    return this.http.post<Attendance[]>(`${this.apiUrl}/clockIn`, "");
   }
 
-  clockOut(username: string = this.username) {
-    return this.http.post<Attendance[]>(
-      `${this.apiUrl}/clockOut/${username}`,
-      ""
-    );
+  clockOut() {
+    return this.http.post<Attendance[]>(`${this.apiUrl}/clockOut`, "");
   }
 
   // TASKS

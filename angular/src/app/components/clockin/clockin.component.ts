@@ -47,19 +47,19 @@ export class ClockinComponent {
   }
 
   clock() {
-    if (this.employee.status != "active") {
-      this.employeeService.clockIn().subscribe(
+    if (this.employee.status == "active") {
+      this.employeeService.clockOut().subscribe(
         (data) => {
-          this.updateStatus("active");
+          this.updateStatus("inactive");
         },
         (error) => {
           this.employee.status = "inactive";
         }
       );
     } else {
-      this.employeeService.clockOut().subscribe(
+      this.employeeService.clockIn().subscribe(
         (data) => {
-          this.updateStatus("inactive");
+          this.updateStatus("active");
         },
         (error) => {
           this.employee.status = "active";
@@ -71,7 +71,7 @@ export class ClockinComponent {
   updateStatus(status: string) {
     this.employee.status = status;
     this.employeeService
-      .updateEmployee(this.employee.userName, this.employee)
+      .updateEmployee(this.employee.userName, { status: this.employee.status })
       .subscribe(
         (data) => {
           this.getEmployee();

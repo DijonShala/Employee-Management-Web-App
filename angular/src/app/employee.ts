@@ -9,6 +9,7 @@ export interface Attendance {
   clock_out_time: Date;
 
   status?: string;
+  _id?: string;
 }
 
 export interface Employee {
@@ -54,6 +55,7 @@ export interface Salary {
   netSalary?: number;
 
   payDate: string;
+  _id?: string;
 }
 
 export interface Leave {
@@ -63,6 +65,7 @@ export interface Leave {
   endDate: string;
   status?: string;
   appliedAt?: string;
+  _id?: string;
 }
 
 export interface Task {
@@ -72,6 +75,7 @@ export interface Task {
   dueDate: string;
   status?: string;
   updatedAt?: string;
+  _id?: string;
 }
 
 export interface Department {

@@ -62,9 +62,6 @@
       </p>
 
       <!-- clock in clock out -->
-
-      {{employee.status}}
-
       <button
         type="button"
         class="btn w-75 btn-success"
@@ -90,8 +87,6 @@
     <h3>Tasks</h3>
 
     <div *ngIf="tasks != null">
-      <div>{{tasks.message}}</div>
-
       <div *ngFor="let task of tasks.tasks">
         <app-taskcard [task]="task"></app-taskcard>
         <hr />

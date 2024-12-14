@@ -1,5 +1,11 @@
-<div class="card">
-  <div class="card-header bg-warning text-gray">
+<div *ngIf="!deleted" class="card">
+  <div
+    class="card-header"
+    [ngClass]="
+    task.status == 'Done' ? 'bg-success' :
+    task.status == 'Todo' ? 'bg-secondary' :
+    task.status == 'In progress' ? 'bg-warning' : ''"
+  >
     <span class="badge bg-secondary float-right"> {{task.status}} </span>
     <span class=""> {{task.updatedAt | date: "dd/MM/Y hh:mm:ss"}}</span>
   </div>
@@ -15,12 +21,17 @@
   </div>
   <div class="card-footer">
     <div class="input-group mb-3">
-      <button type="button" class="btn btn-primary">Change status</button>
-      <select class="form-select">
-        <option>To do</option>
-        <option>Doing</option>
+      <button (click)="changeStatus()" type="button" class="btn btn-primary">
+        Change status
+      </button>
+      <select [(ngModel)]="selectedStatus" class="form-select">
+        <option>Todo</option>
+        <option>In progress</option>
         <option>Done</option>
       </select>
+      <button (click)="deleteTask()" type="button" class="btn btn-danger">
+        Delete task
+      </button>
     </div>
   </div>
 </div>
