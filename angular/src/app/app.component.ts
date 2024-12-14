@@ -11,13 +11,7 @@ import { tokenInterceptor } from "./token.interceptor";
 
 @Component({
   selector: "app-root",
-  imports: [
-    RouterOutlet,
-    NavbarComponent,
-    ClockinComponent,
-    SidebarComponent,
-    LoginComponent,
-  ],
+  imports: [RouterOutlet, NavbarComponent],
   template: `
     <div class="container-fluid" style="padding-top: 50px">
       <app-navbar></app-navbar>

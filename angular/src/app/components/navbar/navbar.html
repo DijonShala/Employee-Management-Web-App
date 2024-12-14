@@ -57,6 +57,13 @@
 
     <div
       class="nav-link d-flex align-items-center p-2 cursor-pointer"
+      (click)="openUrl('/salaries')"
+    >
+      <a> Salaries </a>
+    </div>
+
+    <div
+      class="nav-link d-flex align-items-center p-2 cursor-pointer"
       (click)="addData(); openModal(addsucces)"
     >
       <button class="btn btn-primary btn-sm">Add Data</button>
