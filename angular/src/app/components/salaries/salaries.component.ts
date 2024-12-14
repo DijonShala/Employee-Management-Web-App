@@ -1,7 +1,7 @@
 import { Component } from "@angular/core";
 import { Employee, niceForm, Salary } from "../../employee";
 import { Validators } from "@angular/forms";
-import { BehaviorSubject, Observable } from "rxjs";
+import { BehaviorSubject, Observable, take } from "rxjs";
 import { ActivatedRoute, Router } from "@angular/router";
 import { EmployeeService } from "../../services/employee.service";
 import { NiceFormComponent } from "../nice-form/nice-form.component";
@@ -105,8 +105,9 @@ export class SalariesComponent {
     { name: string; series: { value: number; name: string }[] }[]
   >([]);
 
-  setSalaryData() {
-    let salarydata: {
+  setSalaryData(): void {
+    // Initialize an empty data structure
+    const salarydata: {
       name: string;
       series: { value: number; name: string }[];
     }[] = [
@@ -115,41 +116,33 @@ export class SalariesComponent {
       { name: "Deductions", series: [] },
       { name: "Net pay", series: [] },
     ];
-
-    this.employee_salaries.subscribe((data) => {
-      let salaries: any = data;
-      salaries = salaries.salaries;
-
+  
+    this.employee_salaries.pipe(take(1)).subscribe((data: any) => {
+      const salaries = data.salaries || [];
+  
       salaries.forEach((salary: Salary) => {
-        salarydata[0].series.push({
-          value: salary.basicSalary,
-          name: salary.payDate,
-        });
-
+        const payDate = new Date(salary.payDate).toLocaleDateString();
+  
+        salarydata[0].series.push({ value: salary.basicSalary, name: payDate });
         salarydata[1].series.push({
-          value: salary.allowances != undefined ? salary.allowances : 0,
-          name: salary.payDate,
+          value: salary.allowances ?? 0,
+          name: payDate,
         });
-
-        if (salary.deductions != undefined) {
-          salarydata[2].series.push({
-            value: salary.deductions != undefined ? salary.deductions : 0,
-            name: salary.payDate,
-          });
-        }
-
-        if (salary.netSalary != undefined) {
-          salarydata[3].series.push({
-            value: salary.netSalary,
-            name: salary.payDate,
-          });
-        }
+        salarydata[2].series.push({
+          value: salary.deductions ?? 0,
+          name: payDate,
+        });
+        salarydata[3].series.push({
+          value:
+            (salary.basicSalary ?? 0) +
+            (salary.allowances ?? 0) -
+            (salary.deductions ?? 0),
+          name: payDate,
+        });
       });
+  
+      this.salarydata$.next(salarydata);
     });
-
-    this.salarydata$.next(salarydata);
-
-    console.log(this.salarydata$.getValue());
   }
 
   JSONparse(st: string) {
