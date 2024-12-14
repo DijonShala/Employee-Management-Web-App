@@ -40,4 +40,9 @@ export class NiceFormComponent {
     this.result.emit(this.formgroup.getRawValue());
     this.formgroup.reset();
   }
+
+  getValidationClass(controlName: string): string {
+    const control = this.formgroup.get(controlName);
+    return control?.valid ? "is-valid" : control?.touched ? "is-invalid" : "";
+  }
 }

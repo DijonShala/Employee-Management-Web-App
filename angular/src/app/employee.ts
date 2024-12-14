@@ -93,4 +93,5 @@ export interface niceForm {
   placeholder?: string;
   default: string | boolean;
   validators: ValidatorFn[];
+  options?: { label: string; value: string | number }[]; // FOR SELECT
 }

@@ -6,7 +6,10 @@
 
 <form [formGroup]="formgroup" (ngSubmit)="submit()">
   <div *ngFor="let control of formcontrol">
-    <div *ngIf="typeof(control.default) == 'string'" class="mb-3 mt-3">
+    <div
+      *ngIf="control.type == 'text' || control.type == 'password'"
+      class="mb-3 mt-3"
+    >
       <label
         class="form-label"
         for="myCheck"
@@ -14,7 +17,7 @@
       ></label>
       <input
         class="form-control"
-        [ngClass]="formgroup.get(control.name)?.valid? formgroup.get(control.name)?.hasValidator(property_validators_required)? 'is-valid' : '' : 'is-invalid'"
+        [ngClass]="getValidationClass(control.name)"
         [type]="control.type"
         [placeholder]="control.placeholder"
         [formControlName]="control.name"
@@ -28,10 +31,10 @@
       </div>
     </div>
 
-    <div *ngIf="typeof(control.default)  == 'boolean'" class="form-check mb-3">
+    <div *ngIf="control.type  == 'check'" class="form-check mb-3">
       <input
         class="form-check-input"
-        [ngClass]="formgroup.get(control.name)?.validator? formgroup.get(control.name)?.valid? 'is-valid' : 'is-invalid' : ''"
+        [ngClass]="getValidationClass(control.name)"
         type="checkbox"
         [formControlName]="control.name"
       />
@@ -46,6 +49,24 @@
         class="invalid-feedback"
       >
         Check this box to continue
+      </div>
+    </div>
+    <div *ngIf="control.type === 'select' && control.options" class="mb-3 mt-3">
+      <label class="form-label" [innerHTML]="control.title"></label>
+      <select
+        class="form-select"
+        [ngClass]="formgroup.get(control.name)?.valid ? 'is-valid' : 'is-invalid'"
+        [formControlName]="control.name"
+      >
+        <option *ngFor="let option of control.options" [value]="option.value">
+          {{ option.label }}
+        </option>
+      </select>
+      <div
+        *ngIf="formgroup.get(control.name)?.dirty && !formgroup.get(control.name)?.valid"
+        class="invalid-feedback"
+      >
+        Please select a valid option.
       </div>
     </div>
   </div>

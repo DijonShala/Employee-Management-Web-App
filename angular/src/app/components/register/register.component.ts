@@ -5,6 +5,8 @@ import { CommonModule, JsonPipe } from "@angular/common";
 import { EmployeeService } from "../../services/employee.service";
 import { NiceFormComponent } from "../nice-form/nice-form.component";
 import { SidebarComponent } from "../sidebar/sidebar.component";
+import { retry } from "rxjs";
+import { Department } from "../../employee";
 
 @Component({
   selector: "app-register",
@@ -19,6 +21,10 @@ import { SidebarComponent } from "../sidebar/sidebar.component";
   styles: ``,
 })
 export class RegisterComponent {
+  ngOnInit() {
+    this.loadDepartments();
+  }
+
   formcontrol: niceForm[] = [
     {
       name: "username",
@@ -73,19 +79,24 @@ export class RegisterComponent {
 
     {
       name: "role",
-      type: "text",
+      type: "select",
       title: "Role",
       placeholder: "Role",
-      default: "",
+      default: "employee",
       validators: [Validators.required],
+      options: [
+        { label: "Admin", value: "admin" },
+        { label: "Employee", value: "employee" },
+      ],
     },
 
     {
       name: "departmentid",
-      type: "text",
+      type: "select",
       title: "Department ID",
       placeholder: "Department ID",
       default: "",
+      options: [],
       validators: [Validators.required],
     },
 
@@ -94,6 +105,42 @@ export class RegisterComponent {
       type: "text",
       title: "Salary",
       placeholder: "Salary",
+      default: "",
+      validators: [Validators.required],
+    },
+
+    {
+      name: "street",
+      type: "text",
+      title: "Street",
+      placeholder: "Street",
+      default: "",
+      validators: [Validators.required],
+    },
+
+    {
+      name: "city",
+      type: "text",
+      title: "City",
+      placeholder: "City",
+      default: "",
+      validators: [Validators.required],
+    },
+
+    {
+      name: "zipCode",
+      type: "text",
+      title: "Zip code",
+      placeholder: "Zip code",
+      default: "",
+      validators: [Validators.required],
+    },
+
+    {
+      name: "country",
+      type: "text",
+      title: "Country",
+      placeholder: "Country",
       default: "",
       validators: [Validators.required],
     },
@@ -122,8 +169,12 @@ export class RegisterComponent {
     role: string;
     departmentid: string;
     salary: string;
+    street: string;
+    city: string;
+    country: string;
+    zipCode: string;
   }) {
-    let employee: Employee = {
+    let employee: any = {
       userName: data.username,
       password: data.password,
       firstName: data.firstname,
@@ -132,10 +183,14 @@ export class RegisterComponent {
       phoneNumber: data.phonenumber,
       jobTitle: data.jobtitle,
       role: data.role,
-      departmentId: "674573519322d092552e31a4", //data.departmentid,
+      departmentId: data.departmentid, //data.departmentid,
       hireDate: "2024-11-26T10:21:38.124Z", //new Date().toString(),
       salary: parseInt(data.salary),
       status: "inactive",
+      street: data.street,
+      city: data.city,
+      country: data.country,
+      zipCode: data.zipCode,
     };
 
     console.log(employee);
@@ -148,5 +203,33 @@ export class RegisterComponent {
         this.success_status = "ERROR";
       }
     );
+  }
+
+  loadDepartments() {
+    this.employeeService
+      .getDepartments()
+      .pipe(retry(1))
+      .subscribe(
+        (departments: Department[]) => {
+          const departmentOptions = departments.map((dept) => ({
+            label: dept.name || "Unknown",
+            value: dept._id ?? "",
+          }));
+
+          console.log(departmentOptions);
+
+          const departmentControl = this.formcontrol.find(
+            (control) => control.name === "departmentid"
+          );
+
+          if (departmentControl && departmentOptions.length > 0) {
+            departmentControl.options = departmentOptions;
+            departmentControl.default = departmentOptions[0].value;
+          }
+        },
+        (error) => {
+          console.error("Error loading departments:", error);
+        }
+      );
   }
 }
