@@ -19,7 +19,7 @@ import { tokenInterceptor } from "./token.interceptor";
     LoginComponent,
   ],
   template: `
-    <div class="container-fluid">
+    <div class="container-fluid" style="padding-top: 50px">
       <app-navbar></app-navbar>
       <router-outlet></router-outlet>
     </div>

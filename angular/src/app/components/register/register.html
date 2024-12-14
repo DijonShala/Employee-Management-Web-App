@@ -1,9 +1,9 @@
-<div class="row">
-  <div class="col-2 bd-sidebar">
+<div class="d-flex flex-column-reverse flex-md-row gap-2">
+  <div style="min-width: 200px" class="d-flex align-items-star p-5">
     <app-sidebar></app-sidebar>
   </div>
-  <div class="col-8">
-    <main class="d-flex align-items-center">
+  <div>
+    <main class="align-items-center">
       <div class="container-sm p-5 bg-light">
         <div *ngIf="success_status=='SUCCESS'" class="alert alert-success">
           Employee added successfully!
@@ -23,5 +23,4 @@
       </div>
     </main>
   </div>
-  <div class="col-2"></div>
 </div>

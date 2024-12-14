@@ -1,5 +1,5 @@
 import { CommonModule } from "@angular/common";
-import { Component, TemplateRef } from "@angular/core";
+import { Component, OnDestroy, TemplateRef } from "@angular/core";
 import { RouterModule, Router } from "@angular/router";
 import { EmployeeService } from "../../services/employee.service";
 import { BsModalService, BsModalRef } from "ngx-bootstrap/modal";
@@ -17,7 +17,36 @@ export class NavbarComponent {
     private router: Router,
     private modalService: BsModalService
   ) {}
-  ngOnInit() {}
+
+  windowWidth: number = window.innerWidth;
+  intervalId: any;
+  hamburgerMenu: Boolean = false;
+  menuHidden: Boolean = true;
+
+  ngOnInit() {
+    this.intervalId = setInterval(() => {
+      if (window.innerWidth < 950) {
+        this.hamburgerMenu = true;
+      } else {
+        this.hamburgerMenu = false;
+      }
+    }, 100); // Check every 100ms
+  }
+
+  ngOnDestroy() {
+    if (this.intervalId) {
+      clearInterval(this.intervalId); // Clean up interval to avoid memory leaks
+    }
+  }
+
+  toggleMenu() {
+    this.menuHidden = !this.menuHidden;
+  }
+
+  openUrl(url: string) {
+    this.menuHidden = true;
+    this.router.navigateByUrl(url);
+  }
 
   modalRef?: BsModalRef;
   protected openModal(form: TemplateRef<any>) {
@@ -30,7 +59,7 @@ export class NavbarComponent {
 
   logout() {
     this.employeeService.logout();
-    this.router.navigate(["/login"]);
+    this.openUrl("/login");
   }
 
   addData() {

@@ -1,85 +1,120 @@
 <div
-  class="navbar navbar-expand bg-light position-fixed w-100 container-fluid d-flex align-items-start justify-content-start gap-2"
+  class="navbar navbar-expand bg-light position-fixed w-100 container-fluid d-flex align-items-stretch justify-content-between gap-2 ps-3"
   style="top: 0; left: 0"
+  [ngClass]="{ 
+    'navbar-hamburger': hamburgerMenu, 
+    'navbar-hamburger-closed': menuHidden 
+}"
 >
-  <div class="nav-link d-flex align-items-center h-100 p-2 cursor-pointer">
-    <a [routerLink]="'/'"> Clock in </a>
-  </div>
-  <div class="nav-link d-flex align-items-center h-100 p-2 cursor-pointer">
-    <a [routerLink]="'/calendar'"> Calendar </a>
-  </div>
-  <div class="nav-link d-flex align-items-center h-100 p-2 cursor-pointer">
-    <a [routerLink]="'/analytics'"> Analytics </a>
+  <div class="nav-btn" *ngIf="hamburgerMenu">
+    <i class="fas fa-bars" *ngIf="menuHidden" (click)="toggleMenu()"></i>
+    <i class="fas fa-x" *ngIf="!menuHidden" (click)="toggleMenu()"></i>
+    <div style="margin-bottom: 2px">Clockin</div>
   </div>
   <div
-    class="nav-link d-flex align-items-center h-100 p-2 cursor-pointer"
-    *ngIf="!employeeService.logged_in"
+    class="d-flex align-items-center align-items-stretch gap-2 sub-menu"
+    *ngIf="!menuHidden || !hamburgerMenu"
   >
-    <a [routerLink]="'/login'"> Log in </a>
-  </div>
-
-  <div class="nav-link d-flex align-items-center h-100 p-2 cursor-pointer">
-    <a [routerLink]="'/register'"> Register a user </a>
-  </div>
-
-  <div class="nav-link d-flex align-items-center h-100 p-2 cursor-pointer">
-    <a [routerLink]="'/departments'"> Departments </a>
-  </div>
-
-  <div
-    class="nav-link d-flex align-items-center h-100 p-2 cursor-pointer"
-    (click)="addData(); openModal(addsucces)"
-  >
-    <button class="btn btn-primary btn-sm">Add Data</button>
-  </div>
-
-  <ng-template #addsucces>
-    <div class="modal-header" style="background-color: #34eb93">
-      <h3 class="modal-title pull-left">Data added succesfully!</h3>
-      <button
-        type="button"
-        class="btn-close close pull-right"
-        aria-label="Close"
-        (click)="modalRef?.hide()"
-      >
-        <span aria-hidden="true" class="visually-hidden">&times;</span>
-      </button>
+    <div
+      class="nav-link d-flex align-items-center p-2 cursor-pointer"
+      (click)="openUrl('/')"
+    >
+      <a> Clock in </a>
     </div>
-  </ng-template>
-
-  <div
-    class="nav-link d-flex align-items-center h-100 p-2 cursor-pointer"
-    (click)="deleteData(); openModal(deletesucces)"
-  >
-    <button class="btn btn-danger btn-sm">Delete Data</button>
-  </div>
-
-  <ng-template #deletesucces>
-    <div class="modal-header" style="background-color: #eb4034">
-      <h3 class="modal-title pull-left">Data deleted succesfully!</h3>
-      <button
-        type="button"
-        class="btn-close close pull-right"
-        aria-label="Close"
-        (click)="modalRef?.hide()"
-      >
-        <span aria-hidden="true" class="visually-hidden">&times;</span>
-      </button>
+    <div
+      class="nav-link d-flex align-items-center p-2 cursor-pointer"
+      (click)="openUrl('/calendar')"
+    >
+      <a> Calendar </a>
     </div>
-  </ng-template>
+    <div
+      class="nav-link d-flex align-items-center p-2 cursor-pointer"
+      (click)="openUrl('/analytics')"
+    >
+      <a> Analytics </a>
+    </div>
+    <div
+      class="nav-link d-flex align-items-center p-2 cursor-pointer"
+      *ngIf="!employeeService.logged_in"
+      (click)="openUrl('/login')"
+    >
+      <a> Log in </a>
+    </div>
 
-  <div
-    *ngIf="employeeService.logged_in"
-    class="nav-link d-flex align-items-center h-100 p-2 cursor-pointer ms-auto"
-  >
-    <div style="cursor: pointer" (click)="logout()">Log out</div>
+    <div
+      class="nav-link d-flex align-items-center p-2 cursor-pointer"
+      (click)="openUrl('/register')"
+    >
+      <a> Register a user </a>
+    </div>
+
+    <div
+      class="nav-link d-flex align-items-center p-2 cursor-pointer"
+      (click)="openUrl('/departments')"
+    >
+      <a> Departments </a>
+    </div>
+
+    <div
+      class="nav-link d-flex align-items-center p-2 cursor-pointer"
+      (click)="addData(); openModal(addsucces)"
+    >
+      <button class="btn btn-primary btn-sm">Add Data</button>
+    </div>
+
+    <ng-template #addsucces>
+      <div class="modal-header" style="background-color: #34eb93">
+        <h3 class="modal-title pull-left">Data added succesfully!</h3>
+        <button
+          type="button"
+          class="btn-close close pull-right"
+          aria-label="Close"
+          (click)="modalRef?.hide()"
+        >
+          <span aria-hidden="true" class="visually-hidden">&times;</span>
+        </button>
+      </div>
+    </ng-template>
+
+    <div
+      class="nav-link d-flex align-items-center p-2 cursor-pointer"
+      (click)="deleteData(); openModal(deletesucces)"
+    >
+      <button class="btn btn-danger btn-sm">Delete Data</button>
+    </div>
+
+    <ng-template #deletesucces>
+      <div class="modal-header" style="background-color: #eb4034">
+        <h3 class="modal-title pull-left">Data deleted succesfully!</h3>
+        <button
+          type="button"
+          class="btn-close close pull-right"
+          aria-label="Close"
+          (click)="modalRef?.hide()"
+        >
+          <span aria-hidden="true" class="visually-hidden">&times;</span>
+        </button>
+      </div>
+    </ng-template>
   </div>
 
   <div
-    *ngIf="employeeService.logged_in"
-    class="d-flex align-items-center h-100 p-2 ms"
+    class="d-flex align-items-center justify-content-end gap-2 align-items-stretch sub-menu"
+    *ngIf="!menuHidden || !hamburgerMenu"
   >
-    <strong>{{employeeService.username}}</strong>
+    <div
+      *ngIf="employeeService.logged_in"
+      class="nav-link d-flex align-items-center p-2 cursor-pointer"
+    >
+      <div style="cursor: pointer" (click)="logout()">Log out</div>
+    </div>
+
+    <div
+      *ngIf="employeeService.logged_in"
+      class="d-flex align-items-center p-2"
+    >
+      <strong>{{employeeService.username}}</strong>
+    </div>
   </div>
 </div>
 
