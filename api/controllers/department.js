@@ -5,6 +5,7 @@ import {
   joiInsertDepartmentSchema,
   joiUpdateDepartmentSchema,
 } from "../utils/joivalidate.js";
+import deparment from "../models/department.js";
 /**
  * @openapi
  * paths:
@@ -65,7 +66,7 @@ import {
 const getAllDepartments = async (req, res) => {
   getEmployee(req, res, async (req, res, emp) => {
     try {
-      if(emp.role != "admin"){
+      if (emp.role != "admin") {
         return res.status(403).json({
           message: "Not authorized to access this info.",
         });
@@ -154,16 +155,18 @@ const getAllDepartments = async (req, res) => {
 const insertDepartment = async (req, res) => {
   getEmployee(req, res, async (req, res, emp) => {
     try {
-      const { error, value } = joiInsertDepartmentSchema.validate(req.body, { abortEarly: false });
+      const { error, value } = joiInsertDepartmentSchema.validate(req.body, {
+        abortEarly: false,
+      });
       if (error) {
         return res.status(400).json({
           message: "Validation error.",
-          details: error.details.map((detail) => detail.message)
+          details: error.details.map((detail) => detail.message),
         });
       }
       const { name, description } = value;
 
-      if(emp.role != "admin"){
+      if (emp.role != "admin") {
         return res.status(403).json({
           message: "Not authorized to add deoartment.",
         });
@@ -284,7 +287,7 @@ const updateDepartment = async (req, res) => {
         });
         return;
       }
-      if(emp.role != "admin"){
+      if (emp.role != "admin") {
         return res.status(403).json({
           message: "Not authorized to update department.",
         });
@@ -390,7 +393,7 @@ const deleteDepartment = async (req, res) => {
         });
         return;
       }
-      if(emp.role != "admin"){
+      if (emp.role != "admin") {
         return res.status(403).json({
           message: "Not authorized to delete department.",
         });
@@ -603,17 +606,21 @@ const findEmployeeAtDepartment = async (req, res) => {
   getEmployee(req, res, async (req, res, emp) => {
     try {
       const departmentName = req.params.depname;
-      if(emp.role != "admin"){
+      if (emp.role != "admin") {
         return res.status(403).json({
           message: "Not authorized to delete department.",
         });
       }
-      const department = await Department.findOne({ name: departmentName }).exec();
+      const department = await Department.findOne({
+        name: departmentName,
+      }).exec();
       if (!department) {
         return res.status(404).json({ message: "Department not found!" });
       }
 
-      const employees = await Employee.find({ departmentId: department._id }).exec();
+      const employees = await Employee.find({
+        departmentId: department._id,
+      }).exec();
 
       res.status(200).json({
         message: `Employees in the ${departmentName} department.`,
@@ -628,11 +635,12 @@ const findEmployeeAtDepartment = async (req, res) => {
   });
 };
 
-
 const getEmployee = async (req, res, cbResult) => {
   if (req.auth?.userName) {
     try {
-      let employee = await Employee.findOne({ userName: req.auth.userName }).exec();
+      let employee = await Employee.findOne({
+        userName: req.auth.userName,
+      }).exec();
       if (!employee) res.status(401).json({ message: "Not authenticated." });
       else cbResult(req, res, employee);
     } catch (err) {
@@ -647,5 +655,5 @@ export default {
   updateDepartment,
   deleteDepartment,
   findDepartmentById,
-  findEmployeeAtDepartment
+  findEmployeeAtDepartment,
 };

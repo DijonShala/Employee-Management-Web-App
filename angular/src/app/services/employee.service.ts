@@ -203,7 +203,7 @@ export class EmployeeService {
   }
   getDepartment(departmentid: string) {
     return this.http.get<Department>(
-      `${this.apiUrl}/department/${departmentid}`
+      `${this.apiUrl}/department-data/${departmentid}`
     );
   }
   updateDepartment(departmentid: string, data: Department) {

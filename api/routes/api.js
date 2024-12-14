@@ -23,7 +23,7 @@ router.post("/login", ctrlAuthentication.login);
  * Employee
  */
 router.get("/employee-all", auth, ctrlEmployee.employeeAll);
-router.get("/employee/:username",auth, ctrlEmployee.employeeReadOne);
+router.get("/employee/:username", auth, ctrlEmployee.employeeReadOne);
 router.post("/employee", auth, ctrlEmployee.employeeCreate);
 router.put("/employee/:username", auth, ctrlEmployee.employeeUpdateOne);
 router.put("/change-password", auth, ctrlEmployee.employeePasswordChange);
@@ -33,11 +33,13 @@ router.get("/employee-filter", auth, ctrlEmployee.employeeListByMultiFilter);
  * Attendance
  */
 router.get(
-  "/attendanceByUsername/:username",auth ,
+  "/attendanceByUsername/:username",
+  auth,
   ctrlAttendance.attendanceByUsername
 );
 router.get(
-  "/attendance/startDate/:start/endDate/:end",auth ,
+  "/attendance/startDate/:start/endDate/:end",
+  auth,
   ctrlAttendance.attendanceByDateRange
 );
 router.post("/clockIn", auth, ctrlAttendance.clockIn);
@@ -56,7 +58,11 @@ router.delete("/leaves/:leaveId", auth, ctrlLeave.deleteLeave);
  */
 router.post("/salaries", auth, ctrlSalary.addSalary);
 router.get("/salaries/:userName", auth, ctrlSalary.getEmployeeSalaries);
-router.get("/salaries/month/:month/year/:year", auth, ctrlSalary.getSalariesByMonth);
+router.get(
+  "/salaries/month/:month/year/:year",
+  auth,
+  ctrlSalary.getSalariesByMonth
+);
 router.delete("/salaries/:salaryId", auth, ctrlSalary.deleteSalary);
 /**
  * Task
@@ -70,16 +76,18 @@ router.delete("/tasks/:taskId", auth, ctrlTask.deleteTask);
  * Department
  */
 router.get("/departments", auth, ctrlDepartment.getAllDepartments);
-router.get("/department/:depname", auth, ctrlDepartment.findEmployeeAtDepartment);
-router.get("/department/:id", auth, ctrlDepartment.findDepartmentById);
+router.get(
+  "/department/:depname",
+  auth,
+  ctrlDepartment.findEmployeeAtDepartment
+);
+router.get("/department-data/:id", auth, ctrlDepartment.findDepartmentById);
 router.post("/department", auth, ctrlDepartment.insertDepartment);
 router.put("/department/:id", auth, ctrlDepartment.updateDepartment);
 router.delete("/department/:id", auth, ctrlDepartment.deleteDepartment);
 /**
  * Add and delete database
  */
-router.route("/db")
-  .post(ctrlBase.addInitialData)
-  .delete(ctrlBase.deleteData);
+router.route("/db").post(ctrlBase.addInitialData).delete(ctrlBase.deleteData);
 
 export default router;
