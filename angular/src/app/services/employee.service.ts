@@ -8,13 +8,13 @@ import {
   Task,
 } from "../employee";
 import { HttpClient } from "@angular/common/http";
-import { Subject } from "rxjs";
-import { environment } from '../../environments/environment';
+import { Subject, Observable, of } from "rxjs";
+import { environment } from "../../environments/environment";
 import { BROWSER_STORAGE } from "../classes/storage";
+import { catchError, map } from "rxjs/operators";
 @Injectable({
   providedIn: "root",
 })
-
 export class EmployeeService {
   logged_in: boolean = false;
   administrator: boolean = false;
@@ -24,12 +24,12 @@ export class EmployeeService {
 
   constructor(
     private readonly http: HttpClient,
-    @Inject(BROWSER_STORAGE) private readonly storage: Storage,
+    @Inject(BROWSER_STORAGE) private readonly storage: Storage
   ) {
     this.initialize();
   }
   private apiUrl = environment.apiUrl;
-  initialize() {
+  initialize(): Observable<boolean> {
     let sessionStored_username = window.sessionStorage.getItem("username");
     this.username =
       sessionStored_username == null ? "" : sessionStored_username;
@@ -37,33 +37,26 @@ export class EmployeeService {
     let sessionStored_token = window.sessionStorage.getItem("token");
     this.token = sessionStored_token == null ? "" : sessionStored_token;
 
-    //console.log(this.username);
-    //console.log(this.token);
-
     if (this.username != "" && this.token != "") {
-      this.http.get<Employee>(`${this.apiUrl}/employee/${this.username}`).subscribe(
-        (data) => {
-          console.log("GOOD TOKEN");
-          console.log(this.username);
-          console.log(this.token);
+      return this.http
+        .get<Employee>(`${this.apiUrl}/employee/${this.username}`)
+        .pipe(
+          map((data) => {
+            this.logged_in = true;
+            this.administrator = data.role === "admin";
 
-          this.logged_in = true;
-          if (data.role == "admin") {
-            this.administrator = true;
-          } else {
-            this.administrator = false;
-          }
-        },
-        (error) => {
-          console.log("BAD TOKEN");
-          console.log(this.username);
-          console.log(this.token);
+            return true;
+          }),
+          catchError((error) => {
+            this.username = "";
+            this.token = "";
 
-          this.username = "";
-          this.token = "";
-        }
-      );
+            return of(false);
+          })
+        );
     }
+
+    return of(false);
   }
 
   login(username: string, password: string) {
@@ -77,12 +70,19 @@ export class EmployeeService {
   }
 
   logout() {
+    this.deleteCookie("username");
+    this.deleteCookie("token");
     window.sessionStorage.setItem("username", "");
 
     this.username = "";
 
     this.logged_in = false;
     this.administrator = false;
+  }
+
+  deleteCookie(name: string) {
+    document.cookie =
+      name + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
   }
 
   addEmployee(employee: Employee) {
@@ -95,7 +95,9 @@ export class EmployeeService {
 
   filterEmployee() {
     return this.http
-      .get<Employee>(`${this.apiUrl}/employee-filter?firstName=Admin&nResults=10`)
+      .get<Employee>(
+        `${this.apiUrl}/employee-filter?firstName=Admin&nResults=10`
+      )
       .subscribe();
   }
 
@@ -104,7 +106,10 @@ export class EmployeeService {
   }
 
   updateEmployee(username: string = this.username, employee: any) {
-    return this.http.put<Employee>(`${this.apiUrl}/employee/${username}`, employee);
+    return this.http.put<Employee>(
+      `${this.apiUrl}/employee/${username}`,
+      employee
+    );
   }
 
   removeEmployee(username: string) {
@@ -118,11 +123,17 @@ export class EmployeeService {
   }
 
   clockIn(username: string = this.username) {
-    return this.http.post<Attendance[]>(`${this.apiUrl}/clockIn/${username}`, "");
+    return this.http.post<Attendance[]>(
+      `${this.apiUrl}/clockIn/${username}`,
+      ""
+    );
   }
 
   clockOut(username: string = this.username) {
-    return this.http.post<Attendance[]>(`${this.apiUrl}/clockOut/${username}`, "");
+    return this.http.post<Attendance[]>(
+      `${this.apiUrl}/clockOut/${username}`,
+      ""
+    );
   }
 
   // TASKS
@@ -176,9 +187,7 @@ export class EmployeeService {
     return this.http.get(`${this.apiUrl}/salaries/${username}`);
   }
   getSalariesMonth(month: number, year: number) {
-    return this.http.get(
-      `${this.apiUrl}/salaries/month/${month}/year/${year}`
-    );
+    return this.http.get(`${this.apiUrl}/salaries/month/${month}/year/${year}`);
   }
   removeSalary(salaryid: string) {
     return this.http.delete(`${this.apiUrl}/salaries/${salaryid}`);
@@ -193,7 +202,9 @@ export class EmployeeService {
     return this.http.get<Department[]>(`${this.apiUrl}/departments`);
   }
   getDepartment(departmentid: string) {
-    return this.http.get<Department>(`${this.apiUrl}/department/${departmentid}`);
+    return this.http.get<Department>(
+      `${this.apiUrl}/department/${departmentid}`
+    );
   }
   updateDepartment(departmentid: string, data: Department) {
     return this.http.put<Department>(
@@ -208,7 +219,7 @@ export class EmployeeService {
   addInitialData() {
     return this.http.post(`${this.apiUrl}/db`, {});
   }
-  
+
   deleteData() {
     return this.http.delete(`${this.apiUrl}/db`);
   }

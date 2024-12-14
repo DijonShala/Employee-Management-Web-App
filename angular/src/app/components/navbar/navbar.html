@@ -11,7 +11,10 @@
   <div class="nav-link d-flex align-items-center h-100 p-2 cursor-pointer">
     <a [routerLink]="'/analytics'"> Analytics </a>
   </div>
-  <div class="nav-link d-flex align-items-center h-100 p-2 cursor-pointer">
+  <div
+    class="nav-link d-flex align-items-center h-100 p-2 cursor-pointer"
+    *ngIf="!employeeService.logged_in"
+  >
     <a [routerLink]="'/login'"> Log in </a>
   </div>
 
@@ -22,52 +25,48 @@
   <div class="nav-link d-flex align-items-center h-100 p-2 cursor-pointer">
     <a [routerLink]="'/departments'"> Departments </a>
   </div>
-  
+
   <div
-  class="nav-link d-flex align-items-center h-100 p-2 cursor-pointer"
-  (click)="addData(); openModal(addsucces)"
->
-  <button class="btn btn-primary btn-sm">Add Data</button>
-</div>
-
-<ng-template #addsucces>
-  <div class="modal-header" style="background-color:#34eb93;">
-    <h3 class="modal-title pull-left">
-      Data added succesfully!
-    </h3>
-    <button
-      type="button"
-      class="btn-close close pull-right"
-      aria-label="Close"
-      (click)="modalRef?.hide()"
-    >
-      <span aria-hidden="true" class="visually-hidden">&times;</span>
-    </button>
+    class="nav-link d-flex align-items-center h-100 p-2 cursor-pointer"
+    (click)="addData(); openModal(addsucces)"
+  >
+    <button class="btn btn-primary btn-sm">Add Data</button>
   </div>
-</ng-template>
 
-<div
-  class="nav-link d-flex align-items-center h-100 p-2 cursor-pointer"
-  (click)="deleteData(); openModal(deletesucces)"
->
-  <button class="btn btn-danger btn-sm">Delete Data</button>
-</div>
+  <ng-template #addsucces>
+    <div class="modal-header" style="background-color: #34eb93">
+      <h3 class="modal-title pull-left">Data added succesfully!</h3>
+      <button
+        type="button"
+        class="btn-close close pull-right"
+        aria-label="Close"
+        (click)="modalRef?.hide()"
+      >
+        <span aria-hidden="true" class="visually-hidden">&times;</span>
+      </button>
+    </div>
+  </ng-template>
 
-<ng-template #deletesucces>
-  <div class="modal-header" style="background-color:#eb4034;">
-    <h3 class="modal-title pull-left">
-      Data deleted succesfully!
-    </h3>
-    <button
-      type="button"
-      class="btn-close close pull-right"
-      aria-label="Close"
-      (click)="modalRef?.hide()"
-    >
-      <span aria-hidden="true" class="visually-hidden">&times;</span>
-    </button>
+  <div
+    class="nav-link d-flex align-items-center h-100 p-2 cursor-pointer"
+    (click)="deleteData(); openModal(deletesucces)"
+  >
+    <button class="btn btn-danger btn-sm">Delete Data</button>
   </div>
-</ng-template>
+
+  <ng-template #deletesucces>
+    <div class="modal-header" style="background-color: #eb4034">
+      <h3 class="modal-title pull-left">Data deleted succesfully!</h3>
+      <button
+        type="button"
+        class="btn-close close pull-right"
+        aria-label="Close"
+        (click)="modalRef?.hide()"
+      >
+        <span aria-hidden="true" class="visually-hidden">&times;</span>
+      </button>
+    </div>
+  </ng-template>
 
   <div
     *ngIf="employeeService.logged_in"

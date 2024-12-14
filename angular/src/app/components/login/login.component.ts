@@ -52,24 +52,47 @@ export class LoginComponent {
     this.employeeService.login(result.username, result.password).subscribe(
       (data) => {
         let token = JSON.stringify(data).slice(10, -2); // standarden typescript
-        window.sessionStorage.setItem("username", result.username);
-        window.sessionStorage.setItem("token", token);
-        this.employeeService.initialize();
-
-        //this.router.navigate(["/clockin"]);
+        document.cookie =
+          "username=" + result.username + "; path=/; max-age=3600";
+        document.cookie = "token=" + token + "; path=/; max-age=3600";
+        this.finishLogin(result.username, token);
       },
       (error) => {}
     );
   }
 
-  redirected: boolean = false;
-  ngOnInit() {
-    this.route.queryParams.subscribe((params) => {
-      if (params["redirected"] == "true") {
-        this.redirected = true;
-      } else {
-        this.redirected = false;
+  finishLogin(username: string, token: string) {
+    window.sessionStorage.setItem("username", username);
+    window.sessionStorage.setItem("token", token);
+    this.employeeService.initialize().subscribe((data: Boolean) => {
+      console.log(data);
+      if (data) {
+        this.router.navigate(["/clockin"]);
       }
     });
+  }
+
+  redirected: boolean = false;
+  ngOnInit() {
+    let username = this.getCookie("username");
+    let token = this.getCookie("token");
+
+    if (username != null && token != null) {
+      this.finishLogin(username, token);
+    }
+
+    this.route.queryParams.subscribe((params) => {
+      if (params["redirected"] == "true") {
+        //this.redirected = true;
+      } else {
+        //this.redirected = false;
+      }
+    });
+  }
+
+  getCookie(name: string) {
+    let match = document.cookie.match(new RegExp("(^| )" + name + "=([^;]+)"));
+    if (match) return match[2];
+    return null;
   }
 }

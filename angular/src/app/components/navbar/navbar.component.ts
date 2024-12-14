@@ -4,7 +4,6 @@ import { RouterModule, Router } from "@angular/router";
 import { EmployeeService } from "../../services/employee.service";
 import { BsModalService, BsModalRef } from "ngx-bootstrap/modal";
 
-
 @Component({
   selector: "app-navbar",
   imports: [RouterModule, CommonModule],
@@ -25,14 +24,15 @@ export class NavbarComponent {
     this.modalRef = this.modalService.show(form, {
       class: "modal-dialog-centered",
       keyboard: false,
-      ignoreBackdropClick: true
+      ignoreBackdropClick: true,
     });
   }
-  
+
   logout() {
     this.employeeService.logout();
     this.router.navigate(["/login"]);
   }
+
   addData() {
     this.employeeService.addInitialData().subscribe({
       next: () => {},
