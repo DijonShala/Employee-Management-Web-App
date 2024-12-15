@@ -126,7 +126,6 @@ export class UserpageComponent {
       },
     ];
     this.showForm = false;
-    this.showForm = false;
     setTimeout(() => (this.showForm = true), 0);
   }
 

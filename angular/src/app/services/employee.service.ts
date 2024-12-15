@@ -12,6 +12,7 @@ import { Subject, Observable, of } from "rxjs";
 import { environment } from "../../environments/environment";
 import { BROWSER_STORAGE } from "../classes/storage";
 import { catchError, map } from "rxjs/operators";
+import { HttpParams } from "@angular/common/http";
 @Injectable({
   providedIn: "root",
 })
@@ -36,8 +37,7 @@ export class EmployeeService {
       sessionStored_username == null ? "" : sessionStored_username;
 
     let sessionStored_role = window.sessionStorage.getItem("role");
-    this.role =
-        sessionStored_role == null ? "" : sessionStored_role;
+    this.role = sessionStored_role == null ? "" : sessionStored_role;
 
     let sessionStored_token = window.sessionStorage.getItem("token");
     this.token = sessionStored_token == null ? "" : sessionStored_token;
@@ -100,12 +100,25 @@ export class EmployeeService {
     return this.http.get<Employee>(`${this.apiUrl}/employee/${username}`);
   }
 
-  filterEmployee() {
-    return this.http
-      .get<Employee>(
-        `${this.apiUrl}/employee-filter?firstName=Admin&nResults=10`
-      )
-      .subscribe();
+  filterEmployee(employee: any, limit10: Boolean) {
+    let params = new HttpParams();
+    for (const key in employee) {
+      if (employee.hasOwnProperty(key) && employee[key] !== undefined) {
+        params = params.set(key, employee[key]);
+      }
+    }
+    if (limit10) {
+      return this.http.get<Employee[]>(`${this.apiUrl}/employee-filter`, {
+        params,
+      });
+    } else {
+      return this.http.get<Employee[]>(
+        `${this.apiUrl}/employee-filter?nResults=1000`,
+        {
+          params,
+        }
+      );
+    }
   }
 
   getEmployees() {
@@ -189,10 +202,10 @@ export class EmployeeService {
   }
   getSalariesMonth(month: number, year: number): Observable<Salary[]> {
     return this.http
-      .get<{ message: string; salaries: Salary[] }>(`${this.apiUrl}/salaries/month/${month}/year/${year}`)
-      .pipe(
-        map((response) => response.salaries)
-      );
+      .get<{ message: string; salaries: Salary[] }>(
+        `${this.apiUrl}/salaries/month/${month}/year/${year}`
+      )
+      .pipe(map((response) => response.salaries));
   }
   removeSalary(salaryid: string) {
     return this.http.delete(`${this.apiUrl}/salaries/${salaryid}`);

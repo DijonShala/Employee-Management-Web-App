@@ -1,6 +1,12 @@
 import Employee from "../models/employee.js";
-import { joiemployeeSchema, joiemployeeUpdateSchema, joichangePasswordSchema } from "../utils/joivalidate.js";
+import {
+  joiemployeeSchema,
+  joiemployeeUpdateSchema,
+  joichangePasswordSchema,
+} from "../utils/joivalidate.js";
 import sendEmail from "../utils/mailer.js";
+import salary from "./salary.js";
+import mongoose from "mongoose";
 /**
  * @openapi
  * paths:
@@ -55,13 +61,13 @@ import sendEmail from "../utils/mailer.js";
 const employeeAll = async (req, res) => {
   getEmployee(req, res, async (req, res, emp) => {
     try {
-      if(emp.role != "admin"){
+      if (emp.role != "admin") {
         return res.status(403).json({
           message: "Not authorized to access this info.",
         });
-      };
-        const employee = await Employee.find().select("-_id -salt -hash").exec();
-        res.status(200).json(employee);
+      }
+      const employee = await Employee.find().select("-_id -salt -hash").exec();
+      res.status(200).json(employee);
     } catch (err) {
       res.status(500).json({ message: err.message });
     }
@@ -156,14 +162,16 @@ const employeeReadOne = async (req, res) => {
         });
         return;
       }
-      if(emp.role != "admin" && emp.userName != req.params.username){
+      if (emp.role != "admin" && emp.userName != req.params.username) {
         return res.status(403).json({
           message: "Not authorized to access this info.",
         });
       }
       const employee = await Employee.findOne({
         userName: req.params.username,
-      }).select("-_id -salt -hash").exec();
+      })
+        .select("-_id -salt -hash")
+        .exec();
       if (!employee) {
         res.status(404).json({
           message: `Employe with id '${req.params.username}' not found`,
@@ -340,7 +348,9 @@ const employeeReadOne = async (req, res) => {
 const employeeCreate = async (req, res) => {
   getEmployee(req, res, async (req, res, emp) => {
     try {
-      const result = joiemployeeSchema.validate(req.body, { abortEarly: false });
+      const result = joiemployeeSchema.validate(req.body, {
+        abortEarly: false,
+      });
       const { error, value } = result;
       if (error) {
         return res.status(400).json({
@@ -348,7 +358,7 @@ const employeeCreate = async (req, res) => {
           details: error.details.map((detail) => detail.message),
         });
       }
-      if(emp.role != "admin"){
+      if (emp.role != "admin") {
         return res.status(403).json({
           message: "Not authorized to add new employee.",
         });
@@ -380,31 +390,31 @@ const employeeCreate = async (req, res) => {
   });
 };
 
-  const doAddEmployee = async (value, res) => {
-    try {
-      const newEmployee = new Employee({
-        userName: value.userName,
-        firstName: value.firstName,
-        lastName: value.lastName,
-        email: value.email,
-        phoneNumber: value.phoneNumber,
-        jobTitle: value.jobTitle,
-        role: value.role,
-        departmentId: value.departmentId,
-        hireDate: value.hireDate,
-        salary: value.salary,
-        status: value.status,
-        address: {
-          street: value.street,
-          city: value.city,
-          zipCode: value.zipCode,
-          country: value.country,
-        },
-      });
+const doAddEmployee = async (value, res) => {
+  try {
+    const newEmployee = new Employee({
+      userName: value.userName,
+      firstName: value.firstName,
+      lastName: value.lastName,
+      email: value.email,
+      phoneNumber: value.phoneNumber,
+      jobTitle: value.jobTitle,
+      role: value.role,
+      departmentId: value.departmentId,
+      hireDate: value.hireDate,
+      salary: value.salary,
+      status: value.status,
+      address: {
+        street: value.street,
+        city: value.city,
+        zipCode: value.zipCode,
+        country: value.country,
+      },
+    });
 
     newEmployee.setPassword(value.password);
     await newEmployee.save();
-      
+
     const emailText = `
     Hi ${value.firstName},
 
@@ -425,11 +435,14 @@ const employeeCreate = async (req, res) => {
     `;
     await sendEmail(value.email, "Account created", emailText);
 
-      res.status(201).json({ message: "Employee created successfully", token: newEmployee.generateJwt() });
-    } catch (error) {
-      res.status(500).json({ status: "Error", message: error.message });
-    }
-  };
+    res.status(201).json({
+      message: "Employee created successfully",
+      token: newEmployee.generateJwt(),
+    });
+  } catch (error) {
+    res.status(500).json({ status: "Error", message: error.message });
+  }
+};
 
 /**
  * @openapi
@@ -588,14 +601,16 @@ const employeeUpdateOne = async (req, res) => {
   getEmployee(req, res, async (req, res, emp) => {
     try {
       const { username } = req.params;
-      const { error, value } = joiemployeeUpdateSchema.validate(req.body, { abortEarly: false });
+      const { error, value } = joiemployeeUpdateSchema.validate(req.body, {
+        abortEarly: false,
+      });
       if (error) {
         return res.status(400).json({
           message: "Validation error.",
           details: error.details.map((detail) => detail.message),
         });
       }
-      if(emp.role != "admin" && emp.userName != username){
+      if (emp.role != "admin" && emp.userName != username) {
         return res.status(403).json({
           message: "Not authorized to update employee data.",
         });
@@ -610,7 +625,7 @@ const employeeUpdateOne = async (req, res) => {
       employee.firstName = value.firstName || employee.firstName;
       employee.lastName = value.lastName || employee.lastName;
       employee.email = value.email || employee.email;
-      if(emp.role =="admin") employee.role = value.role || employee.role;
+      if (emp.role == "admin") employee.role = value.role || employee.role;
       employee.phoneNumber = value.phoneNumber || employee.phoneNumber;
       employee.jobTitle = value.jobTitle || employee.jobTitle;
       employee.departmentId = value.departmentId || employee.departmentId;
@@ -696,7 +711,7 @@ const employeeDeleteOne = async (req, res) => {
     try {
       const { username } = req.params;
 
-      if(emp.role != "admin"){
+      if (emp.role != "admin") {
         return res.status(403).json({
           message: "Not authorized to delete employee.",
         });
@@ -858,11 +873,12 @@ const allowedCodelists = [
   "address.city",
   "address.street",
   "address.zipcode",
+  "role",
 ];
 
 const employeeListByMultiFilter = async (req, res) => {
   getEmployee(req, res, async (req, res, emp) => {
-    if(emp.role != "admin"){
+    if (emp.role != "admin") {
       return res.status(403).json({
         message: "Not authorized to access this info.",
       });
@@ -872,28 +888,23 @@ const employeeListByMultiFilter = async (req, res) => {
     allowedCodelists.forEach((codelist) => {
       let value = req.query[codelist];
       if (value) {
-        if (codelist === "address") {
-          Object.keys(req.query).forEach((key) => {
-            if (key.startsWith("address.")) {
-              let field = key.split(".")[1];
-              filter.push({ $match: { [`address.${field}`]: req.query[key] } });
-            }
-          });
-        } else {
-          filter.push({ $match: { [codelist]: value } });
+        if (codelist == "salary") {
+          value = parseInt(value);
+        } else if (codelist === "departmentId") {
+          value = new mongoose.Types.ObjectId(value);
         }
+        filter.push({ $match: { [codelist]: value } });
       }
     });
 
     let nResults = parseInt(req.query.nResults);
     nResults = isNaN(nResults) ? 10 : nResults;
     filter.push({ $limit: nResults });
+    filter.push({ $project: { _id: 0, __v: 0, salt: 0, hash: 0 } });
 
     try {
       let employee = await Employee.aggregate(filter).exec();
-      if (!employee || employee.length === 0)
-        res.status(404).json({ message: "No employee found." });
-      else res.status(200).json(employee);
+      res.status(200).json(employee);
     } catch (err) {
       res.status(500).json({ message: err.message });
     }
@@ -992,37 +1003,40 @@ const employeeListByMultiFilter = async (req, res) => {
 const employeePasswordChange = async (req, res) => {
   getEmployee(req, res, async (req, res, emp) => {
     try {
-      const { error, value } = joichangePasswordSchema.validate(req.body, { abortEarly: false });
+      const { error, value } = joichangePasswordSchema.validate(req.body, {
+        abortEarly: false,
+      });
       if (error) {
         return res.status(400).json({
           message: "Validation error.",
-          details: error.details.map((detail) => detail.message)
+          details: error.details.map((detail) => detail.message),
         });
       }
-      const {oldPassword, newPassword} = value;
+      const { oldPassword, newPassword } = value;
       const employee = await Employee.findOne({ userName: emp.userName });
-      if(!employee) {
-      return res.status(401).json({ message: "Employee not found"})
+      if (!employee) {
+        return res.status(401).json({ message: "Employee not found" });
       }
-      const isMatch = await employee.validPassword(oldPassword)
-      if(!isMatch) {
-      return res.status(404).json({ message: "Wrong old password" })
+      const isMatch = await employee.validPassword(oldPassword);
+      if (!isMatch) {
+        return res.status(404).json({ message: "Wrong old password" });
       }
       employee.setPassword(newPassword);
       await employee.save();
 
-      return res.status(200).json({ message: "Password updated succesfully" })
-
-    } catch(error) {
-        return res.status(500).json({ error: error.message })
+      return res.status(200).json({ message: "Password updated succesfully" });
+    } catch (error) {
+      return res.status(500).json({ error: error.message });
     }
   });
-}
+};
 
 const getEmployee = async (req, res, cbResult) => {
   if (req.auth?.userName) {
     try {
-      let employee = await Employee.findOne({ userName: req.auth.userName }).exec();
+      let employee = await Employee.findOne({
+        userName: req.auth.userName,
+      }).exec();
       if (!employee) res.status(401).json({ message: "Not authenticated." });
       else cbResult(req, res, employee);
     } catch (err) {
@@ -1038,5 +1052,5 @@ export default {
   employeeDeleteOne,
   employeeUpdateOne,
   employeeListByMultiFilter,
-  employeePasswordChange
+  employeePasswordChange,
 };

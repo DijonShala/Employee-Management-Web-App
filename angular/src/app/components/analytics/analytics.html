@@ -1,4 +1,3 @@
-
 <div class="container-sm p-5 bg-light">
   <h3>Get salaries by Month / Year</h3>
   <app-nice-form
@@ -25,7 +24,10 @@
           <td>{{ salary.basicSalary }}</td>
           <td>{{ salary.allowances }}</td>
           <td>{{ salary.deductions }}</td>
-          <td>{{ salary.basicSalary + (salary.allowances || 0) - (salary.deductions || 0) }}</td>
+          <td>
+            {{ salary.basicSalary + (salary.allowances || 0) -
+            (salary.deductions || 0) }}
+          </td>
           <td>{{ salary.payDate | date: 'shortDate' }}</td>
         </tr>
       </tbody>
@@ -65,4 +67,55 @@
 
 <div *ngIf="allLeaves.length === 0" class="mt-4">
   <p>No leave requests found.</p>
+</div>
+
+<div class="container-sm p-5 bg-light" *ngIf="showFilterEmployeeForm">
+  <h3>Filter Employee</h3>
+  <app-nice-form
+    [formcontrol]="formFilterEmployee"
+    (result)="fetchFilterEmployee($event)"
+    [resetAfterSubmit]="false"
+  ></app-nice-form>
+</div>
+<div *ngIf="FilteredEmployee" class="mt-4">
+  <h4>Filtered employee</h4>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>#</th>
+        <!-- Row number column -->
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Email</th>
+        <th>Phone Number</th>
+        <th>Job Title</th>
+        <th>Role</th>
+        <th>Salary</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let emp of FilteredEmployee; let i = index">
+        <td>{{ i + 1 }}</td>
+        <!-- Display row number -->
+        <td>{{ emp.firstName }}</td>
+        <td>{{ emp.lastName }}</td>
+        <td>{{ emp.email }}</td>
+        <td>{{ emp.phoneNumber }}</td>
+        <td>{{ emp.jobTitle }}</td>
+        <td>{{ emp.role }}</td>
+        <td>{{ emp.salary }}</td>
+      </tr>
+    </tbody>
+  </table>
+  <button
+    class="btn btn-primary"
+    (click)="showMoreThen10()"
+    *ngIf="!limit10 && FilteredEmployee.length >= 10"
+  >
+    Show all
+  </button>
+</div>
+
+<div *ngIf="FilteredEmployee && FilteredEmployee.length === 0" class="mt-4">
+  <p>No employee found.</p>
 </div>
