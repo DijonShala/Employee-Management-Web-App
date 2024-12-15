@@ -45,7 +45,7 @@
       class="nav-link d-flex align-items-center p-2 cursor-pointer"
       (click)="openUrl('/register')"
     >
-      <a> Register a user </a>
+      <a> Employee </a>
     </div>
 
     <div *ngIf="employeeService.role === 'admin'"
@@ -55,6 +55,13 @@
       <a> Departments </a>
     </div>
     
+    <div
+      class="nav-link d-flex align-items-center p-2 cursor-pointer"
+      (click)="openUrl('/tasks')"
+    >
+      <a> Tasks </a>
+    </div>
+
     <div
       class="nav-link d-flex align-items-center p-2 cursor-pointer"
       (click)="openUrl('/leaves')"

@@ -12,6 +12,7 @@ import { DepartmentsComponent } from "./components/departments/departments.compo
 import { DepartmentComponent } from "./components/departments/department.component";
 import { SalariesComponent } from "./components/salaries/salaries.component";
 import { LeavesComponent } from "./components/leaves/leaves.component";
+import { TasksComponent } from "./components/tasks/tasks.component";
 
 export const routes: Routes = [
   { path: "clockin", component: ClockinComponent, canActivate: [loginGuard] },
@@ -31,6 +32,11 @@ export const routes: Routes = [
   {
     path: "leaves",
     component: LeavesComponent,
+    canActivate: [loginGuard],
+  },
+  {
+    path: "tasks",
+    component: TasksComponent,
     canActivate: [loginGuard],
   },
   {

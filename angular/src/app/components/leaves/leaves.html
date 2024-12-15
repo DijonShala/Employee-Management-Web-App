@@ -6,26 +6,28 @@
   ></app-nice-form>
 </div>
 
-<div class="container-sm p-5 bg-light">
-  <h3>{{ employee?.userName}} Leaves</h3>
-    <table class="table table-bordered table-hover ">
-      <thead>
-        <tr>
-          <th>Reason</th>
-          <th>Start Date</th>
-          <th>End Date</th>
-          <th>Status</th>
-          <th>Applied At</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let leave of employee_leaves">
-          <td>{{ leave.reason }}</td>
-          <td>{{ leave.startDate  | date: 'shortDate' }}</td>
-          <td>{{ leave.endDate  | date: 'shortDate' }}</td>
-          <td>{{ leave.status || "Pending" }}</td>
-          <td>{{ leave.appliedAt  | date: 'shortDate'}}</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+<div *ngIf="employee_leaves.length > 0" class="mt-4">
+  <div class="container-sm p-5 bg-light">
+    <h3>{{ employee?.userName}} leaves:</h3>
+      <table class="table table-bordered table-hover ">
+        <thead>
+          <tr>
+            <th>Reason</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Status</th>
+            <th>Applied At</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let leave of employee_leaves">
+            <td>{{ leave.reason }}</td>
+            <td>{{ leave.startDate  | date: 'shortDate' }}</td>
+            <td>{{ leave.endDate  | date: 'shortDate' }}</td>
+            <td>{{ leave.status || "Pending" }}</td>
+            <td>{{ leave.appliedAt  | date: 'shortDate'}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+</div>

@@ -46,44 +46,48 @@
   </div>
 </div>
 -->
-<div class="container-sm p-5 bg-light">
-  <h3>{{ employee?.userName }} Salaries</h3>
-    <table class="table table-bordered table-hover ">
-      <thead>
-        <tr>
-          <th>Basic Salary</th>
-          <th>Allowances</th>
-          <th>Deductions</th>
-          <th>Net Salary</th>
-          <th>Pay Date</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let salary of employee_salary">
-          <td>{{ salary.basicSalary }}</td>
-          <td>{{ salary.allowances }}</td>
-          <td>{{ salary.deductions }}</td>
-          <td>{{ salary.basicSalary + (salary.allowances || 0) - (salary.deductions || 0) }}</td>
-          <td>{{ salary.payDate | date: 'shortDate' }}</td>
-        </tr>
-      </tbody>
-    </table>
+<div *ngIf="employee_salary.length > 0" class="mt-4">
+  <div class="container-sm p-5 bg-light">
+    <h3>{{ employee?.userName }} salaries</h3>
+      <table class="table table-bordered table-hover ">
+        <thead>
+          <tr>
+            <th>Basic Salary</th>
+            <th>Allowances</th>
+            <th>Deductions</th>
+            <th>Net Salary</th>
+            <th>Pay Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let salary of employee_salary">
+            <td>{{ salary.basicSalary }}</td>
+            <td>{{ salary.allowances }}</td>
+            <td>{{ salary.deductions }}</td>
+            <td>{{ salary.basicSalary + (salary.allowances || 0) - (salary.deductions || 0) }}</td>
+            <td>{{ salary.payDate | date: 'shortDate' }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+</div>
+<div *ngIf="employee_salary.length > 0" class="mt-4">
+  <div class="container bg-light">
+    <ngx-charts-line-chart
+      [view]="[1000, 400]"
+      [legend]="legend"
+      [showXAxisLabel]="showXAxisLabel"
+      [showYAxisLabel]="showYAxisLabel"
+      [xAxis]="xAxis"
+      [yAxis]="yAxis"
+      [xAxisLabel]="xAxisLabel"
+      [yAxisLabel]="yAxisLabel"
+      [timeline]="timeline"
+      [results]="salarydata$ | async"
+      (select)="onSelect($event)"
+      (activate)="onActivate($event)"
+      (deactivate)="onDeactivate($event)"
+    >
+    </ngx-charts-line-chart>
   </div>
-<div class="container bg-light">
-  <ngx-charts-line-chart
-    [view]="[1000, 400]"
-    [legend]="legend"
-    [showXAxisLabel]="showXAxisLabel"
-    [showYAxisLabel]="showYAxisLabel"
-    [xAxis]="xAxis"
-    [yAxis]="yAxis"
-    [xAxisLabel]="xAxisLabel"
-    [yAxisLabel]="yAxisLabel"
-    [timeline]="timeline"
-    [results]="salarydata$ | async"
-    (select)="onSelect($event)"
-    (activate)="onActivate($event)"
-    (deactivate)="onDeactivate($event)"
-  >
-  </ngx-charts-line-chart>
 </div>

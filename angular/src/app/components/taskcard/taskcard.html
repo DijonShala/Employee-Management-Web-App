@@ -29,9 +29,11 @@
         <option>In progress</option>
         <option>Done</option>
       </select>
-      <button (click)="deleteTask()" type="button" class="btn btn-danger">
-        Delete task
-      </button>
+      <div *ngIf="employeeService.role === 'admin'">
+        <button (click)="deleteTask()" type="button" class="btn btn-danger">
+          Delete task
+        </button>
+      </div>
     </div>
   </div>
 </div>

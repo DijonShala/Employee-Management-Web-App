@@ -1,0 +1,10 @@
+<div class="container-sm py-2 my-5 shadow-md bg-light">
+    <h3>Tasks</h3>
+
+    <div *ngIf="tasks != null">
+      <div *ngFor="let task of tasks.tasks">
+        <app-taskcard [task]="task"></app-taskcard>
+        <hr />
+      </div>
+    </div>
+  </div>

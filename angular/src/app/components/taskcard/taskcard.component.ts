@@ -16,7 +16,7 @@ export class TaskcardComponent {
   deleted: boolean = false;
 
   selectedStatus!: string | undefined;
-  constructor(private employeeService: EmployeeService) {}
+  constructor(public employeeService: EmployeeService) {}
   ngOnInit() {
     this.selectedStatus = this.task.status;
   }

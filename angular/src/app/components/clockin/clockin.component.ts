@@ -91,26 +91,8 @@ export class ClockinComponent {
     private router: Router
   ) {}
 
-  tasks: any;
-
-  updateTask(taskid: string, value: string) {
-    this.employeeService
-      .updateTask(taskid, { status: value })
-      .subscribe((data) => {
-        this.getTasks();
-      });
-  }
-
-  getTasks() {
-    this.employeeService
-      .getEmployeeTasks(this.employeeService.username)
-      .subscribe((data) => {
-        this.tasks = data;
-      });
-  }
 
   ngOnInit() {
-    this.getTasks();
     this.getEmployee();
 
     window.setInterval(() => {
