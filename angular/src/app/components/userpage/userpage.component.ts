@@ -27,7 +27,7 @@ import { LeavecardComponent } from "../leavecard/leavecard.component";
     JsonPipe,
     CommonModule,
     TaskcardComponent,
-    LeavecardComponent
+    LeavecardComponent,
   ],
   templateUrl: "userpage.html",
   styles: ``,
@@ -35,6 +35,8 @@ import { LeavecardComponent } from "../leavecard/leavecard.component";
 export class UserpageComponent {
   employee!: Employee;
   formcontrol!: niceForm[];
+  departmentOptions!: { label: string; value: string }[];
+  showForm = false;
 
   strongstring(s: string) {
     return `<strong> ` + s + ` </strong>`;
@@ -87,20 +89,30 @@ export class UserpageComponent {
 
       {
         name: "role",
-        type: "text",
-        title: "Role: " + this.strongstring(this.employee.role),
+        type: "select",
+        title: "Role" + this.strongstring(this.employee.role),
         placeholder: "Role",
         default: "",
         validators: [],
+        options: [
+          { label: "admin", value: "admin" },
+          { label: "employee", value: "employee" },
+        ],
       },
 
       {
         name: "departmentid",
-        type: "text",
+        type: "select",
         title:
-          "Department ID: " + this.strongstring(this.employee.departmentId),
-        placeholder: "Department ID",
+          "Department" +
+          this.strongstring(
+            this.departmentOptions.find(
+              (x) => x.value == this.employee.departmentId
+            )?.label || ""
+          ),
+        placeholder: "Department",
         default: "",
+        options: this.departmentOptions,
         validators: [],
       },
 
@@ -113,6 +125,9 @@ export class UserpageComponent {
         validators: [],
       },
     ];
+    this.showForm = false;
+    this.showForm = false;
+    setTimeout(() => (this.showForm = true), 0);
   }
 
   constructor(
@@ -125,23 +140,23 @@ export class UserpageComponent {
     this.setEmployee();
   }
   fetchEmployeeSalaries() {
-        this.employeeService.
-        getSalaries(this.employee.userName)
-        .pipe(retry(1))
-        .subscribe(
-          (response: any) => {
-            if (response && Array.isArray(response.salaries)) {
-              this.employee_salary = response.salaries;
-            } else {
-              console.error("Invalid response format: Expected `leaves` array.");
-              this.employee_salary = [];
-            }
-          },
-          (error) => {
-            console.error("Failed to fetch employee leaves:", error);
+    this.employeeService
+      .getSalaries(this.employee.userName)
+      .pipe(retry(1))
+      .subscribe(
+        (response: any) => {
+          if (response && Array.isArray(response.salaries)) {
+            this.employee_salary = response.salaries;
+          } else {
+            console.error("Invalid response format: Expected `leaves` array.");
+            this.employee_salary = [];
           }
-        );
-      }
+        },
+        (error) => {
+          console.error("Failed to fetch employee leaves:", error);
+        }
+      );
+  }
   setEmployee() {
     this.route.paramMap.subscribe((param) => {
       let username: string | null = param.get("name");
@@ -161,16 +176,36 @@ export class UserpageComponent {
           this.employeeService.getDepartments().subscribe((data) => {
             this.departments = data;
           });
+
+          this.employeeService
+            .getDepartments()
+            .pipe(retry(1))
+            .subscribe(
+              (departments: Department[]) => {
+                const departmentOptions = departments.map((dept) => ({
+                  label: dept.name || "Unknown",
+                  value: dept._id ?? "",
+                }));
+
+                this.departmentOptions = departmentOptions;
+
+                this.fetchEmployeeSalaries();
+                this.getTasks();
+                this.getLeaves();
+                this.setformcontrol();
+              },
+              (error) => {
+                console.error("Error loading departments:", error);
+                return [];
+              }
+            );
+
           //this.employeeService
           //  .getDepartment(this.employee.userName)
           //  .subscribe((data) => {
           //    this.employee_department = data;
           //    console.log(this.employee_department);
           //  });
-          this.fetchEmployeeSalaries();
-          this.getTasks();
-          this.getLeaves();
-          this.setformcontrol();
         });
       }
     });
@@ -189,20 +224,20 @@ export class UserpageComponent {
     departmentid: string;
     salary: string;
   }) {
-    let employee = {
+    let updatedEmployee = {
       firstName: data.firstname == "" ? undefined : data.firstname,
       lastName: data.lastname == "" ? undefined : data.lastname,
       email: data.email == "" ? undefined : data.email,
       phoneNumber: data.phonenumber == "" ? undefined : data.phonenumber,
       jobTitle: data.jobtitle == "" ? undefined : data.jobtitle,
       role: data.role == "" ? undefined : data.role,
-      departmentId: "674573519322d092552e31a4", //data.departmentid,
+      departmentId: data.departmentid == "" ? undefined : data.departmentid,
       hireDate: "2024-11-26T10:21:38.124Z", //new Date().toString(),
       salary: data.salary == "" ? undefined : parseInt(data.salary),
     };
 
     this.employeeService
-      .updateEmployee(this.employee.userName, employee)
+      .updateEmployee(this.employee.userName, updatedEmployee)
       .subscribe(
         (data) => {
           this.success_status = "SUCCESS";
@@ -334,7 +369,7 @@ export class UserpageComponent {
         this.leaves = data;
       });
   }
-  
+
   updateLeaves(taskid: string, value: string) {
     this.employeeService
       .updateLeave(taskid, { status: value })
@@ -391,8 +426,7 @@ export class UserpageComponent {
       (data) => {
         this.setEmployee();
       },
-      (error) => {
-      }
+      (error) => {}
     );
   }
   tasks: any;
@@ -403,7 +437,7 @@ export class UserpageComponent {
         this.tasks = data;
       });
   }
-  
+
   updateTask(taskid: string, value: string) {
     this.employeeService
       .updateTask(taskid, { status: value })

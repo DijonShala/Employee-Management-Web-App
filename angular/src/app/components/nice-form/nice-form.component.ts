@@ -21,6 +21,7 @@ import { niceForm } from "../../employee";
 export class NiceFormComponent {
   @Input() formcontrol!: niceForm[];
   @Output() result = new EventEmitter();
+  @Input() resetAfterSubmit: boolean = true;
 
   formgroup!: FormGroup;
   constructor(private fb: FormBuilder) {}
@@ -38,7 +39,9 @@ export class NiceFormComponent {
   property_validators_required: ValidatorFn = Validators.required;
   submit() {
     this.result.emit(this.formgroup.getRawValue());
-    this.formgroup.reset();
+    if (this.resetAfterSubmit) {
+      this.formgroup.reset();
+    }
   }
 
   getValidationClass(controlName: string): string {

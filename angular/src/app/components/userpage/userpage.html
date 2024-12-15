@@ -17,6 +17,8 @@
         <p>Update the data of this user.</p>
 
         <app-nice-form
+          [resetAfterSubmit]="false"
+          *ngIf="showForm"
           [formcontrol]="formcontrol"
           (result)="update($event)"
         ></app-nice-form>
@@ -42,29 +44,31 @@
         <div *ngIf="employee_salary.length > 0" class="mt-4">
           <div class="container-sm p-5 bg-light">
             <h3>{{ employee?.userName }} salaries</h3>
-              <table class="table table-bordered table-hover ">
-                <thead>
-                  <tr>
-                    <th>Basic Salary</th>
-                    <th>Allowances</th>
-                    <th>Deductions</th>
-                    <th>Net Salary</th>
-                    <th>Pay Date</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let salary of employee_salary">
-                    <td>{{ salary.basicSalary }}</td>
-                    <td>{{ salary.allowances }}</td>
-                    <td>{{ salary.deductions }}</td>
-                    <td>{{ salary.basicSalary + (salary.allowances || 0) - (salary.deductions || 0) }}</td>
-                    <td>{{ salary.payDate | date: 'shortDate' }}</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+            <table class="table table-bordered table-hover">
+              <thead>
+                <tr>
+                  <th>Basic Salary</th>
+                  <th>Allowances</th>
+                  <th>Deductions</th>
+                  <th>Net Salary</th>
+                  <th>Pay Date</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let salary of employee_salary">
+                  <td>{{ salary.basicSalary }}</td>
+                  <td>{{ salary.allowances }}</td>
+                  <td>{{ salary.deductions }}</td>
+                  <td>
+                    {{ salary.basicSalary + (salary.allowances || 0) -
+                    (salary.deductions || 0) }}
+                  </td>
+                  <td>{{ salary.payDate | date: 'shortDate' }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
-
       </div>
 
       <br />
@@ -77,14 +81,14 @@
 
         <div class="container-sm py-2 my-5 shadow-md bg-light">
           <h3>Leave requests</h3>
-      
+
           <div *ngIf="leaves != null">
             <div *ngFor="let leave of leaves.leaves">
               <app-leavecard [leave]="leave"></app-leavecard>
               <hr />
             </div>
           </div>
-      </div>
+        </div>
       </div>
 
       <br />
@@ -96,30 +100,14 @@
         ></app-nice-form>
 
         <div class="container-sm py-2 my-5 shadow-md bg-light">
-        <h3>Tasks</h3>
+          <h3>Tasks</h3>
 
-        <div *ngIf="tasks != null">
-          <div *ngFor="let task of tasks.tasks">
-            <app-taskcard [task]="task"></app-taskcard>
-            <hr />
+          <div *ngIf="tasks != null">
+            <div *ngFor="let task of tasks.tasks">
+              <app-taskcard [task]="task"></app-taskcard>
+              <hr />
+            </div>
           </div>
-        </div>
-        </div>
-      </div>
-
-      <br />
-      <div class="container-sm p-5 bg-light">
-        <h3>Create a department</h3>
-        <app-nice-form
-          [formcontrol]="createdepartmentform"
-          (result)="createDepartment($event)"
-        ></app-nice-form>
-
-        <div *ngIf="departments != null">
-          <div
-            *ngFor="let department of departments"
-            [innerHTML]="department.name"
-          ></div>
         </div>
       </div>
     </main>

@@ -183,7 +183,7 @@ export class RegisterComponent {
       phoneNumber: data.phonenumber,
       jobTitle: data.jobtitle,
       role: data.role,
-      departmentId: data.departmentid, //data.departmentid,
+      departmentId: data.departmentid,
       hireDate: "2024-11-26T10:21:38.124Z", //new Date().toString(),
       salary: parseInt(data.salary),
       status: "inactive",
