@@ -6,3 +6,5 @@ docker-compose*
 package-lock.json
 node_modules
 *.md
+angular/**
+!angular/build/browser/**
