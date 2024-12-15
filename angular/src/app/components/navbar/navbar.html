@@ -17,7 +17,7 @@
   >
     <div
       class="nav-link d-flex align-items-center p-2 cursor-pointer"
-      (click)="openUrl('/')"
+      (click)="openUrl('/clockin')"
     >
       <a> Clock in </a>
     </div>
@@ -27,7 +27,8 @@
     >
       <a> Calendar </a>
     </div>
-    <div *ngIf="employeeService.role === 'admin'"
+    <div
+      *ngIf="employeeService.role === 'admin'"
       class="nav-link d-flex align-items-center p-2 cursor-pointer"
       (click)="openUrl('/analytics')"
     >
@@ -41,20 +42,22 @@
       <a> Log in </a>
     </div>
 
-    <div *ngIf="employeeService.role === 'admin'"
+    <div
+      *ngIf="employeeService.role === 'admin'"
       class="nav-link d-flex align-items-center p-2 cursor-pointer"
       (click)="openUrl('/register')"
     >
       <a> Employee </a>
     </div>
 
-    <div *ngIf="employeeService.role === 'admin'"
+    <div
+      *ngIf="employeeService.role === 'admin'"
       class="nav-link d-flex align-items-center p-2 cursor-pointer"
       (click)="openUrl('/departments')"
     >
       <a> Departments </a>
     </div>
-    
+
     <div
       class="nav-link d-flex align-items-center p-2 cursor-pointer"
       (click)="openUrl('/tasks')"

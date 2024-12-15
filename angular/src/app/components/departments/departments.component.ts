@@ -55,12 +55,19 @@ export class DepartmentsComponent {
       );
   }
 
+  error: boolean = false;
+  success: boolean = false;
   addDepartment(data: { name: string; description: string }) {
     this.employeeService.addDepartment(data).subscribe(
       (newDepartment: Department) => {
+        this.error = false;
+        this.success = true;
+
         this.departments.push(newDepartment);
       },
       (error) => {
+        this.error = true;
+
         console.error("Error adding department:", error);
       }
     );

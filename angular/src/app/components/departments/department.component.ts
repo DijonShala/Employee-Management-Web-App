@@ -26,7 +26,7 @@ export class DepartmentComponent {
   employees: Employee[] = [];
   ngOnInit() {
     this.getDepartment();
-    this.getEmployeesInDepartment
+    this.getEmployeesInDepartment;
   }
 
   formcontrol!: niceForm[];
@@ -72,19 +72,25 @@ export class DepartmentComponent {
   }
 
   getEmployeesInDepartment() {
-    this.employeeService.findEmployeesInDepartment(this.department.name).subscribe(
-      (response: any) => {
-        if (response && Array.isArray(response.employees)) {
-          this.employees = response.employees;
-        } else {
+    this.employeeService
+      .findEmployeesInDepartment(this.department.name)
+      .subscribe(
+        (response: any) => {
+          if (response && Array.isArray(response.employees)) {
+            this.employees = response.employees;
+          } else {
+            this.employees = [];
+          }
+        },
+        (error) => {
           this.employees = [];
         }
-      },
-      (error) => {
-        this.employees = []; 
-      }
-    );
+      );
   }
+
+  error: boolean = false;
+  success: boolean = false;
+
   update(data: any) {
     this.department = {
       name: data.name,
@@ -92,9 +98,14 @@ export class DepartmentComponent {
     };
     this.employeeService.updateDepartment(this.id, this.department).subscribe(
       (data) => {
+        this.error = false;
+        this.success = true;
+
         this.InitForm();
       },
-      (error) => {}
+      (error) => {
+        this.error = true;
+      }
     );
     return null;
   }

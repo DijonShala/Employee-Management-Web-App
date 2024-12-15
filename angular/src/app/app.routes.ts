@@ -14,11 +14,12 @@ import { SalariesComponent } from "./components/salaries/salaries.component";
 import { LeavesComponent } from "./components/leaves/leaves.component";
 import { TasksComponent } from "./components/tasks/tasks.component";
 import { AnalyticsComponent } from "./components/analytics/analytics.component";
+import { notLoginGuard } from "./not-login.guard";
 
 export const routes: Routes = [
   { path: "clockin", component: ClockinComponent, canActivate: [loginGuard] },
   { path: "calendar", component: CalendarComponent, canActivate: [loginGuard] },
-  { path: "login", component: LoginComponent },
+  { path: "login", component: LoginComponent, canActivate: [notLoginGuard] },
   { path: "register", component: RegisterComponent, canActivate: [adminGuard] },
   {
     path: "user/:name",
@@ -57,5 +58,5 @@ export const routes: Routes = [
     canActivate: [adminGuard],
   },
   //{ path: "analytics/:id", component: SidebarComponent },
-  { path: "**", redirectTo: "clockin" },
+  { path: "**", redirectTo: "login" },
 ];

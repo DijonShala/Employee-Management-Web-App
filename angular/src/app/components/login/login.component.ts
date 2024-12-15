@@ -52,7 +52,7 @@ export class LoginComponent {
     this.employeeService.login(result.username, result.password).subscribe(
       (data) => {
         let token = JSON.stringify(data).slice(10, -2); // standarden typescript
-        const payload = JSON.parse(atob(token.split('.')[1]));  // Decode the payload
+        const payload = JSON.parse(atob(token.split(".")[1])); // Decode the payload
         const role = payload.role;
         window.sessionStorage.setItem("role", role);
         document.cookie =
@@ -61,7 +61,9 @@ export class LoginComponent {
         document.cookie = "role=" + role + "; path=/; max-age=3600";
         this.finishLogin(result.username, token, role);
       },
-      (error) => {}
+      (error) => {
+        this.invalid = true;
+      }
     );
   }
 
@@ -70,7 +72,7 @@ export class LoginComponent {
     window.sessionStorage.setItem("token", token);
     window.sessionStorage.setItem("role", role);
     this.employeeService.initialize().subscribe((data: Boolean) => {
-      console.log(data);
+      //console.log(data);
       if (data) {
         this.router.navigate(["/clockin"]);
       }
@@ -83,15 +85,15 @@ export class LoginComponent {
     let token = this.getCookie("token");
     let role = this.getCookie("role");
 
-    if (username != null && token != null && role != null ) {
+    if (username != null && token != null && role != null) {
       this.finishLogin(username, token, role);
     }
 
     this.route.queryParams.subscribe((params) => {
       if (params["redirected"] == "true") {
-        //this.redirected = true;
+        this.redirected = true;
       } else {
-        //this.redirected = false;
+        this.redirected = false;
       }
     });
   }

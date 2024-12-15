@@ -95,8 +95,8 @@ export class SalariesComponent {
   employee!: Employee;
 
   fetchEmployeeSalaries() {
-      this.employeeService.
-      getSalaries(this.employee.userName)
+    this.employeeService
+      .getSalaries(this.employee.userName)
       .pipe(retry(1))
       .subscribe(
         (response: any) => {
@@ -111,7 +111,7 @@ export class SalariesComponent {
           console.error("Failed to fetch employee leaves:", error);
         }
       );
-    }
+  }
 
   addSalary(data: {
     userName: string;
@@ -129,10 +129,15 @@ export class SalariesComponent {
 
     this.employeeService.addSalary(salary).subscribe(
       (data) => {
+        this.success = true;
+        this.error = false;
+
         this.setEmployee();
         this.fetchEmployeeSalaries();
       },
-      (error) => {}
+      (error) => {
+        this.error = true;
+      }
     );
   }
 
@@ -149,30 +154,34 @@ export class SalariesComponent {
       });
   }
 
+  error: boolean = false;
+  success: boolean = false;
+
   loadUserNames() {
     this.employeeService.getEmployees().subscribe(
       (employees: Employee[]) => {
-        
         const userNames = employees.map((emp) => ({
           label: emp.userName,
           value: emp.userName,
         }));
-  
-        const userNameControl = this.salaryform.find((control) => control.name === "userName");
+
+        const userNameControl = this.salaryform.find(
+          (control) => control.name === "userName"
+        );
         if (userNameControl) {
           userNameControl.options = userNames;
           userNameControl.default = userNames[0]?.value || "";
         }
       },
       (error) => {
-        console.error("Error loading usernames:", error);
+        //console.error("Error loading usernames:", error);
       }
     );
   }
-  
+
   fetchSalariesByMonthYear(data: { month: number; year: number }) {
     const { month, year } = data;
-  
+
     this.employeeService.getSalariesMonth(month, year).subscribe(
       (salaries: Salary[]) => {
         this.filteredSalaries = salaries;
@@ -183,7 +192,7 @@ export class SalariesComponent {
       }
     );
   }
-  
+
   filteredSalaries: Salary[] = [];
 
   salarydata$: BehaviorSubject<
@@ -203,13 +212,13 @@ export class SalariesComponent {
       { name: "Deductions", series: [] },
       { name: "Net pay", series: [] },
     ];
-  
+
     this.employee_salaries.pipe(take(1)).subscribe((data: any) => {
       const salaries = data.salaries || [];
-  
+
       salaries.forEach((salary: Salary) => {
         const payDate = new Date(salary.payDate).toLocaleDateString();
-  
+
         salarydata[0].series.push({ value: salary.basicSalary, name: payDate });
         salarydata[1].series.push({
           value: salary.allowances ?? 0,
@@ -227,26 +236,25 @@ export class SalariesComponent {
           name: payDate,
         });
       });
-  
+
       this.salarydata$.next(salarydata);
     });
   }
 
-  
   JSONparse(st: string) {
     return JSON.parse(st);
   }
 
   onSelect(data: any): void {
-    console.log("Item clicked", JSON.parse(JSON.stringify(data)));
+    //console.log("Item clicked", JSON.parse(JSON.stringify(data)));
   }
 
   onActivate(data: any): void {
-    console.log("Activate", JSON.parse(JSON.stringify(data)));
+    //console.log("Activate", JSON.parse(JSON.stringify(data)));
   }
 
   onDeactivate(data: any): void {
-    console.log("Deactivate", JSON.parse(JSON.stringify(data)));
+    //console.log("Deactivate", JSON.parse(JSON.stringify(data)));
   }
 
   view: [number, number] = [700, 300];
