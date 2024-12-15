@@ -11,8 +11,6 @@ import { TaskcardComponent } from "../taskcard/taskcard.component";
 @Component({
   selector: "app-tasks",
   imports: [
-    NiceFormComponent,
-    AsyncPipe,
     TaskcardComponent,
     CommonModule,
   ],

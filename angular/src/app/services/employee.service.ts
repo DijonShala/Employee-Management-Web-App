@@ -77,7 +77,9 @@ export class EmployeeService {
   logout() {
     this.deleteCookie("username");
     this.deleteCookie("token");
+    this.deleteCookie("role");
     window.sessionStorage.setItem("username", "");
+    window.sessionStorage.setItem("role", "");
 
     this.username = "";
 

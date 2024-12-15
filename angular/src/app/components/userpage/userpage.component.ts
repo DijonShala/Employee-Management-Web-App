@@ -14,7 +14,8 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { AsyncPipe, JsonPipe } from "@angular/common";
 import { EmployeeService } from "../../services/employee.service";
 import { CommonModule } from "@angular/common";
-import { Observable } from "rxjs";
+import { Observable, retry } from "rxjs";
+import { TaskcardComponent } from "../taskcard/taskcard.component";
 
 @Component({
   selector: "app-userpage",
@@ -24,6 +25,7 @@ import { Observable } from "rxjs";
     AsyncPipe,
     JsonPipe,
     CommonModule,
+    TaskcardComponent
   ],
   templateUrl: "userpage.html",
   styles: ``,
@@ -116,11 +118,28 @@ export class UserpageComponent {
     private router: Router,
     public route: ActivatedRoute
   ) {}
-
+  employee_salary: Salary[] = [];
   ngOnInit() {
     this.setEmployee();
   }
-
+  fetchEmployeeSalaries() {
+        this.employeeService.
+        getSalaries(this.employee.userName)
+        .pipe(retry(1))
+        .subscribe(
+          (response: any) => {
+            if (response && Array.isArray(response.salaries)) {
+              this.employee_salary = response.salaries;
+            } else {
+              console.error("Invalid response format: Expected `leaves` array.");
+              this.employee_salary = [];
+            }
+          },
+          (error) => {
+            console.error("Failed to fetch employee leaves:", error);
+          }
+        );
+      }
   setEmployee() {
     this.route.paramMap.subscribe((param) => {
       let username: string | null = param.get("name");
@@ -146,6 +165,8 @@ export class UserpageComponent {
           //    this.employee_department = data;
           //    console.log(this.employee_department);
           //  });
+          this.fetchEmployeeSalaries();
+          this.getTasks();
           this.setformcontrol();
         });
       }
@@ -318,7 +339,7 @@ export class UserpageComponent {
       type: "text",
       title: "Start date: ",
       placeholder: "Start date",
-      default: "",
+      default: new Date().toISOString().substring(0, 10),
       validators: [Validators.required],
     },
 
@@ -327,7 +348,7 @@ export class UserpageComponent {
       type: "text",
       title: "Due date: ",
       placeholder: "Due date",
-      default: "",
+      default: new Date().toISOString().substring(0, 10),
       validators: [Validators.required],
     },
   ];
@@ -350,8 +371,25 @@ export class UserpageComponent {
       (data) => {
         this.setEmployee();
       },
-      (error) => {}
+      (error) => {
+      }
     );
+  }
+  tasks: any;
+  getTasks() {
+    this.employeeService
+      .getEmployeeTasks(this.employee.userName)
+      .subscribe((data) => {
+        this.tasks = data;
+      });
+  }
+  
+  updateTask(taskid: string, value: string) {
+    this.employeeService
+      .updateTask(taskid, { status: value })
+      .subscribe((data) => {
+        this.getTasks();
+      });
   }
 
   // CREATE DEPARTMENT FORM ------------------------------------------------------------------------------------------------------------------------------------------

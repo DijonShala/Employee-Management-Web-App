@@ -58,6 +58,7 @@ export class LoginComponent {
         document.cookie =
           "username=" + result.username + "; path=/; max-age=3600";
         document.cookie = "token=" + token + "; path=/; max-age=3600";
+        document.cookie = "role=" + role + "; path=/; max-age=3600";
         this.finishLogin(result.username, token, role);
       },
       (error) => {}
