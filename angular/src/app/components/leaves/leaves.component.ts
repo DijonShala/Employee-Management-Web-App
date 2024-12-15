@@ -38,7 +38,7 @@ export class LeavesComponent {
     },
     {
       name: "startDate",
-      type: "text",
+      type: "date",
       title: "Start Date: ",
       placeholder: "Start Date",
       default: new Date().toISOString().substring(0, 10),
@@ -47,7 +47,7 @@ export class LeavesComponent {
 
     {
       name: "endDate",
-      type: "text",
+      type: "date",
       title: "End Date: ",
       placeholder: "End Date",
       default: new Date().toISOString().substring(0, 10),
