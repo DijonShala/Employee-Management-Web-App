@@ -13,10 +13,17 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { EmployeeService } from "../../services/employee.service";
 import { NiceFormComponent } from "../nice-form/nice-form.component";
 import { AsyncPipe, CommonModule, JsonPipe } from "@angular/common";
+import { RouterLink } from "@angular/router";
 
 @Component({
   selector: "app-analytics",
-  imports: [NiceFormComponent, AsyncPipe, JsonPipe, CommonModule],
+  imports: [
+    NiceFormComponent,
+    AsyncPipe,
+    JsonPipe,
+    CommonModule,
+    RouterLink
+  ],
   templateUrl: "analytics.html",
   styles: ``,
 })
@@ -28,6 +35,8 @@ export class AnalyticsComponent {
   ) {}
   ngOnInit() {
     this.initFilterEmploye();
+    this.getAllLeaves();
+    this.getAllTasks();
   }
 
   formcontrol!: niceForm[];
@@ -59,13 +68,13 @@ export class AnalyticsComponent {
         this.filteredSalaries = salaries;
       },
       (error) => {
-        console.error("Error fetching salaries for the month/year:", error);
         this.filteredSalaries = [];
       }
     );
   }
-  getAllLeaves() {
-    this.employeeService
+  allLeaves: Leave[] = [];
+  getAllLeaves(){
+     this.employeeService
       .getLeaves()
       .pipe(retry(1))
       .subscribe(
@@ -78,6 +87,7 @@ export class AnalyticsComponent {
       );
   }
   filteredSalaries: Salary[] = [];
+
   allTasks: Task[] = [];
   allLeaves: Leave[] = [];
 
@@ -233,5 +243,19 @@ export class AnalyticsComponent {
   showMoreThen10() {
     this.limit10 = true;
     this.fetchFilterEmployee(this.data);
+  }
+}
+  getAllTasks(){
+     this.employeeService
+      .getTasks()
+      .pipe(retry(1))
+      .subscribe(
+        (tasks: Task[]) => {
+          this.allTasks = tasks;
+        },
+        (error) => {
+          this.allTasks =  [];
+        }
+      );
   }
 }

@@ -150,13 +150,20 @@ export class EmployeeService {
     return this.http.post<Attendance[]>(`${this.apiUrl}/clockOut`, "");
   }
 
+  changePassword(oldPassword: string, newPassword: string): Observable<any> {
+    const payload = { oldPassword, newPassword };
+    return this.http.put(`${this.apiUrl}/change-password`, payload);
+  }
+
   // TASKS
 
   addTask(task: Task) {
     return this.http.post<Task>(`${this.apiUrl}/tasks`, task);
   }
   getTasks() {
-    return this.http.get(`${this.apiUrl}/tasks`);
+    return this.http.get<{ tasks: Task[] }>(`${this.apiUrl}/tasks`).pipe(
+      map((response) => response.tasks)
+    );
   }
   getEmployeeTasks(username: string) {
     return this.http.get(`${this.apiUrl}/tasks/${username}`);
@@ -177,7 +184,9 @@ export class EmployeeService {
     return this.http.post<Leave>(`${this.apiUrl}/leaves`, leave);
   }
   getLeaves() {
-    return this.http.get<Leave[]>(`${this.apiUrl}/leaves`);
+    return this.http.get<{ leaves: Leave[] }>(`${this.apiUrl}/leaves`).pipe(
+      map((response) => response.leaves)
+    );
   }
   getEmployeeLeaves(username: string) {
     return this.http.get<Leave[]>(`${this.apiUrl}/leaves/${username}`);

@@ -19,6 +19,10 @@
   </div>
 
   <div class="container-sm p-5 bg-light">
+    <div *ngIf="error" class="alert alert-danger">Error adding department.</div>
+    <div *ngIf="success" class="alert alert-success">
+      Department successfully added.
+    </div>
     <h3>Create department</h3>
     <app-nice-form
       [formcontrol]="createDepartmentform"

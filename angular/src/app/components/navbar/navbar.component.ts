@@ -3,7 +3,7 @@ import { Component, OnDestroy, TemplateRef } from "@angular/core";
 import { RouterModule, Router } from "@angular/router";
 import { EmployeeService } from "../../services/employee.service";
 import { BsModalService, BsModalRef } from "ngx-bootstrap/modal";
-import { Employee } from "../../employee"
+import { Employee } from "../../employee";
 
 @Component({
   selector: "app-navbar",

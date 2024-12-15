@@ -147,12 +147,10 @@ export class UserpageComponent {
           if (response && Array.isArray(response.salaries)) {
             this.employee_salary = response.salaries;
           } else {
-            console.error("Invalid response format: Expected `leaves` array.");
             this.employee_salary = [];
           }
         },
         (error) => {
-          console.error("Failed to fetch employee leaves:", error);
         }
       );
   }
@@ -191,7 +189,6 @@ export class UserpageComponent {
                 this.setformcontrol();
               },
               (error) => {
-                console.error("Error loading departments:", error);
                 return [];
               }
             );
@@ -251,7 +248,7 @@ export class UserpageComponent {
         this.router.navigate(["/register"]);
       },
       (error) => {
-        console.log("FAILED TO REMOVE EMPLOYEE!");
+        //console.log("FAILED TO REMOVE EMPLOYEE!");
       }
     );
   }
@@ -322,7 +319,7 @@ export class UserpageComponent {
 
     {
       name: "startDate",
-      type: "text",
+      type: "date",
       title: "Start date: ",
       placeholder: "Start date",
       default: "",
@@ -331,7 +328,7 @@ export class UserpageComponent {
 
     {
       name: "endDate",
-      type: "text",
+      type: "date",
       title: "End date: ",
       placeholder: "End date",
       default: "",
@@ -387,7 +384,7 @@ export class UserpageComponent {
 
     {
       name: "startDate",
-      type: "text",
+      type: "date",
       title: "Start date: ",
       placeholder: "Start date",
       default: new Date().toISOString().substring(0, 10),
@@ -396,7 +393,7 @@ export class UserpageComponent {
 
     {
       name: "dueDate",
-      type: "text",
+      type: "date",
       title: "Due date: ",
       placeholder: "Due date",
       default: new Date().toISOString().substring(0, 10),

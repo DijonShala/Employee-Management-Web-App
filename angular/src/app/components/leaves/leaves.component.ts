@@ -8,14 +8,10 @@ import { NiceFormComponent } from "../nice-form/nice-form.component";
 import { AsyncPipe, CommonModule, JsonPipe } from "@angular/common";
 import { AsyncAction } from "rxjs/internal/scheduler/AsyncAction";
 import { SidebarComponent } from "../sidebar/sidebar.component";
+
 @Component({
   selector: "app-leaves",
-  imports: [
-    NiceFormComponent,
-    AsyncPipe,
-    JsonPipe,
-    CommonModule,
-  ],
+  imports: [NiceFormComponent, AsyncPipe, JsonPipe, CommonModule],
   templateUrl: "leaves.html",
   styles: ``,
 })
@@ -30,7 +26,7 @@ export class LeavesComponent {
   ngOnInit() {
     this.setEmployee();
   }
-  
+
   leaveform: niceForm[] = [
     {
       name: "reason",
@@ -42,7 +38,7 @@ export class LeavesComponent {
     },
     {
       name: "startDate",
-      type: "text",
+      type: "date",
       title: "Start Date: ",
       placeholder: "Start Date",
       default: new Date().toISOString().substring(0, 10),
@@ -51,7 +47,7 @@ export class LeavesComponent {
 
     {
       name: "endDate",
-      type: "text",
+      type: "date",
       title: "End Date: ",
       placeholder: "End Date",
       default: new Date().toISOString().substring(0, 10),
@@ -60,30 +56,29 @@ export class LeavesComponent {
   ];
 
   fetchEmployeeLeaves() {
-    this.employeeService.
-    getEmployeeLeaves(this.employee.userName)
-    .pipe(retry(1))
-    .subscribe(
-      (response: any) => {
-        if (response && Array.isArray(response.leaves)) {
-          this.employee_leaves = response.leaves;
-          console.log(this.employee_leaves);
-        } else {
-          console.error("Invalid response format: Expected `leaves` array.");
-          this.employee_leaves = [];
+    this.employeeService
+      .getEmployeeLeaves(this.employee.userName)
+      .pipe(retry(1))
+      .subscribe(
+        (response: any) => {
+          if (response && Array.isArray(response.leaves)) {
+            this.employee_leaves = response.leaves;
+            //console.log(this.employee_leaves);
+          } else {
+            //console.error("Invalid response format: Expected `leaves` array.");
+            this.employee_leaves = [];
+          }
+        },
+        (error) => {
+          //console.error("Failed to fetch employee leaves:", error);
         }
-      },
-      (error) => {
-        console.error("Failed to fetch employee leaves:", error);
-      }
-    );
+      );
   }
 
-  addLeave(data: {
-    reason: string;
-    startDate: string;
-    endDate: string;
-  }) {
+  error: boolean = false;
+  success: boolean = false;
+
+  addLeave(data: { reason: string; startDate: string; endDate: string }) {
     let leave: Leave = {
       reason: data.reason,
       startDate: data.startDate,
@@ -92,10 +87,13 @@ export class LeavesComponent {
 
     this.employeeService.addLeave(leave).subscribe(
       (data) => {
+        this.error = false;
+        this.success = true;
         this.fetchEmployeeLeaves();
       },
       (error) => {
-        console.log("LEAVE ERROR", data)
+        this.error = true;
+        //console.log("LEAVE ERROR", data)
       }
     );
   }
@@ -108,5 +106,4 @@ export class LeavesComponent {
         this.fetchEmployeeLeaves();
       });
   }
-
 }

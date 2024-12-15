@@ -7,7 +7,7 @@
 <form [formGroup]="formgroup" (ngSubmit)="submit()">
   <div *ngFor="let control of formcontrol">
     <div
-      *ngIf="control.type == 'text' || control.type == 'password'"
+      *ngIf="control.type == 'text' || control.type == 'password' || control.type == 'date'"
       class="mb-3 mt-3"
     >
       <label

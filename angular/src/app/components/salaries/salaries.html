@@ -1,4 +1,8 @@
 <div *ngIf="employee?.role === 'admin'" class="container-sm p-5 bg-light">
+  <div *ngIf="error" class="alert alert-danger">Error adding salary.</div>
+  <div *ngIf="success" class="alert alert-success">
+    Salary successfully added.
+  </div>
   <h3>Add a salary to this employee</h3>
   <app-nice-form
     [formcontrol]="salaryform"
@@ -49,27 +53,30 @@
 <div *ngIf="employee_salary.length > 0" class="mt-4">
   <div class="container-sm p-5 bg-light">
     <h3>{{ employee?.userName }} salaries</h3>
-      <table class="table table-bordered table-hover ">
-        <thead>
-          <tr>
-            <th>Basic Salary</th>
-            <th>Allowances</th>
-            <th>Deductions</th>
-            <th>Net Salary</th>
-            <th>Pay Date</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let salary of employee_salary">
-            <td>{{ salary.basicSalary }}</td>
-            <td>{{ salary.allowances }}</td>
-            <td>{{ salary.deductions }}</td>
-            <td>{{ salary.basicSalary + (salary.allowances || 0) - (salary.deductions || 0) }}</td>
-            <td>{{ salary.payDate | date: 'shortDate' }}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+    <table class="table table-bordered table-hover">
+      <thead>
+        <tr>
+          <th>Basic Salary</th>
+          <th>Allowances</th>
+          <th>Deductions</th>
+          <th>Net Salary</th>
+          <th>Pay Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let salary of employee_salary">
+          <td>{{ salary.basicSalary }}</td>
+          <td>{{ salary.allowances }}</td>
+          <td>{{ salary.deductions }}</td>
+          <td>
+            {{ salary.basicSalary + (salary.allowances || 0) -
+            (salary.deductions || 0) }}
+          </td>
+          <td>{{ salary.payDate | date: 'shortDate' }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
 <div *ngIf="employee_salary.length > 0" class="mt-4">
   <div class="container bg-light">

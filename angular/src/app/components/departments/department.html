@@ -1,4 +1,8 @@
 <div class="d-flex flex-column gap-4">
+  <div *ngIf="error" class="alert alert-danger">Error updating department.</div>
+  <div *ngIf="success" class="alert alert-success">
+    Department successfully updated.
+  </div>
   <div class="container-sm p-5 bg-light" *ngIf="department!=null">
     <h3>Update department</h3>
     <app-nice-form
@@ -17,17 +21,24 @@
     </div>
   </div>
 
-  <div class="container-sm p-5 bg-light" *ngIf="employees && employees.length != 0">
+  <div
+    class="container-sm p-5 bg-light"
+    *ngIf="employees && employees.length != 0"
+  >
     <h3>Employees in {{ department?.name }}</h3>
     <ul class="list-group">
       <li *ngFor="let emp of employees" class="list-group-item">
-        <a [routerLink]="['/user', emp.userName]">{{ emp.firstName }} {{ emp.lastName }}</a>
+        <a [routerLink]="['/user', emp.userName]"
+          >{{ emp.firstName }} {{ emp.lastName }}</a
+        >
       </li>
     </ul>
   </div>
 
-  <div class="container-sm p-5 bg-light" *ngIf="employees && employees.length === 0">
+  <div
+    class="container-sm p-5 bg-light"
+    *ngIf="employees && employees.length === 0"
+  >
     <h3>No employees found in this department.</h3>
   </div>
-
 </div>

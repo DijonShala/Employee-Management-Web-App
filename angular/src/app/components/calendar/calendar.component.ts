@@ -74,6 +74,6 @@ export class CalendarComponent {
   }
 
   show(name: Date) {
-    console.log(name);
+    //console.log(name);
   }
 }
