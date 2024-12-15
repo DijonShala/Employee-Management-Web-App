@@ -6,6 +6,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { EmployeeService } from "../../services/employee.service";
 import { NiceFormComponent } from "../nice-form/nice-form.component";
 import { AsyncPipe, CommonModule, JsonPipe } from "@angular/common";
+import { RouterLink } from "@angular/router";
 
 @Component({
   selector: "app-analytics",
@@ -14,6 +15,7 @@ import { AsyncPipe, CommonModule, JsonPipe } from "@angular/common";
     AsyncPipe,
     JsonPipe,
     CommonModule,
+    RouterLink
   ],
   templateUrl: "analytics.html",
   styles: ``,

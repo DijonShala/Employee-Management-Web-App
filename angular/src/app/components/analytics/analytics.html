@@ -53,12 +53,12 @@
       </thead>
       <tbody>
         <tr *ngFor="let leave of allLeaves">
-          <td>{{ leave.userName }}</td>
-          <td>{{ leave.reason }}</td>
-          <td>{{ leave.startDate | date: 'shortDate'  }}</td>
-          <td>{{ leave.endDate | date: 'shortDate'  }}</td>
-          <td>{{ leave.status }}</td>
-          <td>{{ leave.appliedAt | date: 'shortDate' }}</td>
+          <td> <a [routerLink]="['/user', leave.userName]">{{ leave.userName }}</a></td>
+          <td> <a [routerLink]="['/user', leave.userName]">{{ leave.reason }}</a></td>
+          <td> <a [routerLink]="['/user', leave.userName]">{{ leave.startDate | date: 'shortDate'  }}</a></td>
+          <td> <a [routerLink]="['/user', leave.userName]">{{ leave.endDate | date: 'shortDate'  }}</a></td>
+          <td> <a [routerLink]="['/user', leave.userName]">{{ leave.status }}</a></td>
+          <td> <a [routerLink]="['/user', leave.userName]">{{ leave.appliedAt | date: 'shortDate' }}</a></td>
         </tr>
       </tbody>
     </table>
@@ -84,11 +84,11 @@
       </thead>
       <tbody>
         <tr *ngFor="let task of allTasks">
-          <td>{{ task.userName }}</td>
-          <td>{{ task.description }}</td>
-          <td>{{ task.startDate | date: 'shortDate'  }}</td>
-          <td>{{ task.dueDate | date: 'shortDate'  }}</td>
-          <td>{{ task.status }}</td>
+          <td><a [routerLink]="['/user', task.userName]">{{ task.userName }}</a></td>
+          <td><a [routerLink]="['/user', task.userName]">{{ task.description }}</a></td>
+          <td><a [routerLink]="['/user', task.userName]">{{ task.startDate | date: 'shortDate'  }}</a></td>
+          <td><a [routerLink]="['/user', task.userName]">{{ task.dueDate | date: 'shortDate'  }}</a></td>
+          <td><a [routerLink]="['/user', task.userName]">{{ task.status }}</a></td>
         </tr>
       </tbody>
     </table>
