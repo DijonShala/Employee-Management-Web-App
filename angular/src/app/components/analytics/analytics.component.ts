@@ -25,6 +25,8 @@ export class AnalyticsComponent {
     public route: ActivatedRoute
   ) {}
   ngOnInit() {
+    this.getAllLeaves();
+    this.getAllTasks();
   }
 
   monthform: niceForm[] = [
@@ -54,11 +56,11 @@ export class AnalyticsComponent {
         this.filteredSalaries = salaries;
       },
       (error) => {
-        console.error("Error fetching salaries for the month/year:", error);
         this.filteredSalaries = [];
       }
     );
   }
+  allLeaves: Leave[] = [];
   getAllLeaves(){
      this.employeeService
       .getLeaves()
@@ -73,6 +75,19 @@ export class AnalyticsComponent {
       );
   }
   filteredSalaries: Salary[] = [];
+
   allTasks: Task[] = [];
-  allLeaves: Leave[] = [];
+  getAllTasks(){
+     this.employeeService
+      .getTasks()
+      .pipe(retry(1))
+      .subscribe(
+        (tasks: Task[]) => {
+          this.allTasks = tasks;
+        },
+        (error) => {
+          this.allTasks =  [];
+        }
+      );
+  }
 }
