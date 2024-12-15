@@ -78,7 +78,12 @@
     >
       <a> Salaries </a>
     </div>
-
+    <div
+      class="nav-link d-flex align-items-center p-2 cursor-pointer"
+      (click)="openUrl('/settings')"
+    >
+      <a> Settings </a>
+    </div>
     <div
       class="nav-link d-flex align-items-center p-2 cursor-pointer"
       (click)="addData(); openModal(addsucces)"

@@ -15,6 +15,7 @@ import { LeavesComponent } from "./components/leaves/leaves.component";
 import { TasksComponent } from "./components/tasks/tasks.component";
 import { AnalyticsComponent } from "./components/analytics/analytics.component";
 import { notLoginGuard } from "./not-login.guard";
+import { SettingsComponent } from "./components/settings/settings.component";
 
 export const routes: Routes = [
   { path: "clockin", component: ClockinComponent, canActivate: [loginGuard] },
@@ -39,6 +40,11 @@ export const routes: Routes = [
   {
     path: "leaves",
     component: LeavesComponent,
+    canActivate: [loginGuard],
+  },
+  {
+    path: "settings",
+    component: SettingsComponent,
     canActivate: [loginGuard],
   },
   {

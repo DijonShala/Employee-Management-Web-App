@@ -323,7 +323,7 @@ export class UserpageComponent {
 
     {
       name: "startDate",
-      type: "text",
+      type: "date",
       title: "Start date: ",
       placeholder: "Start date",
       default: "",
@@ -332,7 +332,7 @@ export class UserpageComponent {
 
     {
       name: "endDate",
-      type: "text",
+      type: "date",
       title: "End date: ",
       placeholder: "End date",
       default: "",
@@ -388,7 +388,7 @@ export class UserpageComponent {
 
     {
       name: "startDate",
-      type: "text",
+      type: "date",
       title: "Start date: ",
       placeholder: "Start date",
       default: new Date().toISOString().substring(0, 10),
@@ -397,7 +397,7 @@ export class UserpageComponent {
 
     {
       name: "dueDate",
-      type: "text",
+      type: "date",
       title: "Due date: ",
       placeholder: "Due date",
       default: new Date().toISOString().substring(0, 10),

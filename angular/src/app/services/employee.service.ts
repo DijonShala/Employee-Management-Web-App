@@ -137,6 +137,11 @@ export class EmployeeService {
     return this.http.post<Attendance[]>(`${this.apiUrl}/clockOut`, "");
   }
 
+  changePassword(oldPassword: string, newPassword: string): Observable<any> {
+    const payload = { oldPassword, newPassword };
+    return this.http.put(`${this.apiUrl}/change-password`, payload);
+  }
+
   // TASKS
 
   addTask(task: Task) {

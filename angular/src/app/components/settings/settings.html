@@ -1,0 +1,12 @@
+<div class="container-sm p-5 bg-light">
+  <div *ngIf="error" class="alert alert-danger">Error changing Password.</div>
+  <div *ngIf="success" class="alert alert-success">
+    Password changed successfully.
+  </div>
+
+  <h3>Change Password</h3>
+  <app-nice-form
+    [formcontrol]="settingform"
+    (result)="changePass($event)"
+  ></app-nice-form>
+</div>
