@@ -103,12 +103,10 @@ export class SalariesComponent {
           if (response && Array.isArray(response.salaries)) {
             this.employee_salary = response.salaries;
           } else {
-            console.error("Invalid response format: Expected `leaves` array.");
             this.employee_salary = [];
           }
         },
         (error) => {
-          console.error("Failed to fetch employee leaves:", error);
         }
       );
   }
@@ -187,7 +185,6 @@ export class SalariesComponent {
         this.filteredSalaries = salaries;
       },
       (error) => {
-        console.error("Error fetching salaries for the month/year:", error);
         this.filteredSalaries = [];
       }
     );

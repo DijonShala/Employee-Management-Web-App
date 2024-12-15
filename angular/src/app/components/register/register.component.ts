@@ -193,8 +193,6 @@ export class RegisterComponent {
       zipCode: data.zipCode,
     };
 
-    console.log(employee);
-
     this.employeeService.addEmployee(employee).subscribe(
       (data) => {
         this.success_status = "SUCCESS";
@@ -228,7 +226,6 @@ export class RegisterComponent {
           }
         },
         (error) => {
-          console.error("Error loading departments:", error);
         }
       );
   }

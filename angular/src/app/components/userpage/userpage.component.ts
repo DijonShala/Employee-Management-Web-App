@@ -148,12 +148,10 @@ export class UserpageComponent {
           if (response && Array.isArray(response.salaries)) {
             this.employee_salary = response.salaries;
           } else {
-            console.error("Invalid response format: Expected `leaves` array.");
             this.employee_salary = [];
           }
         },
         (error) => {
-          console.error("Failed to fetch employee leaves:", error);
         }
       );
   }
@@ -192,7 +190,6 @@ export class UserpageComponent {
                 this.setformcontrol();
               },
               (error) => {
-                console.error("Error loading departments:", error);
                 return [];
               }
             );
@@ -252,7 +249,7 @@ export class UserpageComponent {
         this.router.navigate(["/register"]);
       },
       (error) => {
-        console.log("FAILED TO REMOVE EMPLOYEE!");
+        //console.log("FAILED TO REMOVE EMPLOYEE!");
       }
     );
   }

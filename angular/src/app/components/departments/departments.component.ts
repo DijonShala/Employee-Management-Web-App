@@ -50,7 +50,6 @@ export class DepartmentsComponent {
           this.departments = departments;
         },
         (error) => {
-          console.error("Error loading departments:", error);
         }
       );
   }
@@ -67,8 +66,6 @@ export class DepartmentsComponent {
       },
       (error) => {
         this.error = true;
-
-        console.error("Error adding department:", error);
       }
     );
   }
