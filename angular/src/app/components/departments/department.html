@@ -8,7 +8,7 @@
   </div>
 
   <div class="container-sm p-5 bg-light">
-    <h3>Delete {{department.name}}</h3>
+    <h3>Delete {{department?.name}}</h3>
     <p>Remove the department from the database.</p>
     <div class="text-center">
       <button (click)="remove()" type="submit" class="btn btn-danger w-75">
@@ -16,4 +16,18 @@
       </button>
     </div>
   </div>
+
+  <div class="container-sm p-5 bg-light" *ngIf="employees && employees.length != 0">
+    <h3>Employees in {{ department?.name }}</h3>
+    <ul class="list-group">
+      <li *ngFor="let emp of employees" class="list-group-item">
+        <a [routerLink]="['/user', emp.userName]">{{ emp.firstName }} {{ emp.lastName }}</a>
+      </li>
+    </ul>
+  </div>
+
+  <div class="container-sm p-5 bg-light" *ngIf="employees && employees.length === 0">
+    <h3>No employees found in this department.</h3>
+  </div>
+
 </div>

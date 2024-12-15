@@ -7,7 +7,7 @@ import { Validators } from "@angular/forms";
 import { NiceFormComponent } from "../nice-form/nice-form.component";
 import { retry } from "rxjs";
 import { Router, ActivatedRoute } from "@angular/router";
-
+import { Employee } from "../../employee";
 @Component({
   selector: "app-department",
   imports: [CommonModule, RouterLink, NiceFormComponent],
@@ -23,9 +23,10 @@ export class DepartmentComponent {
 
   department!: Department;
   id!: string;
-
+  employees: Employee[] = [];
   ngOnInit() {
     this.getDepartment();
+    this.getEmployeesInDepartment
   }
 
   formcontrol!: niceForm[];
@@ -58,15 +59,31 @@ export class DepartmentComponent {
   getDepartment() {
     this.route.paramMap.subscribe((param) => {
       this.id = param.get("id") || "";
-      if (this.id != "") {
+      if (this.id) {
         this.employeeService
           .getDepartment(this.id)
           .subscribe((data: Department) => {
             this.department = data;
             this.InitForm();
+            this.getEmployeesInDepartment();
           });
       }
     });
+  }
+
+  getEmployeesInDepartment() {
+    this.employeeService.findEmployeesInDepartment(this.department.name).subscribe(
+      (response: any) => {
+        if (response && Array.isArray(response.employees)) {
+          this.employees = response.employees;
+        } else {
+          this.employees = [];
+        }
+      },
+      (error) => {
+        this.employees = []; 
+      }
+    );
   }
   update(data: any) {
     this.department = {

@@ -28,8 +28,21 @@ export class SalariesComponent {
     private router: Router,
     public route: ActivatedRoute
   ) {}
+  ngOnInit() {
+    this.setEmployee();
+    this.loadUserNames();
+  }
 
   salaryform: niceForm[] = [
+    {
+      name: "userName",
+      type: "select",
+      title: "User Name: ",
+      placeholder: "User Name",
+      default: "",
+      validators: [Validators.required],
+      options: [],
+    },
     {
       name: "basicSalary",
       type: "text",
@@ -57,17 +70,37 @@ export class SalariesComponent {
       validators: [Validators.pattern("[0-9]*")],
     },
   ];
-
+  /*
+  monthform: niceForm[] = [
+    {
+      name: "month",
+      type: "string",
+      title: "Month: ",
+      placeholder: "Enter month",
+      default: "",
+      validators: [Validators.required, Validators.min(1), Validators.max(12)],
+    },
+    {
+      name: "year",
+      type: "string",
+      title: "Year: ",
+      placeholder: "Enter year",
+      default: "",
+      validators: [Validators.required, Validators.min(1900)],
+    },
+  ];
+  */
   employee_salaries!: Observable<Object>;
   employee!: Employee;
 
   addSalary(data: {
+    userName: string;
     basicSalary: string;
     allowances: string;
     deductions: string;
   }) {
     let salary: Salary = {
-      userName: this.employee.userName,
+      userName: data.userName,
       basicSalary: parseInt(data.basicSalary),
       allowances: data.allowances == "" ? undefined : parseInt(data.allowances),
       deductions: data.deductions == "" ? undefined : parseInt(data.deductions),
@@ -82,10 +115,6 @@ export class SalariesComponent {
     );
   }
 
-  ngOnInit() {
-    this.setEmployee();
-  }
-
   setEmployee() {
     this.employeeService
       .getEmployee(this.employeeService.username)
@@ -98,6 +127,43 @@ export class SalariesComponent {
         this.setSalaryData();
       });
   }
+
+  loadUserNames() {
+    this.employeeService.getEmployees().subscribe(
+      (employees: Employee[]) => {
+        
+        const userNames = employees.map((emp) => ({
+          label: emp.userName,
+          value: emp.userName,
+        }));
+  
+        const userNameControl = this.salaryform.find((control) => control.name === "userName");
+        if (userNameControl) {
+          userNameControl.options = userNames;
+          userNameControl.default = userNames[0]?.value || "";
+        }
+      },
+      (error) => {
+        console.error("Error loading usernames:", error);
+      }
+    );
+  }
+  
+  fetchSalariesByMonthYear(data: { month: number; year: number }) {
+    const { month, year } = data;
+  
+    this.employeeService.getSalariesMonth(month, year).subscribe(
+      (salaries: Salary[]) => {
+        this.filteredSalaries = salaries;
+      },
+      (error) => {
+        console.error("Error fetching salaries for the month/year:", error);
+        this.filteredSalaries = [];
+      }
+    );
+  }
+  
+  filteredSalaries: Salary[] = [];
 
   salarydata$: BehaviorSubject<
     { name: string; series: { value: number; name: string }[] }[]

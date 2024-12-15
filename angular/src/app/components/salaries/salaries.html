@@ -11,10 +11,47 @@
 
   <br />
 </div>
+<!--
+<div class="container-sm p-5 bg-light">
+  <h3>Get salaries by Month / Year</h3>
+  <app-nice-form
+    [formcontrol]="monthform"
+    (result)="fetchSalariesByMonthYear($event)"
+  ></app-nice-form>
 
+  <div *ngIf="filteredSalaries.length > 0" class="mt-4">
+    <h4>Salaries for the selected month and year</h4>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>User Name</th>
+          <th>Basic Salary</th>
+          <th>Allowances</th>
+          <th>Deductions</th>
+          <th>Net Salary</th>
+          <th>Pay Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let salary of filteredSalaries">
+          <td>{{ salary.userName }}</td>
+          <td>{{ salary.basicSalary }}</td>
+          <td>{{ salary.allowances }}</td>
+          <td>{{ salary.deductions }}</td>
+          <td>{{ salary.basicSalary + (salary.allowances || 0) - (salary.deductions || 0) }}</td>
+          <td>{{ salary.payDate | date: 'shortDate' }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="filteredSalaries.length === 0" class="mt-4">
+    <p>No salaries found for the selected month and year.</p>
+  </div>
+</div>
+-->
 <div class="container bg-light">
   <ngx-charts-line-chart
-    [animations]="false"
     [view]="[1000, 400]"
     [legend]="legend"
     [showXAxisLabel]="showXAxisLabel"
