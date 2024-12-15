@@ -15,70 +15,63 @@
     class="d-flex align-items-center align-items-stretch gap-2 sub-menu"
     *ngIf="!menuHidden || !hamburgerMenu"
   >
-    <div
+    <div *ngIf="employeeService.username"
       class="nav-link d-flex align-items-center p-2 cursor-pointer"
       (click)="openUrl('/clockin')"
     >
       <a> Clock in </a>
     </div>
-    <div
+    <div *ngIf="employeeService.username"
       class="nav-link d-flex align-items-center p-2 cursor-pointer"
       (click)="openUrl('/calendar')"
     >
       <a> Calendar </a>
     </div>
-    <div
-      *ngIf="employeeService.role === 'admin'"
+    <div 
+      *ngIf="(employeeService.role === 'admin') && (!!employeeService.username)"
       class="nav-link d-flex align-items-center p-2 cursor-pointer"
       (click)="openUrl('/analytics')"
     >
       <a> Analytics </a>
     </div>
-    <div
-      class="nav-link d-flex align-items-center p-2 cursor-pointer"
-      *ngIf="!employeeService.logged_in"
-      (click)="openUrl('/login')"
-    >
-      <a> Log in </a>
-    </div>
 
     <div
-      *ngIf="employeeService.role === 'admin'"
+      *ngIf="(employeeService.role === 'admin') && (!!employeeService.username)"
       class="nav-link d-flex align-items-center p-2 cursor-pointer"
       (click)="openUrl('/register')"
     >
       <a> Employee </a>
     </div>
 
-    <div
-      *ngIf="employeeService.role === 'admin'"
+    <div 
+    *ngIf="(employeeService.role === 'admin') && (!!employeeService.username)"
       class="nav-link d-flex align-items-center p-2 cursor-pointer"
       (click)="openUrl('/departments')"
     >
       <a> Departments </a>
     </div>
 
-    <div
+    <div *ngIf="employeeService.username"
       class="nav-link d-flex align-items-center p-2 cursor-pointer"
       (click)="openUrl('/tasks')"
     >
       <a> Tasks </a>
     </div>
 
-    <div
+    <div *ngIf="employeeService.username"
       class="nav-link d-flex align-items-center p-2 cursor-pointer"
       (click)="openUrl('/leaves')"
     >
       <a> Leaves </a>
     </div>
 
-    <div
+    <div *ngIf="employeeService.username"
       class="nav-link d-flex align-items-center p-2 cursor-pointer"
       (click)="openUrl('/salaries')"
     >
       <a> Salaries </a>
     </div>
-    <div
+    <div *ngIf="employeeService.username"
       class="nav-link d-flex align-items-center p-2 cursor-pointer"
       (click)="openUrl('/settings')"
     >
@@ -131,6 +124,13 @@
     class="d-flex align-items-center justify-content-end gap-2 align-items-stretch sub-menu"
     *ngIf="!menuHidden || !hamburgerMenu"
   >
+  <div 
+      class="nav-link d-flex align-items-center p-2 cursor-pointer"
+      *ngIf="!employeeService.logged_in"
+      (click)="openUrl('/login')"
+    >
+      <a> Log in </a>
+    </div>
     <div
       *ngIf="employeeService.logged_in"
       class="nav-link d-flex align-items-center p-2 cursor-pointer"

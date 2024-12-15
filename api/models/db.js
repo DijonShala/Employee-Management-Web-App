@@ -30,7 +30,7 @@ else if (process.env.NODE_ENV === "test") dbURI = "mongodb://sp-mongo-db/Demo";
 mongoose.connect(dbURI);
 
 mongoose.connection.on("connected", () => {
-  console.log(`Mongoose connected to ${dbURI}.`);
+  console.log(`Mongoose connected to ${dbURI.replace(/:.+?@/, ":*****@")}.`);
   importTD.addAdmin();
 
 });

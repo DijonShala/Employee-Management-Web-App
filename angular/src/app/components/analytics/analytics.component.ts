@@ -5,15 +5,13 @@ import { BehaviorSubject, Observable, retry, take } from "rxjs";
 import { ActivatedRoute, Router } from "@angular/router";
 import { EmployeeService } from "../../services/employee.service";
 import { NiceFormComponent } from "../nice-form/nice-form.component";
-import { AsyncPipe, CommonModule, JsonPipe } from "@angular/common";
+import { CommonModule } from "@angular/common";
 import { RouterLink } from "@angular/router";
 
 @Component({
   selector: "app-analytics",
   imports: [
     NiceFormComponent,
-    AsyncPipe,
-    JsonPipe,
     CommonModule,
     RouterLink
   ],

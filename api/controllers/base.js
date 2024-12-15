@@ -112,7 +112,7 @@ const deleteData = async (req, res) => {
             message: "All data has been deleted successfully."
         });
     } catch (error) {
-        console.error("Error deleting data: ", error);
+        //console.error("Error deleting data: ", error);
         res.status(500).json({
             message: "Error deleting data.",
             error: error.message

@@ -178,7 +178,7 @@ const insertDepartment = async (req, res) => {
 
       res.status(201).json(newDepartment);
     } catch (err) {
-      console.error("Error inserting department:", err);
+      //console.error("Error inserting department:", err);
       res.status(500).json({ message: err.message });
     }
   });
@@ -304,7 +304,7 @@ const updateDepartment = async (req, res) => {
 
       res.status(200).json(updatedDepartment);
     } catch (err) {
-      console.error("Error updating department:", err);
+     // console.error("Error updating department:", err);
       res.status(500).json({ message: err.message });
     }
   });
@@ -407,7 +407,7 @@ const deleteDepartment = async (req, res) => {
 
       res.status(200).json({ message: "Department deleted successfully" });
     } catch (err) {
-      console.error("Error deleting department:", err);
+      //console.error("Error deleting department:", err);
       res.status(500).json({ message: err.message });
     }
   });
@@ -501,7 +501,7 @@ const findDepartmentById = async (req, res) => {
       }
       res.status(200).json(department);
     } catch (err) {
-      console.error("Error finding department:", err);
+      //console.error("Error finding department:", err);
       res.status(500).json({ message: err.message });
     }
   });

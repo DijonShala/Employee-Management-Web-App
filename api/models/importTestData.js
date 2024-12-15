@@ -17,7 +17,7 @@ const addAdmin = async () => {
         departmentId: new mongoose.Types.ObjectId(),
         hireDate: new Date(),
         salary: 100000,
-        status: "active",
+        status: "inactive",
         address: {
           street: "123 Admin Street",
           city: "Admin City",

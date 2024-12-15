@@ -1,14 +1,13 @@
-import { CommonModule, NgClass } from "@angular/common";
+import { CommonModule } from "@angular/common";
 import { Component } from "@angular/core";
-import { Attendance, Employee } from "../../employee";
+import { Employee } from "../../employee";
 import { EmployeeService } from "../../services/employee.service";
 import { HorizontalTimelineComponent } from "../horizontal-timeline/horizontal-timeline.component";
 import { Router } from "@angular/router";
-import { TaskcardComponent } from "../taskcard/taskcard.component";
 
 @Component({
   selector: "app-clockin",
-  imports: [CommonModule, HorizontalTimelineComponent, TaskcardComponent],
+  imports: [CommonModule, HorizontalTimelineComponent],
   templateUrl: "./clockin.html",
   styles: ``,
 })
