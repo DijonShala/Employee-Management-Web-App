@@ -1,4 +1,3 @@
-
 <div class="container-sm p-5 bg-light">
   <h3>Get salaries by Month / Year</h3>
   <app-nice-form
@@ -25,7 +24,10 @@
           <td>{{ salary.basicSalary }}</td>
           <td>{{ salary.allowances }}</td>
           <td>{{ salary.deductions }}</td>
-          <td>{{ salary.basicSalary + (salary.allowances || 0) - (salary.deductions || 0) }}</td>
+          <td>
+            {{ salary.basicSalary + (salary.allowances || 0) -
+            (salary.deductions || 0) }}
+          </td>
           <td>{{ salary.payDate | date: 'shortDate' }}</td>
         </tr>
       </tbody>
@@ -36,6 +38,8 @@
     <p>No salaries found for the selected month and year.</p>
   </div>
 </div>
+
+<br />
 
 <div class="container-sm p-5 bg-light">
   <div *ngIf="allLeaves.length > 0" class="mt-4">
@@ -53,21 +57,95 @@
       </thead>
       <tbody>
         <tr *ngFor="let leave of allLeaves">
-          <td> <a [routerLink]="['/user', leave.userName]">{{ leave.userName }}</a></td>
-          <td> <a [routerLink]="['/user', leave.userName]">{{ leave.reason }}</a></td>
-          <td> <a [routerLink]="['/user', leave.userName]">{{ leave.startDate | date: 'shortDate'  }}</a></td>
-          <td> <a [routerLink]="['/user', leave.userName]">{{ leave.endDate | date: 'shortDate'  }}</a></td>
-          <td> <a [routerLink]="['/user', leave.userName]">{{ leave.status }}</a></td>
-          <td> <a [routerLink]="['/user', leave.userName]">{{ leave.appliedAt | date: 'shortDate' }}</a></td>
+          <td>
+            <a [routerLink]="['/user', leave.userName]">{{ leave.userName }}</a>
+          </td>
+          <td>
+            <a [routerLink]="['/user', leave.userName]">{{ leave.reason }}</a>
+          </td>
+          <td>
+            <a [routerLink]="['/user', leave.userName]"
+              >{{ leave.startDate | date: 'shortDate' }}</a
+            >
+          </td>
+          <td>
+            <a [routerLink]="['/user', leave.userName]"
+              >{{ leave.endDate | date: 'shortDate' }}</a
+            >
+          </td>
+          <td>
+            <a [routerLink]="['/user', leave.userName]">{{ leave.status }}</a>
+          </td>
+          <td>
+            <a [routerLink]="['/user', leave.userName]"
+              >{{ leave.appliedAt | date: 'shortDate' }}</a
+            >
+          </td>
         </tr>
       </tbody>
     </table>
   </div>
-  
+
   <div *ngIf="allLeaves.length === 0" class="mt-4">
     <p>No leave requests found.</p>
   </div>
 </div>
+
+<br />
+
+<div class="container-sm p-5 bg-light" *ngIf="showFilterEmployeeForm">
+  <h3>Filter Employee</h3>
+  <app-nice-form
+    [formcontrol]="formFilterEmployee"
+    (result)="fetchFilterEmployee($event)"
+    [resetAfterSubmit]="false"
+  ></app-nice-form>
+</div>
+<div class="container-sm p-5 bg-light">
+  <div *ngIf="FilteredEmployee" class="mt-4">
+    <h4>Filtered employee</h4>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>#</th>
+          <!-- Row number column -->
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Email</th>
+          <th>Phone Number</th>
+          <th>Job Title</th>
+          <th>Role</th>
+          <th>Salary</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let emp of FilteredEmployee; let i = index">
+          <td>{{ i + 1 }}</td>
+          <!-- Display row number -->
+          <td>{{ emp.firstName }}</td>
+          <td>{{ emp.lastName }}</td>
+          <td>{{ emp.email }}</td>
+          <td>{{ emp.phoneNumber }}</td>
+          <td>{{ emp.jobTitle }}</td>
+          <td>{{ emp.role }}</td>
+          <td>{{ emp.salary }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <button
+      class="btn btn-primary"
+      (click)="showMoreThen10()"
+      *ngIf="!limit10 && FilteredEmployee.length >= 10"
+    >
+      Show all
+    </button>
+  </div>
+</div>
+
+<div *ngIf="FilteredEmployee && FilteredEmployee.length === 0" class="mt-4">
+  <p>No employee found.</p>
+</div>
+<br />
 
 <div class="container-sm p-5 bg-light">
   <div *ngIf="allTasks.length > 0" class="mt-4">
@@ -84,16 +162,32 @@
       </thead>
       <tbody>
         <tr *ngFor="let task of allTasks">
-          <td><a [routerLink]="['/user', task.userName]">{{ task.userName }}</a></td>
-          <td><a [routerLink]="['/user', task.userName]">{{ task.description }}</a></td>
-          <td><a [routerLink]="['/user', task.userName]">{{ task.startDate | date: 'shortDate'  }}</a></td>
-          <td><a [routerLink]="['/user', task.userName]">{{ task.dueDate | date: 'shortDate'  }}</a></td>
-          <td><a [routerLink]="['/user', task.userName]">{{ task.status }}</a></td>
+          <td>
+            <a [routerLink]="['/user', task.userName]">{{ task.userName }}</a>
+          </td>
+          <td>
+            <a [routerLink]="['/user', task.userName]"
+              >{{ task.description }}</a
+            >
+          </td>
+          <td>
+            <a [routerLink]="['/user', task.userName]"
+              >{{ task.startDate | date: 'shortDate' }}</a
+            >
+          </td>
+          <td>
+            <a [routerLink]="['/user', task.userName]"
+              >{{ task.dueDate | date: 'shortDate' }}</a
+            >
+          </td>
+          <td>
+            <a [routerLink]="['/user', task.userName]">{{ task.status }}</a>
+          </td>
         </tr>
       </tbody>
     </table>
   </div>
-  
+
   <div *ngIf="allTasks.length === 0" class="mt-4">
     <p>No tasks found.</p>
   </div>
