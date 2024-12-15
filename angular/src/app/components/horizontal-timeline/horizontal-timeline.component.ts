@@ -30,14 +30,29 @@ export class HorizontalTimelineComponent {
 
   constructor(private employeeService: EmployeeService) {}
 
+  intervalId!: any;
   ngOnInit() {
     this.employeeService.getEmployeeAttendance().subscribe((data) => {
       this.attendances = data;
       this.drawTimeline();
     });
+
+    this.intervalId = setInterval(() => {
+      this.employeeService.getEmployeeAttendance().subscribe((data) => {
+        this.attendances = data;
+        this.drawTimeline();
+      });
+    }, 1000 * 60); // Check every minute
+  }
+
+  ngOnDestroy() {
+    if (this.intervalId) {
+      clearInterval(this.intervalId); // Clean up interval to avoid memory leaks
+    }
   }
 
   drawTimeline() {
+    this.timelineData = [];
     for (let i = 0; i < 24; i++) {
       let start_hour = this.set_added_hours(this.timeline_start, i);
       let end_hour = this.set_added_hours(this.timeline_start, i + 1);
