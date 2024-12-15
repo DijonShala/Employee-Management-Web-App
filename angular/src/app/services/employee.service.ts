@@ -20,6 +20,7 @@ export class EmployeeService {
   administrator: boolean = false;
 
   username: string = "";
+  role: string = "";
   token: string = "";
 
   constructor(
@@ -33,6 +34,10 @@ export class EmployeeService {
     let sessionStored_username = window.sessionStorage.getItem("username");
     this.username =
       sessionStored_username == null ? "" : sessionStored_username;
+
+    let sessionStored_role = window.sessionStorage.getItem("role");
+    this.role =
+        sessionStored_role == null ? "" : sessionStored_role;
 
     let sessionStored_token = window.sessionStorage.getItem("token");
     this.token = sessionStored_token == null ? "" : sessionStored_token;
@@ -178,7 +183,7 @@ export class EmployeeService {
     return this.http.post<Salary>(`${this.apiUrl}/salaries`, salary);
   }
   getSalaries(username: string) {
-    return this.http.get(`${this.apiUrl}/salaries/${username}`);
+    return this.http.get<Salary[]>(`${this.apiUrl}/salaries/${username}`);
   }
   getSalariesMonth(month: number, year: number): Observable<Salary[]> {
     return this.http

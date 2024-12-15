@@ -45,7 +45,7 @@ export class LeavesComponent {
       type: "text",
       title: "Start Date: ",
       placeholder: "Start Date",
-      default: "2024-12-25",
+      default: new Date().toISOString().substring(0, 10),
       validators: [Validators.required],
     },
 
@@ -54,7 +54,7 @@ export class LeavesComponent {
       type: "text",
       title: "End Date: ",
       placeholder: "End Date",
-      default: "2025-01-05",
+      default: new Date().toISOString().substring(0, 10),
       validators: [Validators.required],
     },
   ];

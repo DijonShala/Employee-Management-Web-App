@@ -52,18 +52,22 @@ export class LoginComponent {
     this.employeeService.login(result.username, result.password).subscribe(
       (data) => {
         let token = JSON.stringify(data).slice(10, -2); // standarden typescript
+        const payload = JSON.parse(atob(token.split('.')[1]));  // Decode the payload
+        const role = payload.role;
+        window.sessionStorage.setItem("role", role);
         document.cookie =
           "username=" + result.username + "; path=/; max-age=3600";
         document.cookie = "token=" + token + "; path=/; max-age=3600";
-        this.finishLogin(result.username, token);
+        this.finishLogin(result.username, token, role);
       },
       (error) => {}
     );
   }
 
-  finishLogin(username: string, token: string) {
+  finishLogin(username: string, token: string, role: string) {
     window.sessionStorage.setItem("username", username);
     window.sessionStorage.setItem("token", token);
+    window.sessionStorage.setItem("role", role);
     this.employeeService.initialize().subscribe((data: Boolean) => {
       console.log(data);
       if (data) {
@@ -76,9 +80,10 @@ export class LoginComponent {
   ngOnInit() {
     let username = this.getCookie("username");
     let token = this.getCookie("token");
+    let role = this.getCookie("role");
 
-    if (username != null && token != null) {
-      this.finishLogin(username, token);
+    if (username != null && token != null && role != null ) {
+      this.finishLogin(username, token, role);
     }
 
     this.route.queryParams.subscribe((params) => {

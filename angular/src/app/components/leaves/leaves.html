@@ -7,7 +7,7 @@
 </div>
 
 <div class="container-sm p-5 bg-light">
-  <h3>Employee Leaves</h3>
+  <h3>{{ employee?.userName}} Leaves</h3>
     <table class="table table-bordered table-hover ">
       <thead>
         <tr>
@@ -21,10 +21,10 @@
       <tbody>
         <tr *ngFor="let leave of employee_leaves">
           <td>{{ leave.reason }}</td>
-          <td>{{ leave.startDate }}</td>
-          <td>{{ leave.endDate }}</td>
+          <td>{{ leave.startDate  | date: 'shortDate' }}</td>
+          <td>{{ leave.endDate  | date: 'shortDate' }}</td>
           <td>{{ leave.status || "Pending" }}</td>
-          <td>{{ leave.appliedAt || "N/A" }}</td>
+          <td>{{ leave.appliedAt  | date: 'shortDate'}}</td>
         </tr>
       </tbody>
     </table>

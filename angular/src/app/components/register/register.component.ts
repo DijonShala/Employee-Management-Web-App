@@ -216,7 +216,7 @@ export class RegisterComponent {
             value: dept._id ?? "",
           }));
 
-          console.log(departmentOptions);
+          //console.log(departmentOptions);
 
           const departmentControl = this.formcontrol.find(
             (control) => control.name === "departmentid"

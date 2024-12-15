@@ -1,7 +1,7 @@
 import { Component } from "@angular/core";
 import { Employee, niceForm, Salary } from "../../employee";
 import { Validators } from "@angular/forms";
-import { BehaviorSubject, Observable, take } from "rxjs";
+import { BehaviorSubject, Observable, retry, take } from "rxjs";
 import { ActivatedRoute, Router } from "@angular/router";
 import { EmployeeService } from "../../services/employee.service";
 import { NiceFormComponent } from "../nice-form/nice-form.component";
@@ -91,7 +91,27 @@ export class SalariesComponent {
   ];
   */
   employee_salaries!: Observable<Object>;
+  employee_salary: Salary[] = [];
   employee!: Employee;
+
+  fetchEmployeeSalaries() {
+      this.employeeService.
+      getSalaries(this.employee.userName)
+      .pipe(retry(1))
+      .subscribe(
+        (response: any) => {
+          if (response && Array.isArray(response.salaries)) {
+            this.employee_salary = response.salaries;
+          } else {
+            console.error("Invalid response format: Expected `leaves` array.");
+            this.employee_salary = [];
+          }
+        },
+        (error) => {
+          console.error("Failed to fetch employee leaves:", error);
+        }
+      );
+    }
 
   addSalary(data: {
     userName: string;
@@ -110,6 +130,7 @@ export class SalariesComponent {
     this.employeeService.addSalary(salary).subscribe(
       (data) => {
         this.setEmployee();
+        this.fetchEmployeeSalaries();
       },
       (error) => {}
     );
@@ -123,7 +144,7 @@ export class SalariesComponent {
         this.employee_salaries = this.employeeService.getSalaries(
           this.employee.userName
         );
-
+        this.fetchEmployeeSalaries();
         this.setSalaryData();
       });
   }
@@ -211,6 +232,7 @@ export class SalariesComponent {
     });
   }
 
+  
   JSONparse(st: string) {
     return JSON.parse(st);
   }
