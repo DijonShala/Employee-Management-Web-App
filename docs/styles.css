@@ -1,0 +1,215 @@
+body {
+    background-color: #f8f9fa;
+    display: flex;
+    height: 100vh;
+    margin: 0;
+    overflow: hidden;
+}
+form {
+    justify-content: center;
+    align-items: center;
+}
+.sidebar {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    padding-top: 60px;
+    transition: 0.5s;
+}
+.sidebar a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+}
+.sidebar a:hover {
+    color: #f1f1f1;
+}
+.sidebar .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 35px;
+    margin-left: 50px;
+}
+.openbtn {
+    font-size: 20px;
+    cursor: pointer;
+    background-color: #007bff;
+    color: white;
+    padding: 0px 0px;
+    border: none;
+}
+#main {
+    transition: margin-left .5s;
+    padding: 20px;
+}
+.header {
+    font-size: 20px;
+    background-color: #007bff;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px 20px;
+}
+.content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    overflow-y: auto;
+    min-height: 0;
+}
+.timer {
+    font-size: 5rem;
+    font-weight: lighter;
+}
+.progress {
+    width: 100%;
+    max-width: 800px;
+    margin: 20px 0;
+    min-height: 20px;
+    flex-shrink: 0;
+}
+.action-buttons button {
+    margin: 0 10px;
+}
+.form-control::placeholder {
+    color: grey;
+}
+.clocked-in-timer {
+    font-size: 2rem;
+    font-weight: light;
+    margin-top: 20px;
+    color: #6c757d;
+}
+#calendar {
+    width: 60%;
+    z-index: 0;
+}
+.modal-content {
+    width: 80%;
+    margin: 0 auto;
+}
+.login-container {
+    max-width: 400px;
+    margin: 100px auto;
+    padding: 20px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.login-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+.login-header h1 {
+    font-size: 1.5rem;
+    color: #343a40;
+}
+.form-label {
+    font-weight: bold;
+}
+table {
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    table-layout: auto;
+}
+th, td {
+    word-wrap: break-word;
+    white-space: nowrap;
+    text-align: left;
+    padding: 10px;
+}
+.form-control[readonly] {
+    background-color: #e9ecef;
+    color: #6c757d;
+    cursor: not-allowed;
+}
+@media (max-width: 768px) {
+    .form-control {
+        font-size: 14px;
+    }
+    .header {
+        flex-wrap: wrap;
+        text-align: center;
+    }
+    .header span, .header button {
+        margin-top: 10px;
+    }
+    .sidebar {
+        width: 100%;
+    }
+    .sidebar a {
+        font-size: 1.5em;
+        text-align: left;
+    }
+    table {
+        border: 0;
+    }
+    table thead {
+        display: none;
+    }
+    table tr {
+        display: block;
+        margin-bottom: 10px;
+    }
+    table td {
+        display: block;
+        text-align: left;
+        font-size: 14px;
+        border-bottom: 1px solid #ddd;
+        position: relative;
+    }
+    table td::before {
+        content: attr(data-label);
+        position: absolute;
+        font-weight: bold;
+        text-align: left;
+    }
+    button.btn-primary {
+        width: 35%;
+    }
+    table td, table th {
+        padding: 8px;
+        word-wrap: break-word;
+    }
+    .search-container {
+        display: flex;
+        gap: 10px;
+        width: 100%;
+    }
+    #searchBar {
+        flex-grow: 1;
+    }
+    tbody tr td {
+        padding: 10px;
+    }
+    #searchContainer {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 10px;
+    }
+    .login-container {
+        margin: 50px auto;
+        padding: 15px;
+    }
+    .login-header h1 {
+        font-size: 1.2rem;
+    }
+    .btn-primary {
+        font-size: 1.1rem;
+    }
+}
