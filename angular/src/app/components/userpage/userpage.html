@@ -75,9 +75,16 @@
           (result)="requestLeave($event)"
         ></app-nice-form>
 
-        <div *ngIf="(employee_leaves | async) as leaves">
-          <div>{{leaves | json}}</div>
-        </div>
+        <div class="container-sm py-2 my-5 shadow-md bg-light">
+          <h3>Leave requests</h3>
+      
+          <div *ngIf="leaves != null">
+            <div *ngFor="let leave of leaves.leaves">
+              <app-leavecard [leave]="leave"></app-leavecard>
+              <hr />
+            </div>
+          </div>
+      </div>
       </div>
 
       <br />

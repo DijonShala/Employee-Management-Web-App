@@ -16,6 +16,7 @@ import { EmployeeService } from "../../services/employee.service";
 import { CommonModule } from "@angular/common";
 import { Observable, retry } from "rxjs";
 import { TaskcardComponent } from "../taskcard/taskcard.component";
+import { LeavecardComponent } from "../leavecard/leavecard.component";
 
 @Component({
   selector: "app-userpage",
@@ -25,7 +26,8 @@ import { TaskcardComponent } from "../taskcard/taskcard.component";
     AsyncPipe,
     JsonPipe,
     CommonModule,
-    TaskcardComponent
+    TaskcardComponent,
+    LeavecardComponent
   ],
   templateUrl: "userpage.html",
   styles: ``,
@@ -167,6 +169,7 @@ export class UserpageComponent {
           //  });
           this.fetchEmployeeSalaries();
           this.getTasks();
+          this.getLeaves();
           this.setformcontrol();
         });
       }
@@ -321,6 +324,23 @@ export class UserpageComponent {
       },
       (error) => {}
     );
+  }
+
+  leaves: any;
+  getLeaves() {
+    this.employeeService
+      .getEmployeeLeaves(this.employee.userName)
+      .subscribe((data) => {
+        this.leaves = data;
+      });
+  }
+  
+  updateLeaves(taskid: string, value: string) {
+    this.employeeService
+      .updateLeave(taskid, { status: value })
+      .subscribe((data) => {
+        this.getLeaves();
+      });
   }
 
   // CREATE TASK FORM ------------------------------------------------------------------------------------------------------------------------------------------

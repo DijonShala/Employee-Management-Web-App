@@ -1,0 +1,39 @@
+<div *ngIf="!deleted" class="card">
+  <div
+    class="card-header"
+    [ngClass]="
+    leave.status == 'Approved' ? 'bg-success' :
+    leave.status == 'Pending' ? 'bg-secondary' :
+    leave.status == 'Rejected' ? 'bg-warning' : ''"
+  >
+    <span class="badge bg-secondary float-right"> {{leave.status}} </span>
+    <span class=""> {{leave.appliedAt | date: "dd/MM/Y hh:mm:ss"}}</span>
+  </div>
+  <div class="card-body">
+    <strong>Description: </strong><br />
+    {{leave.reason}}<br />
+    <hr />
+    <strong>Start date: </strong>
+    {{leave.startDate | date: "dd/MM/Y hh:mm:ss"}}<br />
+    <strong>Due date: </strong>
+    {{leave.endDate | date: "dd/MM/Y hh:mm:ss"}}
+    <br />
+  </div>
+  <div class="card-footer">
+    <div class="input-group mb-3">
+      <button (click)="changeStatus()" type="button" class="btn btn-primary">
+        Change status
+      </button>
+      <select [(ngModel)]="selectedStatus" class="form-select">
+        <option>Pending</option>
+        <option>Approved</option>
+        <option>Rejected</option>
+      </select>
+      <div *ngIf="employeeService.role === 'admin'">
+        <button (click)="deleteLeave()" type="button" class="btn btn-danger">
+          Delete leave
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
