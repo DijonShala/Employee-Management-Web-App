@@ -3,6 +3,7 @@ import { Component, OnDestroy, TemplateRef } from "@angular/core";
 import { RouterModule, Router } from "@angular/router";
 import { EmployeeService } from "../../services/employee.service";
 import { BsModalService, BsModalRef } from "ngx-bootstrap/modal";
+import { Employee } from "../../employee"
 
 @Component({
   selector: "app-navbar",
@@ -17,7 +18,7 @@ export class NavbarComponent {
     private router: Router,
     private modalService: BsModalService
   ) {}
-
+  employee!: Employee;
   windowWidth: number = window.innerWidth;
   intervalId: any;
   hamburgerMenu: Boolean = false;

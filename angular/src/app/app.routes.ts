@@ -11,6 +11,7 @@ import { adminGuard } from "./admin.guard";
 import { DepartmentsComponent } from "./components/departments/departments.component";
 import { DepartmentComponent } from "./components/departments/department.component";
 import { SalariesComponent } from "./components/salaries/salaries.component";
+import { LeavesComponent } from "./components/leaves/leaves.component";
 
 export const routes: Routes = [
   { path: "clockin", component: ClockinComponent, canActivate: [loginGuard] },
@@ -26,6 +27,11 @@ export const routes: Routes = [
     path: "departments",
     component: DepartmentsComponent,
     canActivate: [adminGuard],
+  },
+  {
+    path: "leaves",
+    component: LeavesComponent,
+    canActivate: [loginGuard],
   },
   {
     path: "salaries",

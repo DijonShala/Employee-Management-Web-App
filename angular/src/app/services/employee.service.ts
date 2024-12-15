@@ -160,7 +160,7 @@ export class EmployeeService {
     return this.http.get(`${this.apiUrl}/leaves`);
   }
   getEmployeeLeaves(username: string) {
-    return this.http.get(`${this.apiUrl}/leaves/${username}`);
+    return this.http.get<Leave[]>(`${this.apiUrl}/leaves/${username}`);
   }
   updateLeave(leaveid: string, status: { status: string }) {
     return this.http.put<{ status: string }>(
@@ -180,8 +180,12 @@ export class EmployeeService {
   getSalaries(username: string) {
     return this.http.get(`${this.apiUrl}/salaries/${username}`);
   }
-  getSalariesMonth(month: number, year: number) {
-    return this.http.get(`${this.apiUrl}/salaries/month/${month}/year/${year}`);
+  getSalariesMonth(month: number, year: number): Observable<Salary[]> {
+    return this.http
+      .get<{ message: string; salaries: Salary[] }>(`${this.apiUrl}/salaries/month/${month}/year/${year}`)
+      .pipe(
+        map((response) => response.salaries)
+      );
   }
   removeSalary(salaryid: string) {
     return this.http.delete(`${this.apiUrl}/salaries/${salaryid}`);
@@ -199,6 +203,9 @@ export class EmployeeService {
     return this.http.get<Department>(
       `${this.apiUrl}/department-data/${departmentid}`
     );
+  }
+  findEmployeesInDepartment(depname: string) {
+    return this.http.get<Employee[]>(`${this.apiUrl}/department/${depname}`);
   }
   updateDepartment(departmentid: string, data: Department) {
     return this.http.put<Department>(

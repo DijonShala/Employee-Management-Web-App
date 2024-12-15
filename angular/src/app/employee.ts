@@ -59,7 +59,7 @@ export interface Salary {
 }
 
 export interface Leave {
-  userName: string;
+  userName?: string;
   reason: string;
   startDate: string;
   endDate: string;
@@ -88,7 +88,7 @@ export interface Department {
 
 export interface niceForm {
   name: string;
-  type: string;
+  type: string | number;
   title?: string;
   placeholder?: string;
   default: string | boolean;
