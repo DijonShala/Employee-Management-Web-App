@@ -164,7 +164,7 @@ export class EmployeeService {
     return this.http.post<Leave>(`${this.apiUrl}/leaves`, leave);
   }
   getLeaves() {
-    return this.http.get(`${this.apiUrl}/leaves`);
+    return this.http.get<Leave[]>(`${this.apiUrl}/leaves`);
   }
   getEmployeeLeaves(username: string) {
     return this.http.get<Leave[]>(`${this.apiUrl}/leaves/${username}`);
