@@ -17,13 +17,7 @@ import { RouterLink } from "@angular/router";
 
 @Component({
   selector: "app-analytics",
-  imports: [
-    NiceFormComponent,
-    AsyncPipe,
-    JsonPipe,
-    CommonModule,
-    RouterLink
-  ],
+  imports: [NiceFormComponent, AsyncPipe, JsonPipe, CommonModule, RouterLink],
   templateUrl: "analytics.html",
   styles: ``,
 })
@@ -73,8 +67,8 @@ export class AnalyticsComponent {
     );
   }
   allLeaves: Leave[] = [];
-  getAllLeaves(){
-     this.employeeService
+  getAllLeaves() {
+    this.employeeService
       .getLeaves()
       .pipe(retry(1))
       .subscribe(
@@ -89,7 +83,6 @@ export class AnalyticsComponent {
   filteredSalaries: Salary[] = [];
 
   allTasks: Task[] = [];
-  allLeaves: Leave[] = [];
 
   initFilterEmploye() {
     this.employeeService
@@ -244,9 +237,9 @@ export class AnalyticsComponent {
     this.limit10 = true;
     this.fetchFilterEmployee(this.data);
   }
-}
-  getAllTasks(){
-     this.employeeService
+
+  getAllTasks() {
+    this.employeeService
       .getTasks()
       .pipe(retry(1))
       .subscribe(
@@ -254,7 +247,7 @@ export class AnalyticsComponent {
           this.allTasks = tasks;
         },
         (error) => {
-          this.allTasks =  [];
+          this.allTasks = [];
         }
       );
   }
