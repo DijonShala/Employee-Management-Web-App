@@ -106,22 +106,6 @@
         </div>
         </div>
       </div>
-
-      <br />
-      <div class="container-sm p-5 bg-light">
-        <h3>Create a department</h3>
-        <app-nice-form
-          [formcontrol]="createdepartmentform"
-          (result)="createDepartment($event)"
-        ></app-nice-form>
-
-        <div *ngIf="departments != null">
-          <div
-            *ngFor="let department of departments"
-            [innerHTML]="department.name"
-          ></div>
-        </div>
-      </div>
     </main>
   </div>
 </div>

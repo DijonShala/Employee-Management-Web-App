@@ -158,9 +158,6 @@ export class UserpageComponent {
           this.employee_tasks = this.employeeService.getEmployeeTasks(
             this.employee.userName
           );
-          this.employeeService.getDepartments().subscribe((data) => {
-            this.departments = data;
-          });
           //this.employeeService
           //  .getDepartment(this.employee.userName)
           //  .subscribe((data) => {
@@ -410,43 +407,5 @@ export class UserpageComponent {
       .subscribe((data) => {
         this.getTasks();
       });
-  }
-
-  // CREATE DEPARTMENT FORM ------------------------------------------------------------------------------------------------------------------------------------------
-  createdepartmentform: niceForm[] = [
-    {
-      name: "name",
-      type: "text",
-      title: "Department name: ",
-      placeholder: "Department name",
-      default: "",
-      validators: [Validators.required],
-    },
-
-    {
-      name: "description",
-      type: "text",
-      title: "Department description: ",
-      placeholder: "Description",
-      default: "",
-      validators: [Validators.required],
-    },
-  ];
-
-  departments!: any;
-  employee_department!: any;
-
-  createDepartment(data: { name: string; description: string }) {
-    let department: Department = {
-      name: data.name,
-      description: data.description,
-    };
-
-    this.employeeService.addDepartment(department).subscribe(
-      (data) => {
-        this.setEmployee();
-      },
-      (error) => {}
-    );
-  }
+  }  
 }

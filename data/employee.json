@@ -10,7 +10,7 @@
       "departmentId": "ObjectId_1",
       "hireDate": "2020-01-15",
       "salary": 7000,
-      "status": "active",
+      "status": "inactive",
       "address": {
         "street": "123 Main St",
         "city": "Metropolis",
@@ -31,7 +31,7 @@
       "departmentId": "ObjectId_2",
       "hireDate": "2019-05-20",
       "salary": 8000,
-      "status": "active",
+      "status": "inactive",
       "address": {
         "street": "456 Elm St",
         "city": "Star City",
@@ -52,7 +52,7 @@
       "departmentId": "ObjectId_3",
       "hireDate": "2021-03-01",
       "salary": 6000,
-      "status": "active",
+      "status": "inactive",
       "address": {
         "street": "789 Maple Ave",
         "city": "Gotham",
@@ -73,7 +73,7 @@
       "departmentId": "ObjectId_4",
       "hireDate": "2020-07-11",
       "salary": 7500,
-      "status": "active",
+      "status": "inactive",
       "address": {
         "street": "321 Pine Rd",
         "city": "Central City",
@@ -94,7 +94,7 @@
       "departmentId": "ObjectId_5",
       "hireDate": "2022-01-05",
       "salary": 6500,
-      "status": "active",
+      "status": "inactive",
       "address": {
         "street": "654 Cedar St",
         "city": "Smallville",
@@ -115,7 +115,7 @@
       "departmentId": "ObjectId_1",
       "hireDate": "2021-06-17",
       "salary": 8500,
-      "status": "active",
+      "status": "inactive",
       "address": {
         "street": "987 Willow Ave",
         "city": "Metropolis",
@@ -136,7 +136,7 @@
       "departmentId": "ObjectId_2",
       "hireDate": "2018-09-14",
       "salary": 9000,
-      "status": "active",
+      "status": "inactive",
       "address": {
         "street": "111 Birch St",
         "city": "Star City",
@@ -157,7 +157,7 @@
       "departmentId": "ObjectId_3",
       "hireDate": "2019-11-09",
       "salary": 7000,
-      "status": "active",
+      "status": "inactive",
       "address": {
         "street": "222 Oak Rd",
         "city": "Gotham",
@@ -178,7 +178,7 @@
       "departmentId": "ObjectId_4",
       "hireDate": "2020-02-12",
       "salary": 7800,
-      "status": "active",
+      "status": "inactive",
       "address": {
         "street": "333 Palm Ave",
         "city": "Central City",
@@ -199,7 +199,7 @@
       "departmentId": "ObjectId_5",
       "hireDate": "2021-12-01",
       "salary": 6800,
-      "status": "active",
+      "status": "inactive",
       "address": {
         "street": "444 Spruce St",
         "city": "Smallville",
