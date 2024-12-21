@@ -161,9 +161,9 @@ export class EmployeeService {
     return this.http.post<Task>(`${this.apiUrl}/tasks`, task);
   }
   getTasks() {
-    return this.http.get<{ tasks: Task[] }>(`${this.apiUrl}/tasks`).pipe(
-      map((response) => response.tasks)
-    );
+    return this.http
+      .get<{ tasks: Task[] }>(`${this.apiUrl}/tasks`)
+      .pipe(map((response) => response.tasks));
   }
   getEmployeeTasks(username: string) {
     return this.http.get(`${this.apiUrl}/tasks/${username}`);
@@ -184,9 +184,9 @@ export class EmployeeService {
     return this.http.post<Leave>(`${this.apiUrl}/leaves`, leave);
   }
   getLeaves() {
-    return this.http.get<{ leaves: Leave[] }>(`${this.apiUrl}/leaves`).pipe(
-      map((response) => response.leaves)
-    );
+    return this.http
+      .get<{ leaves: Leave[] }>(`${this.apiUrl}/leaves`)
+      .pipe(map((response) => response.leaves));
   }
   getEmployeeLeaves(username: string) {
     return this.http.get<Leave[]>(`${this.apiUrl}/leaves/${username}`);
@@ -252,5 +252,11 @@ export class EmployeeService {
 
   deleteData() {
     return this.http.delete(`${this.apiUrl}/db`);
+  }
+
+  // OUTSIDE
+
+  getCurrencyConversionRates() {
+    return this.http.get("https://api.fxratesapi.com/latest");
   }
 }

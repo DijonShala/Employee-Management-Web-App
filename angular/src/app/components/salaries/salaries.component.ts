@@ -5,10 +5,16 @@ import { BehaviorSubject, Observable, retry, take } from "rxjs";
 import { ActivatedRoute, Router } from "@angular/router";
 import { EmployeeService } from "../../services/employee.service";
 import { NiceFormComponent } from "../nice-form/nice-form.component";
-import { AsyncPipe, CommonModule, JsonPipe } from "@angular/common";
+import {
+  AsyncPipe,
+  CommonModule,
+  JsonPipe,
+  KeyValuePipe,
+} from "@angular/common";
 import { AsyncAction } from "rxjs/internal/scheduler/AsyncAction";
 import { SidebarComponent } from "../sidebar/sidebar.component";
 import { NgxChartsModule } from "@swimlane/ngx-charts";
+import { FormsModule } from "@angular/forms";
 
 @Component({
   selector: "app-salaries",
@@ -16,8 +22,10 @@ import { NgxChartsModule } from "@swimlane/ngx-charts";
     NiceFormComponent,
     AsyncPipe,
     JsonPipe,
+    KeyValuePipe,
     CommonModule,
     NgxChartsModule,
+    FormsModule,
   ],
   templateUrl: "salaries.html",
   styles: ``,
@@ -31,6 +39,8 @@ export class SalariesComponent {
   ngOnInit() {
     this.setEmployee();
     this.loadUserNames();
+
+    this.currencySetup();
   }
 
   salaryform: niceForm[] = [
@@ -106,8 +116,7 @@ export class SalariesComponent {
             this.employee_salary = [];
           }
         },
-        (error) => {
-        }
+        (error) => {}
       );
   }
 
@@ -269,4 +278,25 @@ export class SalariesComponent {
   colorScheme = {
     domain: ["#5AA454", "#E44D25", "#CFC0BB", "#7aa3e5", "#a8385d", "#aae3f5"],
   };
+
+  rates: any = undefined;
+
+  selected_currency: string = "USD";
+  selected_currency_select_text: string = "USD ($)";
+
+  conversion: number = 1;
+
+  currencySetup() {
+    this.employeeService.getCurrencyConversionRates().subscribe(
+      (data) => {
+        this.rates = data;
+      },
+      (error) => {}
+    );
+  }
+
+  change_currency() {
+    this.selected_currency = this.selected_currency_select_text.split(" ")[0];
+    this.conversion = this.rates.rates[this.selected_currency];
+  }
 }
