@@ -7,31 +7,11 @@
 
   <div *ngIf="filteredSalaries.length > 0" class="mt-4">
     <h4>Salaries for the selected month and year</h4>
-    <table class="table table-bordered">
-      <thead>
-        <tr>
-          <th>User Name</th>
-          <th>Basic Salary</th>
-          <th>Allowances</th>
-          <th>Deductions</th>
-          <th>Net Salary</th>
-          <th>Pay Date</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let salary of filteredSalaries">
-          <td>{{ salary.userName }}</td>
-          <td>{{ salary.basicSalary }}</td>
-          <td>{{ salary.allowances }}</td>
-          <td>{{ salary.deductions }}</td>
-          <td>
-            {{ salary.basicSalary + (salary.allowances || 0) -
-            (salary.deductions || 0) }}
-          </td>
-          <td>{{ salary.payDate | date: 'shortDate' }}</td>
-        </tr>
-      </tbody>
-    </table>
+    <ag-grid-angular
+      [rowData]="filteredSalaries"
+      [columnDefs]="filteredSalaryDefs"
+      style="height: 400px"
+    />
   </div>
 
   <div *ngIf="filteredSalaries.length === 0" class="mt-4">
@@ -44,46 +24,11 @@
 <div class="container-sm p-5 bg-light">
   <div *ngIf="allLeaves.length > 0" class="mt-4">
     <h4>Leave Requests</h4>
-    <table class="table table-bordered">
-      <thead>
-        <tr>
-          <th>User Name</th>
-          <th>Reason</th>
-          <th>Start Date</th>
-          <th>End Date</th>
-          <th>Status</th>
-          <th>Applied at</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let leave of allLeaves">
-          <td>
-            <a [routerLink]="['/user', leave.userName]">{{ leave.userName }}</a>
-          </td>
-          <td>
-            <a [routerLink]="['/user', leave.userName]">{{ leave.reason }}</a>
-          </td>
-          <td>
-            <a [routerLink]="['/user', leave.userName]"
-              >{{ leave.startDate | date: 'shortDate' }}</a
-            >
-          </td>
-          <td>
-            <a [routerLink]="['/user', leave.userName]"
-              >{{ leave.endDate | date: 'shortDate' }}</a
-            >
-          </td>
-          <td>
-            <a [routerLink]="['/user', leave.userName]">{{ leave.status }}</a>
-          </td>
-          <td>
-            <a [routerLink]="['/user', leave.userName]"
-              >{{ leave.appliedAt | date: 'shortDate' }}</a
-            >
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <ag-grid-angular
+      [rowData]="allLeaves"
+      [columnDefs]="allLeavesDefs"
+      style="height: 400px"
+    />
   </div>
 
   <div *ngIf="allLeaves.length === 0" class="mt-4">
@@ -104,34 +49,11 @@
 <div class="container-sm p-5 bg-light">
   <div *ngIf="FilteredEmployee" class="mt-4">
     <h4>Filtered employee</h4>
-    <table class="table table-bordered">
-      <thead>
-        <tr>
-          <th>#</th>
-          <!-- Row number column -->
-          <th>First Name</th>
-          <th>Last Name</th>
-          <th>Email</th>
-          <th>Phone Number</th>
-          <th>Job Title</th>
-          <th>Role</th>
-          <th>Salary</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let emp of FilteredEmployee; let i = index">
-          <td>{{ i + 1 }}</td>
-          <!-- Display row number -->
-          <td>{{ emp.firstName }}</td>
-          <td>{{ emp.lastName }}</td>
-          <td>{{ emp.email }}</td>
-          <td>{{ emp.phoneNumber }}</td>
-          <td>{{ emp.jobTitle }}</td>
-          <td>{{ emp.role }}</td>
-          <td>{{ emp.salary }}</td>
-        </tr>
-      </tbody>
-    </table>
+    <ag-grid-angular
+      [rowData]="FilteredEmployee"
+      [columnDefs]="filteredEmployeeDefs"
+      style="height: 400px"
+    />
     <button
       class="btn btn-primary"
       (click)="showMoreThen10()"
@@ -150,42 +72,11 @@
 <div class="container-sm p-5 bg-light">
   <div *ngIf="allTasks.length > 0" class="mt-4">
     <h4>Tasks</h4>
-    <table class="table table-bordered">
-      <thead>
-        <tr>
-          <th>User Name</th>
-          <th>Description</th>
-          <th>Start Date</th>
-          <th>Due Date</th>
-          <th>Status</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let task of allTasks">
-          <td>
-            <a [routerLink]="['/user', task.userName]">{{ task.userName }}</a>
-          </td>
-          <td>
-            <a [routerLink]="['/user', task.userName]"
-              >{{ task.description }}</a
-            >
-          </td>
-          <td>
-            <a [routerLink]="['/user', task.userName]"
-              >{{ task.startDate | date: 'shortDate' }}</a
-            >
-          </td>
-          <td>
-            <a [routerLink]="['/user', task.userName]"
-              >{{ task.dueDate | date: 'shortDate' }}</a
-            >
-          </td>
-          <td>
-            <a [routerLink]="['/user', task.userName]">{{ task.status }}</a>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <ag-grid-angular
+      [rowData]="allTasks"
+      [columnDefs]="allTasksDefs"
+      style="height: 400px"
+    />
   </div>
 
   <div *ngIf="allTasks.length === 0" class="mt-4">

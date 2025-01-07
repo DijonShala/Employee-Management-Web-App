@@ -15,23 +15,162 @@ import { NiceFormComponent } from "../nice-form/nice-form.component";
 import { AsyncPipe, CommonModule, JsonPipe } from "@angular/common";
 import { RouterLink } from "@angular/router";
 
+import { AgGridAngular } from "ag-grid-angular";
+import type { ColDef } from "ag-grid-community";
+import { AllCommunityModule, ModuleRegistry } from "ag-grid-community";
+ModuleRegistry.registerModules([AllCommunityModule]);
+import { DatePipe } from "@angular/common";
+
 @Component({
   selector: "app-analytics",
-  imports: [NiceFormComponent, AsyncPipe, JsonPipe, CommonModule, RouterLink],
+  imports: [
+    NiceFormComponent,
+    AsyncPipe,
+    JsonPipe,
+    CommonModule,
+    RouterLink,
+    AgGridAngular,
+  ],
   templateUrl: "analytics.html",
   styles: ``,
+  providers: [DatePipe],
 })
 export class AnalyticsComponent {
   constructor(
     public employeeService: EmployeeService,
     private router: Router,
-    public route: ActivatedRoute
+    public route: ActivatedRoute,
+    private datePipe: DatePipe
   ) {}
   ngOnInit() {
     this.initFilterEmploye();
     this.getAllLeaves();
     this.getAllTasks();
   }
+
+  filteredSalaryDefs: ColDef[] = [
+    { field: "userName", sortable: true, filter: true },
+    { field: "basicSalary", sortable: true, filter: true },
+    { field: "allowances", sortable: true, filter: true },
+    { field: "deductions", sortable: true, filter: true },
+    {
+      field: "payDate",
+      valueFormatter: (params) => {
+        return this.datePipe.transform(params.value, "dd/MM/yyyy") || "";
+      },
+    },
+    {
+      headerName: "Net Salary",
+      sortable: true,
+      valueGetter: (params) => {
+        const basicSalary = params.data.basicSalary || 0;
+        const allowances = params.data.allowances || 0;
+        const deductions = params.data.deductions || 0;
+        return basicSalary + allowances - deductions; // Calculate net salary
+      },
+      valueFormatter: (params) => {
+        return params.value.toFixed(2); // Format to 2 decimal places
+      },
+    },
+  ];
+
+  allLeavesDefs: ColDef[] = [
+    {
+      field: "userName",
+      sortable: true,
+      filter: true,
+    },
+    { field: "reason", sortable: true, filter: true },
+    {
+      field: "startDate",
+      valueFormatter: (params) => {
+        return this.datePipe.transform(params.value, "dd/MM/yyyy") || "";
+      },
+    },
+    {
+      field: "endDate",
+      valueFormatter: (params) => {
+        return this.datePipe.transform(params.value, "dd/MM/yyyy") || "";
+      },
+    },
+    { field: "status", sortable: true, filter: true },
+    {
+      field: "appliedAt",
+      valueFormatter: (params) => {
+        return this.datePipe.transform(params.value, "dd/MM/yyyy") || "";
+      },
+    },
+  ];
+
+  allTasksDefs: ColDef[] = [
+    {
+      field: "userName",
+      sortable: true,
+      filter: true,
+    },
+    {
+      field: "description",
+      sortable: true,
+      filter: true,
+      cellStyle: {
+        whiteSpace: "normal",
+        overflow: "visible",
+        lineHeight: "20px",
+      },
+      autoHeight: true,
+    },
+    {
+      field: "startDate",
+      valueFormatter: (params) => {
+        return this.datePipe.transform(params.value, "dd/MM/yyyy") || "";
+      },
+    },
+    {
+      field: "dueDate",
+      valueFormatter: (params) => {
+        return this.datePipe.transform(params.value, "dd/MM/yyyy") || "";
+      },
+    },
+    { field: "status", sortable: true, filter: true },
+  ];
+
+  filteredEmployeeDefs: ColDef[] = [
+    {
+      field: "firstName",
+      sortable: true,
+      filter: true,
+    },
+    {
+      field: "lastName",
+      sortable: true,
+      filter: true,
+    },
+    {
+      field: "email",
+      sortable: true,
+      filter: true,
+    },
+    {
+      field: "phoneNumber",
+      sortable: true,
+      filter: true,
+    },
+    {
+      field: "jobTitle",
+      sortable: true,
+      filter: true,
+    },
+    {
+      field: "role",
+      sortable: true,
+      filter: true,
+    },
+    {
+      field: "salary",
+      sortable: true,
+      filter: true,
+    },
+  ];
 
   formcontrol!: niceForm[];
 

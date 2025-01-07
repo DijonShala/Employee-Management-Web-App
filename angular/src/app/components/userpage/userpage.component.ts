@@ -18,6 +18,12 @@ import { Observable, retry } from "rxjs";
 import { TaskcardComponent } from "../taskcard/taskcard.component";
 import { LeavecardComponent } from "../leavecard/leavecard.component";
 
+import { AgGridAngular } from "ag-grid-angular";
+import type { ColDef } from "ag-grid-community";
+import { AllCommunityModule, ModuleRegistry } from "ag-grid-community";
+ModuleRegistry.registerModules([AllCommunityModule]);
+import { DatePipe } from "@angular/common";
+
 @Component({
   selector: "app-userpage",
   imports: [
@@ -28,15 +34,42 @@ import { LeavecardComponent } from "../leavecard/leavecard.component";
     CommonModule,
     TaskcardComponent,
     LeavecardComponent,
+    AgGridAngular,
   ],
   templateUrl: "userpage.html",
   styles: ``,
+  providers: [DatePipe],
 })
 export class UserpageComponent {
   employee!: Employee;
   formcontrol!: niceForm[];
   departmentOptions!: { label: string; value: string }[];
   showForm = false;
+
+  filteredSalaryDefs: ColDef[] = [
+    { field: "basicSalary", sortable: true, filter: true },
+    { field: "allowances", sortable: true, filter: true },
+    { field: "deductions", sortable: true, filter: true },
+    {
+      field: "payDate",
+      valueFormatter: (params) => {
+        return this.datePipe.transform(params.value, "dd/MM/yyyy") || "";
+      },
+    },
+    {
+      headerName: "Net Salary",
+      sortable: true,
+      valueGetter: (params) => {
+        const basicSalary = params.data.basicSalary || 0;
+        const allowances = params.data.allowances || 0;
+        const deductions = params.data.deductions || 0;
+        return basicSalary + allowances - deductions; // Calculate net salary
+      },
+      valueFormatter: (params) => {
+        return params.value.toFixed(2); // Format to 2 decimal places
+      },
+    },
+  ];
 
   strongstring(s: string) {
     return `<strong> ` + s + ` </strong>`;
@@ -132,7 +165,8 @@ export class UserpageComponent {
   constructor(
     public employeeService: EmployeeService,
     private router: Router,
-    public route: ActivatedRoute
+    public route: ActivatedRoute,
+    private datePipe: DatePipe
   ) {}
   employee_salary: Salary[] = [];
   ngOnInit() {
@@ -150,8 +184,7 @@ export class UserpageComponent {
             this.employee_salary = [];
           }
         },
-        (error) => {
-        }
+        (error) => {}
       );
   }
   setEmployee() {

@@ -42,38 +42,17 @@
         ></app-nice-form>
 
         <div *ngIf="employee_salary.length > 0" class="mt-4">
-          <div class="container-sm p-5 bg-light">
-            <h3>{{ employee?.userName }} salaries</h3>
-            <table class="table table-bordered table-hover">
-              <thead>
-                <tr>
-                  <th>Basic Salary</th>
-                  <th>Allowances</th>
-                  <th>Deductions</th>
-                  <th>Net Salary</th>
-                  <th>Pay Date</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let salary of employee_salary">
-                  <td>{{ salary.basicSalary }}</td>
-                  <td>{{ salary.allowances }}</td>
-                  <td>{{ salary.deductions }}</td>
-                  <td>
-                    {{ salary.basicSalary + (salary.allowances || 0) -
-                    (salary.deductions || 0) }}
-                  </td>
-                  <td>{{ salary.payDate | date: 'shortDate' }}</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+          <h3>{{ employee?.userName }} salaries</h3>
+          <ag-grid-angular
+            [rowData]="employee_salary"
+            [columnDefs]="filteredSalaryDefs"
+            style="height: 300px"
+          />
         </div>
       </div>
 
       <br />
       <div class="container-sm p-5 bg-light">
-
         <div class="container-sm py-2 my-5 shadow-md bg-light">
           <h3>Leave requests</h3>
 
