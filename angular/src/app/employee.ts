@@ -95,5 +95,4 @@ export interface niceForm {
   default: string | boolean | Date ;
   validators: ValidatorFn[];
   options?: { label: string; value: string | number }[]; // FOR SELECT
-  value?: string;
 }
