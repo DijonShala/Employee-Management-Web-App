@@ -247,6 +247,10 @@ const employeeReadOne = async (req, res) => {
  *                   type: number
  *                   format: float
  *                   example: 100000
+ *                 walletAddress:
+ *                   type: string
+ *                   description: "The employee's wallet addres."
+ *                   example: 0x90F79bf6EB2c4f870365E785982E1f101E93b906
  *                 status:
  *                   type: string
  *                   enum:
@@ -301,6 +305,7 @@ const employeeReadOne = async (req, res) => {
  *                 departmentId: "674573519322d092552e31a4"
  *                 hireDate: "2024-11-26T07:05:53.773Z"
  *                 salary: 100000
+ *                 walletAddress: 0x90F79bf6EB2c4f870365E785982E1f101E93b906
  *                 status: "active"
  *                 address:
  *                   street: "123 Admin Street"
@@ -403,6 +408,7 @@ const doAddEmployee = async (value, res) => {
       departmentId: value.departmentId,
       hireDate: value.hireDate,
       salary: value.salary,
+      walletAddress:  value.walletAddress || null,
       status: value.status,
       address: {
         street: value.street,
@@ -518,6 +524,10 @@ const doAddEmployee = async (value, res) => {
  *                   format: float
  *                   description: "The salary of the employee."
  *                   example: 100000
+ *                 walletAddress:
+ *                   type: string
+ *                   description: "The employee's wallet addres."
+ *                   example: 0x90F79bf6EB2c4f870365E785982E1f101E93b906
  *                 status:
  *                   type: string
  *                   description: "The employment status of the employee (e.g., active, inactive)."
@@ -561,6 +571,7 @@ const doAddEmployee = async (value, res) => {
  *                 departmentId: "674573519322d092552e31a4"
  *                 hireDate: "2024-11-26T07:05:53.773Z"
  *                 salary: 100000
+ *                 walletAddress: 0x90F79bf6EB2c4f870365E785982E1f101E93b906
  *                 status: "active"
  *         '401':
  *            description: <b>Unauthorized</b>, with error message.
@@ -632,6 +643,7 @@ const employeeUpdateOne = async (req, res) => {
       employee.hireDate = value.hireDate || employee.hireDate;
       employee.salary = value.salary || employee.salary;
       employee.status = value.status || employee.status;
+      employee.walletAddress = value.walletAddress || employee.walletAddress;
       if (value.street) employee.address.street = value.street;
       if (value.city) employee.address.city = value.city;
       if (value.zipCode) employee.address.zipCode = value.zipCode;

@@ -157,6 +157,14 @@ export class UserpageComponent {
         default: "",
         validators: [],
       },
+      {
+        name: "walletAddress",
+        type: "text",
+        title: "Wallet Address: " + this.strongstring(String(this.employee.walletAddress)),
+        placeholder: "Wallet Adress",
+        default: "",
+        validators: [],
+      },
     ];
     this.showForm = false;
     setTimeout(() => (this.showForm = true), 0);
@@ -249,6 +257,7 @@ export class UserpageComponent {
     role: string;
     departmentid: string;
     salary: string;
+    walletAddress: string;
   }) {
     let updatedEmployee = {
       firstName: data.firstname == "" ? undefined : data.firstname,
@@ -260,6 +269,7 @@ export class UserpageComponent {
       departmentId: data.departmentid == "" ? undefined : data.departmentid,
       hireDate: "2024-11-26T10:21:38.124Z", //new Date().toString(),
       salary: data.salary == "" ? undefined : parseInt(data.salary),
+      walletAddress:  data.walletAddress == "" ? undefined : data.walletAddress,
     };
 
     this.employeeService

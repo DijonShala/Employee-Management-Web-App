@@ -108,7 +108,16 @@ export class RegisterComponent {
       default: "",
       validators: [Validators.required],
     },
-
+    {
+      name: "walletAddress",
+      type: "text",
+      title: "Wallet Address",
+      placeholder: "0x...",
+      default: "",
+      validators: [
+        Validators.pattern("^0x[a-fA-F0-9]{42}$"), // Ethereum format kot primer
+      ],
+    },
     {
       name: "street",
       type: "text",
@@ -169,6 +178,7 @@ export class RegisterComponent {
     role: string;
     departmentid: string;
     salary: string;
+    walletAddress: string;
     street: string;
     city: string;
     country: string;
@@ -186,6 +196,7 @@ export class RegisterComponent {
       departmentId: data.departmentid,
       hireDate: "2024-11-26T10:21:38.124Z", //new Date().toString(),
       salary: parseInt(data.salary),
+      walletAddress: data.walletAddress || null,
       status: "inactive",
       street: data.street,
       city: data.city,

@@ -22,7 +22,11 @@ export class NiceFormComponent {
   @Input() formcontrol!: niceForm[];
   @Output() result = new EventEmitter();
   @Input() resetAfterSubmit: boolean = true;
+  @Output() userNameChange = new EventEmitter<string>();
 
+  onUserNameChange(newValue: string) {
+    this.userNameChange.emit(newValue);
+  }
   formgroup!: FormGroup;
   constructor(private fb: FormBuilder) {}
   ngOnInit() {

@@ -66,6 +66,10 @@ dotenv.config();
  *           format: float
  *           description: "The employee's salary."
  *           example: 5000
+ *         walletAddress:
+ *           type: string
+ *           description: "The employee's wallet addres."
+ *           example: 0x90F79bf6EB2c4f870365E785982E1f101E93b906
  *         status:
  *           type: string
  *           enum:
@@ -172,6 +176,11 @@ const employeeSchema = mongoose.Schema({
   salary: {
     type: Number,
     required: [true, "Salary is required!"],
+  },
+  walletAddress: {
+    type: String,
+    required: false,
+    match: [/^0x[a-fA-F0-9]{40}$/, "Please provide a valid wallet address!"],
   },
   status: {
     type: String,

@@ -425,6 +425,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 /**
  * Static pages
  */
+app.use("/ABI", express.static(join(__dirname, "dapp", "artifacts", "contracts")));
 app.use(express.static(join(__dirname, "angular", "build", "browser")));
 /**
  * Passport

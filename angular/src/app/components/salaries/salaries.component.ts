@@ -1,10 +1,11 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { Employee, niceForm, Salary } from "../../employee";
 import { Validators } from "@angular/forms";
 import { BehaviorSubject, Observable, retry, take } from "rxjs";
 import { ActivatedRoute, Router } from "@angular/router";
 import { EmployeeService } from "../../services/employee.service";
 import { NiceFormComponent } from "../nice-form/nice-form.component";
+import { EthereumService } from "../../services/ethereum.service";
 import {
   AsyncPipe,
   CommonModule,
@@ -30,16 +31,17 @@ import { FormsModule } from "@angular/forms";
   templateUrl: "salaries.html",
   styles: ``,
 })
-export class SalariesComponent {
+export class SalariesComponent implements OnInit {
   constructor(
     public employeeService: EmployeeService,
     private router: Router,
-    public route: ActivatedRoute
+    public route: ActivatedRoute,
+    public ethereumService: EthereumService
   ) {}
   ngOnInit() {
+    this.ethereumService.connectToBC();
     this.setEmployee();
     this.loadUserNames();
-
     this.currencySetup();
   }
 

@@ -38,6 +38,7 @@ const joiemployeeSchema = Joi.object({
   status: Joi.string().valid('active', 'inactive').required().messages({
     'any.only': `"status" must be one of the following: active, inactive`
   }),
+  walletAddress: Joi.string().optional(),
   street: Joi.string().required(),
   city: Joi.string().required(),
   zipCode: Joi.string().required(),
@@ -64,6 +65,7 @@ const joiemployeeUpdateSchema = Joi.object({
   hireDate: Joi.date().iso().optional(),
   salary: Joi.number().optional(),
   street: Joi.string().optional(),
+  walletAddress: Joi.string().optional(),
   city: Joi.string().optional(),
   zipCode: Joi.string().optional(),
   country: Joi.string().optional(),
