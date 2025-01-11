@@ -62,4 +62,35 @@ export class EthereumService {
       if (this.errorMessage) console.log(this.errorMessage);
     }
   }
+
+  public async getBalance() {
+    if (!this.contract) return 0;
+    return await this.contract["getBalance"]();
+  }
+
+  public async isAdmin() {
+    if (!this.contract) return false;
+    return await this.contract["isAdmin"]();
+  }
+
+  public async addEmployee(
+    wallet: string,
+    basicSalary: string,
+    allowances: string,
+    deductions: string
+  ) {
+    if (!this.contract) return;
+    await this.contract["addEmployee"](
+      wallet,
+      basicSalary,
+      allowances,
+      deductions
+    );
+    return;
+  }
+
+  public async getEmployees() {
+    if (!this.contract) return;
+    return await this.contract["getEmployeeDetails"]();
+  }
 }

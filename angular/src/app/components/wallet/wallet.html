@@ -1,0 +1,25 @@
+<div class="row" *ngIf="ethereumService.errorMessage">
+  <div class="col-12">
+    <div class="alert alert-dark mt-4 p-2">
+      <i class="fa-solid fa-triangle-exclamation pe-2"></i>{{
+      ethereumService.errorMessage }}
+    </div>
+  </div>
+</div>
+
+<div
+  *ngIf="!ethereumService.errorMessage"
+  class="container-sm p-5 bg-light mt-4"
+>
+  <div class="fs-6">WALLET</div>
+  <div style="font-size: 10px">{{ethereumService.userAddress}}</div>
+  <div class="fs-3 fw-bold">{{ethData.balance}} ETH</div>
+
+  <div *ngIf="ethData.isAdmin">
+    <h3>Add Employee</h3>
+    <app-nice-form
+      [formcontrol]="addEmployeeForm"
+      (result)="addEmployee($event)"
+    ></app-nice-form>
+  </div>
+</div>

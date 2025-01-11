@@ -16,6 +16,7 @@ import { AsyncAction } from "rxjs/internal/scheduler/AsyncAction";
 import { SidebarComponent } from "../sidebar/sidebar.component";
 import { NgxChartsModule } from "@swimlane/ngx-charts";
 import { FormsModule } from "@angular/forms";
+import { WalletComponent } from "../wallet/wallet.component";
 
 @Component({
   selector: "app-salaries",
@@ -27,6 +28,7 @@ import { FormsModule } from "@angular/forms";
     CommonModule,
     NgxChartsModule,
     FormsModule,
+    WalletComponent,
   ],
   templateUrl: "salaries.html",
   styles: ``,
@@ -35,15 +37,18 @@ export class SalariesComponent implements OnInit {
   constructor(
     public employeeService: EmployeeService,
     private router: Router,
-    public route: ActivatedRoute,
-    public ethereumService: EthereumService
+    public route: ActivatedRoute
   ) {}
-  ngOnInit() {
-    this.ethereumService.connectToBC();
+  async ngOnInit() {
     this.setEmployee();
     this.loadUserNames();
     this.currencySetup();
   }
+
+  ethData = {
+    balance: "",
+    isAdmin: true,
+  };
 
   salaryform: niceForm[] = [
     {

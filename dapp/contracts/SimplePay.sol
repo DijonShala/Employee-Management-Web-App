@@ -13,6 +13,7 @@ contract SimplePay {
     }
 
     mapping(address => Employee) public employees;
+    address[] public employeeAddresses;
 
     event SalaryTransferred(
         address indexed employee,
@@ -45,6 +46,7 @@ contract SimplePay {
             deductions: _deductions,
             exists: true
         });
+        employeeAddresses.push(_wallet);
     }
 
     function updateEmployeeSalary(
@@ -63,6 +65,19 @@ contract SimplePay {
     function removeEmployee(address _wallet) public onlyAdmin {
         require(employees[_wallet].exists, "Employee does not exist");
         delete employees[_wallet];
+
+        uint indexToRemove = findIndex(_wallet);
+        employeeAddresses[indexToRemove] = employeeAddresses[employeeAddresses.length - 1];
+        employeeAddresses.pop();
+    }
+
+    function findIndex(address _wallet) internal view returns (uint) {
+        for (uint i = 0; i < employeeAddresses.length; i++) {
+            if (employeeAddresses[i] == _wallet) {
+                return i;
+            }
+        }
+        revert("Address not found");
     }
 
     function transferSalary(address _wallet) public onlyAdmin {
@@ -91,4 +106,23 @@ contract SimplePay {
     function getBalance() public view returns (uint256) {
         return address(this).balance;
     }
+
+    function isAdmin() public view returns (bool){
+        return msg.sender == admin;
+    }
+
+    function getEmployeeDetails() public view onlyAdmin returns (Employee[] memory) {
+        require(employeeAddresses.length > 0, "No employees found");
+
+        // Create a temporary memory array to hold all employee details
+        Employee[] memory allEmployees = new Employee[](employeeAddresses.length);
+
+        for (uint i = 0; i < employeeAddresses.length; i++) {
+            address employeeAddress = employeeAddresses[i];
+            allEmployees[i] = employees[employeeAddress];
+        }
+
+        return allEmployees;
+    }
+
 }

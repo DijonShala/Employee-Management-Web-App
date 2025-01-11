@@ -31,6 +31,7 @@ export interface SimplePayInterface extends Interface {
       | "deposit"
       | "employees"
       | "getBalance"
+      | "isAdmin"
       | "removeEmployee"
       | "transferSalary"
       | "updateEmployeeSalary"
@@ -53,6 +54,7 @@ export interface SimplePayInterface extends Interface {
     functionFragment: "getBalance",
     values?: undefined
   ): string;
+  encodeFunctionData(functionFragment: "isAdmin", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "removeEmployee",
     values: [AddressLike]
@@ -78,6 +80,7 @@ export interface SimplePayInterface extends Interface {
   decodeFunctionResult(functionFragment: "deposit", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "employees", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "getBalance", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "isAdmin", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "removeEmployee",
     data: BytesLike
@@ -189,6 +192,8 @@ export interface SimplePay extends BaseContract {
 
   getBalance: TypedContractMethod<[], [bigint], "view">;
 
+  isAdmin: TypedContractMethod<[], [boolean], "view">;
+
   removeEmployee: TypedContractMethod<
     [_wallet: AddressLike],
     [void],
@@ -254,6 +259,9 @@ export interface SimplePay extends BaseContract {
   getFunction(
     nameOrSignature: "getBalance"
   ): TypedContractMethod<[], [bigint], "view">;
+  getFunction(
+    nameOrSignature: "isAdmin"
+  ): TypedContractMethod<[], [boolean], "view">;
   getFunction(
     nameOrSignature: "removeEmployee"
   ): TypedContractMethod<[_wallet: AddressLike], [void], "nonpayable">;
