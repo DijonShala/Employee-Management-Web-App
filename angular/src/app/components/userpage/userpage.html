@@ -5,16 +5,16 @@
   <div>
     <main *ngIf="employee!=null" class="align-items-center">
       <div class="container-sm p-5 bg-light">
-        <div *ngIf="success_status=='SUCCESS'" class="alert alert-success">
+        <div i18n *ngIf="success_status=='SUCCESS'" class="alert alert-success">
           Employee updated successfully!
         </div>
 
-        <div *ngIf="success_status=='ERROR'" class="alert alert-danger">
+        <div i18n *ngIf="success_status=='ERROR'" class="alert alert-danger">
           Attempting to update an employee resulted in an error. Try again.
         </div>
 
-        <h3>Change {{employee.userName}}'s user data</h3>
-        <p>Update the data of this user.</p>
+        <h3 i18n>Change {{employee.userName}}'s user data</h3>
+        <p i18n>Update the data of this user.</p>
 
         <app-nice-form
           [resetAfterSubmit]="false"
@@ -25,24 +25,29 @@
       </div>
       <br />
       <div class="container-sm p-5 bg-light">
-        <h3>Delete {{employee.userName}}'s user profile</h3>
-        <p>Remove the data of this user from the database.</p>
+        <h3 i18n>Delete {{employee.userName}}'s user profile</h3>
+        <p i18n>Remove the data of this user from the database.</p>
         <div class="text-center">
-          <button (click)="remove()" type="submit" class="btn btn-danger w-75">
+          <button
+            i18n
+            (click)="remove()"
+            type="submit"
+            class="btn btn-danger w-75"
+          >
             Delete
           </button>
         </div>
       </div>
       <br />
       <div class="container-sm p-5 bg-light">
-        <h3>Add a salary to this employee</h3>
+        <h3 i18n>Add a salary to this employee</h3>
         <app-nice-form
           [formcontrol]="salaryform"
           (result)="addSalary($event)"
         ></app-nice-form>
 
         <div *ngIf="employee_salary.length > 0" class="mt-4">
-          <h3>{{ employee?.userName }} salaries</h3>
+          <h3 i18n>{{ employee?.userName }} salaries</h3>
           <ag-grid-angular
             [rowData]="employee_salary"
             [columnDefs]="filteredSalaryDefs"
@@ -54,7 +59,7 @@
       <br />
       <div class="container-sm p-5 bg-light">
         <div class="container-sm py-2 my-5 shadow-md bg-light">
-          <h3>Leave requests</h3>
+          <h3 i18n>Leave requests</h3>
 
           <div *ngIf="leaves != null">
             <div *ngFor="let leave of leaves.leaves">
@@ -67,14 +72,14 @@
 
       <br />
       <div class="container-sm p-5 bg-light">
-        <h3>Create a task</h3>
+        <h3 i18n>Create a task</h3>
         <app-nice-form
           [formcontrol]="createtaskform"
           (result)="createTask($event)"
         ></app-nice-form>
 
         <div class="container-sm py-2 my-5 shadow-md bg-light">
-          <h3>Tasks</h3>
+          <h3 i18n>Tasks</h3>
 
           <div *ngIf="tasks != null">
             <div *ngFor="let task of tasks.tasks">

@@ -25,23 +25,23 @@ export class LoginComponent {
     {
       name: "username",
       type: "text",
-      title: "User name",
-      placeholder: "User name",
+      title: $localize`User name`,
+      placeholder: $localize`User name`,
       default: "admin",
       validators: [Validators.required],
     },
     {
       name: "password",
       type: "password",
-      title: "Password",
-      placeholder: "Password",
+      title: $localize`Password`,
+      placeholder: $localize`Password`,
       default: "admin123",
       validators: [Validators.required],
     },
     {
       name: "check",
       type: "check",
-      title: `I have read and agreed to the
+      title: $localize`I have read and agreed to the
         <strong><a href="">Terms of Service</a> *</strong>`,
       default: false,
       validators: [Validators.requiredTrue],

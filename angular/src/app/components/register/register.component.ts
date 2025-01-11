@@ -29,32 +29,32 @@ export class RegisterComponent {
     {
       name: "username",
       type: "text",
-      title: "User name",
-      placeholder: "User name",
+      title: $localize`User name`,
+      placeholder: $localize`User name`,
       default: "",
       validators: [Validators.required, Validators.min(3)],
     },
     {
       name: "firstname",
       type: "text",
-      title: "First name",
-      placeholder: "First name",
+      title: $localize`First name`,
+      placeholder: $localize`First name`,
       default: "",
       validators: [Validators.required],
     },
     {
       name: "lastname",
       type: "text",
-      title: "Last name",
-      placeholder: "Last name",
+      title: $localize`Last name`,
+      placeholder: $localize`Last name`,
       default: "",
       validators: [Validators.required],
     },
     {
       name: "email",
       type: "text",
-      title: "Email",
-      placeholder: "Email",
+      title: $localize`Email`,
+      placeholder: $localize`Email`,
       default: "",
       validators: [Validators.required, Validators.email],
     },
@@ -62,8 +62,8 @@ export class RegisterComponent {
     {
       name: "phonenumber",
       type: "text",
-      title: "Phone number",
-      placeholder: "Phone number",
+      title: $localize`Phone number`,
+      placeholder: $localize`Phone number`,
       default: "",
       validators: [Validators.required, Validators.pattern("[0-9]+")],
     },
@@ -71,8 +71,8 @@ export class RegisterComponent {
     {
       name: "jobtitle",
       type: "text",
-      title: "Job title",
-      placeholder: "Job title",
+      title: $localize`Job title`,
+      placeholder: $localize`Job title`,
       default: "",
       validators: [Validators.required],
     },
@@ -81,7 +81,7 @@ export class RegisterComponent {
       name: "role",
       type: "select",
       title: "Role",
-      placeholder: "Role",
+      placeholder: $localize`Role`,
       default: "employee",
       validators: [Validators.required],
       options: [
@@ -93,8 +93,8 @@ export class RegisterComponent {
     {
       name: "departmentid",
       type: "select",
-      title: "Department ID",
-      placeholder: "Department ID",
+      title: $localize`Department ID`,
+      placeholder: $localize`Department ID`,
       default: "",
       options: [],
       validators: [Validators.required],
@@ -103,16 +103,16 @@ export class RegisterComponent {
     {
       name: "salary",
       type: "text",
-      title: "Salary",
-      placeholder: "Salary",
+      title: $localize`Salary`,
+      placeholder: $localize`Salary`,
       default: "",
       validators: [Validators.required],
     },
     {
       name: "walletAddress",
       type: "text",
-      title: "Wallet Address",
-      placeholder: "0x...",
+      title: $localize`Wallet Address`,
+      placeholder: $localize`0x...`,
       default: "",
       validators: [
         Validators.pattern("^0x[a-fA-F0-9]{42}$"), // Ethereum format kot primer
@@ -121,8 +121,8 @@ export class RegisterComponent {
     {
       name: "street",
       type: "text",
-      title: "Street",
-      placeholder: "Street",
+      title: $localize`Street`,
+      placeholder: $localize`Street`,
       default: "",
       validators: [Validators.required],
     },
@@ -130,8 +130,8 @@ export class RegisterComponent {
     {
       name: "city",
       type: "text",
-      title: "City",
-      placeholder: "City",
+      title: $localize`City`,
+      placeholder: $localize`City`,
       default: "",
       validators: [Validators.required],
     },
@@ -139,8 +139,8 @@ export class RegisterComponent {
     {
       name: "zipCode",
       type: "text",
-      title: "Zip code",
-      placeholder: "Zip code",
+      title: $localize`Zip code`,
+      placeholder: $localize`Zip code`,
       default: "",
       validators: [Validators.required],
     },
@@ -148,8 +148,8 @@ export class RegisterComponent {
     {
       name: "country",
       type: "text",
-      title: "Country",
-      placeholder: "Country",
+      title: $localize`Country`,
+      placeholder: $localize`Country`,
       default: "",
       validators: [Validators.required],
     },
@@ -157,8 +157,8 @@ export class RegisterComponent {
     {
       name: "password",
       type: "password",
-      title: "Password",
-      placeholder: "Password",
+      title: $localize`Password`,
+      placeholder: $localize`Password`,
       default: "",
       validators: [Validators.required],
     },
@@ -236,8 +236,7 @@ export class RegisterComponent {
             departmentControl.default = departmentOptions[0].value;
           }
         },
-        (error) => {
-        }
+        (error) => {}
       );
   }
 }

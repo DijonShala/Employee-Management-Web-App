@@ -5,16 +5,16 @@
   <div>
     <main class="align-items-center">
       <div class="container-sm p-5 bg-light" style="min-width: 500px">
-        <div *ngIf="success_status=='SUCCESS'" class="alert alert-success">
+        <div i18n *ngIf="success_status=='SUCCESS'" class="alert alert-success">
           Employee added successfully!
         </div>
 
-        <div *ngIf="success_status=='ERROR'" class="alert alert-danger">
+        <div i18n *ngIf="success_status=='ERROR'" class="alert alert-danger">
           Attempting to add an employee resulted in an error. Try again.
         </div>
 
-        <h3>Register user</h3>
-        <p>Register a user to the company.</p>
+        <h3 i18n>Register user</h3>
+        <p i18n>Register a user to the company.</p>
 
         <app-nice-form
           [formcontrol]="formcontrol"

@@ -9,30 +9,32 @@
   <div class="nav-btn" *ngIf="hamburgerMenu">
     <i class="fas fa-bars" *ngIf="menuHidden" (click)="toggleMenu()"></i>
     <i class="fas fa-x" *ngIf="!menuHidden" (click)="toggleMenu()"></i>
-    <div style="margin-bottom: 2px">Clockin</div>
+    <div i18n style="margin-bottom: 2px">Clockin</div>
   </div>
   <div
     class="d-flex align-items-center align-items-stretch gap-2 sub-menu"
     *ngIf="!menuHidden || !hamburgerMenu"
   >
-    <div *ngIf="employeeService.username"
+    <div
+      *ngIf="employeeService.username"
       class="nav-link d-flex align-items-center p-2 cursor-pointer"
       (click)="openUrl('/clockin')"
     >
-      <a> Clock in </a>
+      <a i18n> Clock in </a>
     </div>
-    <div *ngIf="employeeService.username"
+    <div
+      *ngIf="employeeService.username"
       class="nav-link d-flex align-items-center p-2 cursor-pointer"
       (click)="openUrl('/calendar')"
     >
-      <a> Calendar </a>
+      <a i18n> Calendar </a>
     </div>
-    <div 
+    <div
       *ngIf="(employeeService.role === 'admin') && (!!employeeService.username)"
       class="nav-link d-flex align-items-center p-2 cursor-pointer"
       (click)="openUrl('/analytics')"
     >
-      <a> Analytics </a>
+      <a i18n> Analytics </a>
     </div>
 
     <div
@@ -40,42 +42,46 @@
       class="nav-link d-flex align-items-center p-2 cursor-pointer"
       (click)="openUrl('/register')"
     >
-      <a> Employee </a>
+      <a i18n> Employee </a>
     </div>
 
-    <div 
-    *ngIf="(employeeService.role === 'admin') && (!!employeeService.username)"
+    <div
+      *ngIf="(employeeService.role === 'admin') && (!!employeeService.username)"
       class="nav-link d-flex align-items-center p-2 cursor-pointer"
       (click)="openUrl('/departments')"
     >
-      <a> Departments </a>
+      <a i18n> Departments </a>
     </div>
 
-    <div *ngIf="employeeService.username"
+    <div
+      *ngIf="employeeService.username"
       class="nav-link d-flex align-items-center p-2 cursor-pointer"
       (click)="openUrl('/tasks')"
     >
-      <a> Tasks </a>
+      <a i18n> Tasks </a>
     </div>
 
-    <div *ngIf="employeeService.username"
+    <div
+      *ngIf="employeeService.username"
       class="nav-link d-flex align-items-center p-2 cursor-pointer"
       (click)="openUrl('/leaves')"
     >
-      <a> Leaves </a>
+      <a i18n> Leaves </a>
     </div>
 
-    <div *ngIf="employeeService.username"
+    <div
+      *ngIf="employeeService.username"
       class="nav-link d-flex align-items-center p-2 cursor-pointer"
       (click)="openUrl('/salaries')"
     >
-      <a> Salaries </a>
+      <a i18n> Salaries </a>
     </div>
-    <div *ngIf="employeeService.username"
+    <div
+      *ngIf="employeeService.username"
       class="nav-link d-flex align-items-center p-2 cursor-pointer"
       (click)="openUrl('/settings')"
     >
-      <a> Settings </a>
+      <a i18n> Settings </a>
     </div>
     <div
       class="nav-link d-flex align-items-center p-2 cursor-pointer"
@@ -86,7 +92,7 @@
 
     <ng-template #addsucces>
       <div class="modal-header" style="background-color: #34eb93">
-        <h3 class="modal-title pull-left">Data added succesfully!</h3>
+        <h3 i18n class="modal-title pull-left">Data added succesfully!</h3>
         <button
           type="button"
           class="btn-close close pull-right"
@@ -102,12 +108,12 @@
       class="nav-link d-flex align-items-center p-2 cursor-pointer"
       (click)="deleteData(); openModal(deletesucces)"
     >
-      <button class="btn btn-danger btn-sm">Delete Data</button>
+      <button i18n class="btn btn-danger btn-sm">Delete Data</button>
     </div>
 
     <ng-template #deletesucces>
       <div class="modal-header" style="background-color: #eb4034">
-        <h3 class="modal-title pull-left">Data deleted succesfully!</h3>
+        <h3 i18n class="modal-title pull-left">Data deleted succesfully!</h3>
         <button
           type="button"
           class="btn-close close pull-right"
@@ -124,18 +130,18 @@
     class="d-flex align-items-center justify-content-end gap-2 align-items-stretch sub-menu"
     *ngIf="!menuHidden || !hamburgerMenu"
   >
-  <div 
+    <div
       class="nav-link d-flex align-items-center p-2 cursor-pointer"
       *ngIf="!employeeService.logged_in"
       (click)="openUrl('/login')"
     >
-      <a> Log in </a>
+      <a i18n> Log in </a>
     </div>
     <div
       *ngIf="employeeService.logged_in"
       class="nav-link d-flex align-items-center p-2 cursor-pointer"
     >
-      <div style="cursor: pointer" (click)="logout()">Log out</div>
+      <div i18n style="cursor: pointer" (click)="logout()">Log out</div>
     </div>
 
     <div

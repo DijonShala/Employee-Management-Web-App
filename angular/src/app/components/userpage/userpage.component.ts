@@ -80,24 +80,26 @@ export class UserpageComponent {
       {
         name: "firstname",
         type: "text",
-        title: "First name: " + this.strongstring(this.employee.firstName),
-        placeholder: "First name",
+        title:
+          $localize`First name: ` + this.strongstring(this.employee.firstName),
+        placeholder: $localize`First name`,
         default: "",
         validators: [],
       },
       {
         name: "lastname",
         type: "text",
-        title: "Last name: " + this.strongstring(this.employee.lastName),
-        placeholder: "Last name",
+        title:
+          $localize`Last name: ` + this.strongstring(this.employee.lastName),
+        placeholder: $localize`Last name`,
         default: "",
         validators: [],
       },
       {
         name: "email",
         type: "text",
-        title: "Email: " + this.strongstring(this.employee.email),
-        placeholder: "Email",
+        title: $localize`Email: ` + this.strongstring(this.employee.email),
+        placeholder: $localize`Email`,
         default: "",
         validators: [Validators.email],
       },
@@ -105,8 +107,10 @@ export class UserpageComponent {
       {
         name: "phonenumber",
         type: "text",
-        title: "Phone number: " + this.strongstring(this.employee.phoneNumber),
-        placeholder: "Phone number",
+        title:
+          $localize`Phone number: ` +
+          this.strongstring(this.employee.phoneNumber),
+        placeholder: $localize`Phone number`,
         default: "",
         validators: [Validators.pattern("[0-9]+")],
       },
@@ -114,8 +118,9 @@ export class UserpageComponent {
       {
         name: "jobtitle",
         type: "text",
-        title: "Job title: " + this.strongstring(this.employee.jobTitle),
-        placeholder: "Job title",
+        title:
+          $localize`Job title: ` + this.strongstring(this.employee.jobTitle),
+        placeholder: $localize`Job title`,
         default: "",
         validators: [],
       },
@@ -123,8 +128,8 @@ export class UserpageComponent {
       {
         name: "role",
         type: "select",
-        title: "Role" + this.strongstring(this.employee.role),
-        placeholder: "Role",
+        title: $localize`Role` + this.strongstring(this.employee.role),
+        placeholder: $localize`Role`,
         default: "",
         validators: [],
         options: [
@@ -137,13 +142,13 @@ export class UserpageComponent {
         name: "departmentid",
         type: "select",
         title:
-          "Department" +
+          $localize`Department` +
           this.strongstring(
             this.departmentOptions.find(
               (x) => x.value == this.employee.departmentId
             )?.label || ""
           ),
-        placeholder: "Department",
+        placeholder: $localize`Department`,
         default: "",
         options: this.departmentOptions,
         validators: [],
@@ -152,16 +157,19 @@ export class UserpageComponent {
       {
         name: "salary",
         type: "text",
-        title: "Salary: " + this.strongstring(String(this.employee.salary)),
-        placeholder: "Salary",
+        title:
+          $localize`Salary: ` + this.strongstring(String(this.employee.salary)),
+        placeholder: $localize`Salary`,
         default: "",
         validators: [],
       },
       {
         name: "walletAddress",
         type: "text",
-        title: "Wallet Address: " + this.strongstring(String(this.employee.walletAddress)),
-        placeholder: "Wallet Adress",
+        title:
+          $localize`Wallet Address: ` +
+          this.strongstring(String(this.employee.walletAddress)),
+        placeholder: $localize`Wallet Adress`,
         default: "",
         validators: [],
       },
@@ -218,7 +226,7 @@ export class UserpageComponent {
             .subscribe(
               (departments: Department[]) => {
                 const departmentOptions = departments.map((dept) => ({
-                  label: dept.name || "Unknown",
+                  label: dept.name || $localize`Unknown`,
                   value: dept._id ?? "",
                 }));
 
@@ -269,7 +277,7 @@ export class UserpageComponent {
       departmentId: data.departmentid == "" ? undefined : data.departmentid,
       hireDate: "2024-11-26T10:21:38.124Z", //new Date().toString(),
       salary: data.salary == "" ? undefined : parseInt(data.salary),
-      walletAddress:  data.walletAddress == "" ? undefined : data.walletAddress,
+      walletAddress: data.walletAddress == "" ? undefined : data.walletAddress,
     };
 
     this.employeeService
@@ -301,8 +309,8 @@ export class UserpageComponent {
     {
       name: "basicSalary",
       type: "text",
-      title: "Basic salary: ",
-      placeholder: "Basic salary",
+      title: $localize`Basic salary: `,
+      placeholder: $localize`Basic salary`,
       default: "",
       validators: [Validators.required, Validators.pattern("[0-9]*")],
     },
@@ -310,8 +318,8 @@ export class UserpageComponent {
     {
       name: "allowances",
       type: "text",
-      title: "Allowances: ",
-      placeholder: "Allowances",
+      title: $localize`Allowances: `,
+      placeholder: $localize`Allowances`,
       default: "",
       validators: [Validators.pattern("[0-9]*")],
     },
@@ -319,8 +327,8 @@ export class UserpageComponent {
     {
       name: "deductions",
       type: "text",
-      title: "Deductions: ",
-      placeholder: "Deductions",
+      title: $localize`Deductions: `,
+      placeholder: $localize`Deductions`,
       default: "",
       validators: [Validators.pattern("[0-9]*")],
     },
@@ -354,8 +362,8 @@ export class UserpageComponent {
     {
       name: "reason",
       type: "text",
-      title: "Reason for request: ",
-      placeholder: "Reason",
+      title: $localize`Reason for request: `,
+      placeholder: $localize`Reason`,
       default: "",
       validators: [Validators.required],
     },
@@ -363,8 +371,8 @@ export class UserpageComponent {
     {
       name: "startDate",
       type: "date",
-      title: "Start date: ",
-      placeholder: "Start date",
+      title: $localize`Start date: `,
+      placeholder: $localize`Start date`,
       default: "",
       validators: [Validators.required],
     },
@@ -372,8 +380,8 @@ export class UserpageComponent {
     {
       name: "endDate",
       type: "date",
-      title: "End date: ",
-      placeholder: "End date",
+      title: $localize`End date: `,
+      placeholder: $localize`End date`,
       default: "",
       validators: [Validators.required],
     },
@@ -419,8 +427,8 @@ export class UserpageComponent {
     {
       name: "description",
       type: "text",
-      title: "Task description: ",
-      placeholder: "Description",
+      title: $localize`Task description: `,
+      placeholder: $localize`Description`,
       default: "",
       validators: [Validators.required],
     },
@@ -428,8 +436,8 @@ export class UserpageComponent {
     {
       name: "startDate",
       type: "date",
-      title: "Start date: ",
-      placeholder: "Start date",
+      title: $localize`Start date: `,
+      placeholder: $localize`Start date`,
       default: new Date().toISOString().substring(0, 10),
       validators: [Validators.required],
     },
@@ -437,8 +445,8 @@ export class UserpageComponent {
     {
       name: "dueDate",
       type: "date",
-      title: "Due date: ",
-      placeholder: "Due date",
+      title: $localize`Due date: `,
+      placeholder: $localize`Due date`,
       default: new Date().toISOString().substring(0, 10),
       validators: [Validators.required],
     },

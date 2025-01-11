@@ -1,10 +1,10 @@
 <div class="container mt-4">
   <div class="d-flex justify-content-between align-items-center mb-3">
-    <button class="btn btn-primary" (click)="changeMonth(-1)">
+    <button i18n class="btn btn-primary" (click)="changeMonth(-1)">
       &laquo; Previous
     </button>
     <h2>{{ currentDate | date: "MMMM y" }}</h2>
-    <button class="btn btn-primary" (click)="changeMonth(1)">
+    <button i18n class="btn btn-primary" (click)="changeMonth(1)">
       Next &raquo;
     </button>
   </div>

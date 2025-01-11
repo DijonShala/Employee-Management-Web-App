@@ -1,10 +1,12 @@
 <div class="d-flex flex-column gap-4">
-  <div *ngIf="error" class="alert alert-danger">Error updating department.</div>
-  <div *ngIf="success" class="alert alert-success">
+  <div i18n *ngIf="error" class="alert alert-danger">
+    Error updating department.
+  </div>
+  <div i18n *ngIf="success" class="alert alert-success">
     Department successfully updated.
   </div>
   <div class="container-sm p-5 bg-light" *ngIf="department!=null">
-    <h3>Update department</h3>
+    <h3 i18n>Update department</h3>
     <app-nice-form
       [formcontrol]="formcontrol"
       (result)="update($event)"
@@ -12,10 +14,10 @@
   </div>
 
   <div class="container-sm p-5 bg-light">
-    <h3>Delete {{department?.name}}</h3>
-    <p>Remove the department from the database.</p>
+    <h3 i18n>Delete {{department?.name}}</h3>
+    <p i18n>Remove the department from the database.</p>
     <div class="text-center">
-      <button (click)="remove()" type="submit" class="btn btn-danger w-75">
+      <button i18n (click)="remove()" type="submit" class="btn btn-danger w-75">
         Delete
       </button>
     </div>
@@ -25,7 +27,7 @@
     class="container-sm p-5 bg-light"
     *ngIf="employees && employees.length != 0"
   >
-    <h3>Employees in {{ department?.name }}</h3>
+    <h3 i18n>Employees in {{ department?.name }}</h3>
     <ul class="list-group">
       <li *ngFor="let emp of employees" class="list-group-item">
         <a [routerLink]="['/user', emp.userName]"
@@ -39,6 +41,6 @@
     class="container-sm p-5 bg-light"
     *ngIf="employees && employees.length === 0"
   >
-    <h3>No employees found in this department.</h3>
+    <h3 i18n>No employees found in this department.</h3>
   </div>
 </div>

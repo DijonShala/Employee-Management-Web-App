@@ -26,16 +26,16 @@ export class DepartmentsComponent {
     {
       name: "name",
       type: "text",
-      title: "Name: ",
-      placeholder: "Name",
+      title: $localize`Name: `,
+      placeholder: $localize`Name`,
       default: "",
       validators: [Validators.required],
     },
     {
       name: "description",
       type: "text",
-      title: "Description: ",
-      placeholder: "Description",
+      title: $localize`Description: `,
+      placeholder: $localize`Description`,
       default: "",
       validators: [Validators.required],
     },
@@ -49,8 +49,7 @@ export class DepartmentsComponent {
         (departments: Department[]) => {
           this.departments = departments;
         },
-        (error) => {
-        }
+        (error) => {}
       );
   }
 

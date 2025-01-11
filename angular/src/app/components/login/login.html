@@ -1,14 +1,14 @@
 <main class="d-flex w-100 h-100 align-items-center">
   <div class="container-sm p-5 bg-light">
-    <h3>Sign in</h3>
-    <p>Sign in to gain access to more clocking features.</p>
+    <h3 i18n>Sign in</h3>
+    <p i18n>Sign in to gain access to more clocking features.</p>
 
-    <div *ngIf="redirected" class="alert alert-danger">
+    <div i18n *ngIf="redirected" class="alert alert-danger">
       You must sign in before accessing clocking and calendar features.<br />
       You must have administrator priviliges to access registration menu.
     </div>
 
-    <div *ngIf="invalid" class="alert alert-danger">
+    <div i18n *ngIf="invalid" class="alert alert-danger">
       Username or password incorrect! Try again using the correct username and
       password!
     </div>

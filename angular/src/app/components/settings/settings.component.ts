@@ -28,16 +28,16 @@ export class SettingsComponent {
     {
       name: "oldPassword",
       type: "password",
-      title: "Old Password: ",
-      placeholder: "********",
+      title: $localize`Old Password: `,
+      placeholder: $localize`********`,
       default: "",
       validators: [Validators.required],
     },
     {
       name: "newPassword",
       type: "password",
-      title: "New Password: ",
-      placeholder: "********",
+      title: $localize`New Password: `,
+      placeholder: $localize`********`,
       default: "",
       validators: [Validators.required],
     },
@@ -52,23 +52,22 @@ export class SettingsComponent {
   }
 
   changePass(formData: { oldPassword: string; newPassword: string }) {
-  const { oldPassword, newPassword } = formData;
+    const { oldPassword, newPassword } = formData;
 
-  if (oldPassword && newPassword) {
-    this.employeeService.changePassword(oldPassword, newPassword ).subscribe(
-      (response) => {
-        this.success = true;
-        this.error = false;
-      },
-      (error) => {
-        this.success = false;
-        this.error = true;
-      }
-    );
-  } else {
-    this.error = true;
-    this.success = false;
+    if (oldPassword && newPassword) {
+      this.employeeService.changePassword(oldPassword, newPassword).subscribe(
+        (response) => {
+          this.success = true;
+          this.error = false;
+        },
+        (error) => {
+          this.success = false;
+          this.error = true;
+        }
+      );
+    } else {
+      this.error = true;
+      this.success = false;
+    }
   }
-}
-  
 }

@@ -10,27 +10,37 @@
     <span class=""> {{task.updatedAt | date: "dd/MM/Y hh:mm:ss"}}</span>
   </div>
   <div class="card-body">
-    <strong>Description: </strong><br />
+    <strong i18n8>Description: </strong><br />
     {{task.description}}<br />
     <hr />
-    <strong>Start date: </strong>
+    <strong i18n>Start date: </strong>
     {{task.startDate | date: "dd/MM/Y hh:mm:ss"}}<br />
-    <strong>Due date: </strong>
+    <strong i18n>Due date: </strong>
     {{task.dueDate | date: "dd/MM/Y hh:mm:ss"}}
     <br />
   </div>
   <div class="card-footer">
     <div class="input-group mb-3">
-      <button (click)="changeStatus()" type="button" class="btn btn-primary">
+      <button
+        i18n
+        (click)="changeStatus()"
+        type="button"
+        class="btn btn-primary"
+      >
         Change status
       </button>
       <select [(ngModel)]="selectedStatus" class="form-select">
-        <option>Todo</option>
-        <option>In progress</option>
-        <option>Done</option>
+        <option i18n>Todo</option>
+        <option i18n>In progress</option>
+        <option i18n>Done</option>
       </select>
       <div *ngIf="employeeService.role === 'admin'">
-        <button (click)="deleteTask()" type="button" class="btn btn-danger">
+        <button
+          i18n
+          (click)="deleteTask()"
+          type="button"
+          class="btn btn-danger"
+        >
           Delete task
         </button>
       </div>
