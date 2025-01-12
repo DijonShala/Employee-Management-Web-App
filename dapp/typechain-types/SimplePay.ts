@@ -66,7 +66,12 @@ export interface SimplePayInterface extends Interface {
       | "withdraw"
   ): FunctionFragment;
 
-  getEvent(nameOrSignatureOrTopic: "SalaryTransferred"): EventFragment;
+  getEvent(
+    nameOrSignatureOrTopic:
+      | "ContractFunded"
+      | "EmployeeAdded"
+      | "SalaryTransferred"
+  ): EventFragment;
 
   encodeFunctionData(
     functionFragment: "WEI_PER_ETHER",
@@ -154,6 +159,52 @@ export interface SimplePayInterface extends Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "withdraw", data: BytesLike): Result;
+}
+
+export namespace ContractFundedEvent {
+  export type InputTuple = [
+    sender: AddressLike,
+    amount: BigNumberish,
+    timestamp: BigNumberish
+  ];
+  export type OutputTuple = [sender: string, amount: bigint, timestamp: bigint];
+  export interface OutputObject {
+    sender: string;
+    amount: bigint;
+    timestamp: bigint;
+  }
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
+  export type Filter = TypedDeferredTopicFilter<Event>;
+  export type Log = TypedEventLog<Event>;
+  export type LogDescription = TypedLogDescription<Event>;
+}
+
+export namespace EmployeeAddedEvent {
+  export type InputTuple = [
+    employee: AddressLike,
+    basicSalary: BigNumberish,
+    allowances: BigNumberish,
+    deductions: BigNumberish,
+    timestamp: BigNumberish
+  ];
+  export type OutputTuple = [
+    employee: string,
+    basicSalary: bigint,
+    allowances: bigint,
+    deductions: bigint,
+    timestamp: bigint
+  ];
+  export interface OutputObject {
+    employee: string;
+    basicSalary: bigint;
+    allowances: bigint;
+    deductions: bigint;
+    timestamp: bigint;
+  }
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
+  export type Filter = TypedDeferredTopicFilter<Event>;
+  export type Log = TypedEventLog<Event>;
+  export type LogDescription = TypedLogDescription<Event>;
 }
 
 export namespace SalaryTransferredEvent {
@@ -373,6 +424,20 @@ export interface SimplePay extends BaseContract {
   ): TypedContractMethod<[_amount: BigNumberish], [void], "nonpayable">;
 
   getEvent(
+    key: "ContractFunded"
+  ): TypedContractEvent<
+    ContractFundedEvent.InputTuple,
+    ContractFundedEvent.OutputTuple,
+    ContractFundedEvent.OutputObject
+  >;
+  getEvent(
+    key: "EmployeeAdded"
+  ): TypedContractEvent<
+    EmployeeAddedEvent.InputTuple,
+    EmployeeAddedEvent.OutputTuple,
+    EmployeeAddedEvent.OutputObject
+  >;
+  getEvent(
     key: "SalaryTransferred"
   ): TypedContractEvent<
     SalaryTransferredEvent.InputTuple,
@@ -381,6 +446,28 @@ export interface SimplePay extends BaseContract {
   >;
 
   filters: {
+    "ContractFunded(address,uint256,uint256)": TypedContractEvent<
+      ContractFundedEvent.InputTuple,
+      ContractFundedEvent.OutputTuple,
+      ContractFundedEvent.OutputObject
+    >;
+    ContractFunded: TypedContractEvent<
+      ContractFundedEvent.InputTuple,
+      ContractFundedEvent.OutputTuple,
+      ContractFundedEvent.OutputObject
+    >;
+
+    "EmployeeAdded(address,uint256,uint256,uint256,uint256)": TypedContractEvent<
+      EmployeeAddedEvent.InputTuple,
+      EmployeeAddedEvent.OutputTuple,
+      EmployeeAddedEvent.OutputObject
+    >;
+    EmployeeAdded: TypedContractEvent<
+      EmployeeAddedEvent.InputTuple,
+      EmployeeAddedEvent.OutputTuple,
+      EmployeeAddedEvent.OutputObject
+    >;
+
     "SalaryTransferred(address,uint256,uint256)": TypedContractEvent<
       SalaryTransferredEvent.InputTuple,
       SalaryTransferredEvent.OutputTuple,

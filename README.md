@@ -85,3 +85,7 @@ Prijavljeni uporabniki (navadni uporabnik):
 
 - salary, basicSalary, deductions, netSalary, allowances tipa number
 
+## Iskanje
+
+
+## Master/Detail vzorec

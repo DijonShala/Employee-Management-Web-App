@@ -2,6 +2,7 @@ import { Injectable, NgZone } from "@angular/core";
 import { BrowserProvider, Contract, ethers } from "ethers";
 import { environment } from "../../environments/environment";
 import Web3 from "web3";
+import { Router } from '@angular/router';
 
 declare global {
   interface Window {
@@ -16,9 +17,22 @@ export class EthereumService {
   public userAddress?: string;
   private contract?: Contract;
   public errorMessage: string = "";
-  constructor(private readonly ngZone: NgZone) {
+  private listeningToContractEvents: boolean = false;
+
+  constructor(
+    private readonly ngZone: NgZone,
+    private router: Router
+  ) {
     this.listenToEvents();
   }
+
+  public reloadCurrentRoute() {
+    const currentUrl = this.router.url;
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+      this.router.navigate([currentUrl]);
+    });
+  }
+  
   public listenToEvents() {
     ["chainChanged", "accountsChanged"].forEach((event) => {
       window.ethereum.on(event, () => {
@@ -26,6 +40,26 @@ export class EthereumService {
       });
     });
   }
+
+  public async listenToContractEvents() {
+    if (this.listeningToContractEvents) return;
+    else this.listeningToContractEvents = true;
+
+    const startBlockNumber = await this.provider?.getBlockNumber();
+    [
+      "SalaryTransferred",
+      "EmployeeAdded",
+      "ContractFunded",
+    ].forEach((event) => {
+      this.contract?.on(event, (...args) => {
+        const e = args[args.length - 1];
+        if (startBlockNumber && e.log.blockNumber <= startBlockNumber) return;
+
+        this.ngZone.run(() => this.reloadCurrentRoute())
+      });
+    });
+  }
+
   public async connectToBC() {
     this.provider = undefined;
     this.userAddress = undefined;
@@ -57,6 +91,7 @@ export class EthereumService {
         // Check if contract is deployed
         if ((await this.provider.getCode(environment.contractAddress)) == "0x")
           throw new Error("Contract not deployed!");
+        this.listenToContractEvents();
       }
     } catch (error: any) {
       this.errorMessage = error.reason || error.message;

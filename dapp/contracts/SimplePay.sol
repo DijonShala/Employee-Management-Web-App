@@ -15,11 +15,21 @@ contract SimplePay {
     mapping(address => Employee) public employees;
     address[] public employeeAddresses;
 
+    event EmployeeAdded(
+        address indexed employee,
+        uint256 basicSalary,
+        uint256 allowances,
+        uint256 deductions,
+        uint256 timestamp
+    );
+
     event SalaryTransferred(
         address indexed employee,
         uint256 netSalary,
         uint256 timestamp
     );
+
+    event ContractFunded(address indexed sender, uint256 amount, uint256 timestamp);
 
     uint256 public constant WEI_PER_ETHER = 1e18;
 
@@ -34,6 +44,8 @@ contract SimplePay {
 
     function fundContract() external payable {
         require(msg.value > 0, "You must send some Ether");
+
+         emit ContractFunded(msg.sender, msg.value, block.timestamp);
     }
 
     function addEmployeeWallet(
@@ -54,6 +66,14 @@ contract SimplePay {
             exists: true
         });
         employeeAddresses.push(_wallet);
+
+        emit EmployeeAdded(
+                _wallet,
+                _basicSalary,
+                _allowances,
+                _deductions,
+                block.timestamp
+            );
         }else{
             updateEmployeeSalary(_wallet, _basicSalary, _allowances, _deductions);
         }
