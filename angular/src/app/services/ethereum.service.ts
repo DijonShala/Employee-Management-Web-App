@@ -93,4 +93,16 @@ export class EthereumService {
     if (!this.contract) return;
     return await this.contract["getEmployeeDetails"]();
   }
+
+  public async transferSalary(wallet: string) {
+    if (!this.contract) return;
+    try {
+      const tx = await this.contract["transferSalary"](wallet);
+      await tx.wait(); // Wait for the transaction to be mined
+      return true;
+    } catch (error: any) {
+      console.error("Error transferring salary:", error.reason || error.message);
+      return false;
+    }
+  }
 }

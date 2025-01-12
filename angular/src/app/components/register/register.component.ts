@@ -115,7 +115,7 @@ export class RegisterComponent {
       placeholder: "0x...",
       default: "",
       validators: [
-        Validators.pattern("^0x[a-fA-F0-9]{42}$"), // Ethereum format kot primer
+        Validators.pattern("^0x[a-fA-F0-9]{40}$"), // Ethereum format kot primer
       ],
     },
     {

@@ -1,9 +1,9 @@
 {
   "_format": "hh-sol-cache-2",
   "files": {
-    "/Users/majandrejc/Documents/FRI/SP/LP/LP-12/dapp/contracts/SimplePay.sol": {
-      "lastModificationDate": 1736622007802,
-      "contentHash": "713b77f305b24174bb5dc6eaa99d2fb9",
+    "/mnt/c/Users/dijon/Desktop/FRI3/SP/LP-12/dapp/contracts/SimplePay.sol": {
+      "lastModificationDate": 1736633141158,
+      "contentHash": "a39de73e4cd290975ce02ba30f5d3318",
       "sourceName": "contracts/SimplePay.sol",
       "solcConfig": {
         "version": "0.8.28",
