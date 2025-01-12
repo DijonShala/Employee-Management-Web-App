@@ -1,6 +1,8 @@
 import { Injectable, NgZone } from "@angular/core";
 import { BrowserProvider, Contract, ethers } from "ethers";
 import { environment } from "../../environments/environment";
+import Web3 from "web3";
+
 declare global {
   interface Window {
     ethereum: any;
@@ -63,9 +65,19 @@ export class EthereumService {
     }
   }
 
-  public async getBalance() {
-    if (!this.contract) return 0;
-    return await this.contract["getBalance"]();
+  public async getBalance(): Promise<string> {
+    try {
+      if (!this.contract) throw new Error("Contract not initialized");
+
+      const valueInWei = await this.contract["getBalance"]();
+      const valueInEther = Web3.utils.fromWei(valueInWei, "ether");
+      //const formattedValue = parseFloat(valueInEther).toFixed(2);
+
+      return valueInEther;
+    } catch (error) {
+      console.error("Error fetching balance:", error);
+      return "0";
+    }
   }
 
   public async isAdmin() {
