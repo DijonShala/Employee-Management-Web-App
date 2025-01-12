@@ -11,15 +11,31 @@
   *ngIf="!ethereumService.errorMessage"
   class="container-sm p-5 bg-light mt-4"
 >
-  <div class="fs-6">WALLET</div>
-  <div style="font-size: 10px">{{ethereumService.userAddress}}</div>
+  <div class="fs-6">CONTRACT BALANCE</div>
   <div class="fs-3 fw-bold">{{ethData.balance}} ETH</div>
+  <div style="font-size: 10px">{{ethereumService.userAddress}}</div>
 
-  <div *ngIf="ethData.isAdmin">
+  <div *ngIf="ethData.isAdmin" class="mt-5">
+    <button class="btn btn-primary" (click)="fundContract()">
+      Fund contract 10 ETH
+    </button>
     <h3>Add Employee</h3>
     <app-nice-form
       [formcontrol]="addEmployeeForm"
       (result)="addEmployee($event)"
     ></app-nice-form>
+    <h3>Transfer</h3>
+    <app-nice-form
+      [formcontrol]="transferForm"
+      (result)="transfer($event)"
+    ></app-nice-form>
+  </div>
+  <div class="mt-2">
+    <ag-grid-angular
+      *ngIf="employees.length > 0"
+      [rowData]="employees"
+      [columnDefs]="employeeColDef"
+      style="height: 400px"
+    />
   </div>
 </div>

@@ -30,14 +30,19 @@ contract SimplePay {
         admin = msg.sender;
     }
 
-    function addEmployee(
+    function fundContract() external payable {
+        require(msg.value > 0, "You must send some Ether");
+    }
+
+    function addEmployeeWallet(
         address _wallet,
         uint256 _basicSalary,
         uint256 _allowances,
         uint256 _deductions
     ) public onlyAdmin {
-        require(!employees[_wallet].exists, "Employee already exists");
         require(_wallet != address(0), "Invalid wallet address");
+
+        if(!employees[_wallet].exists){
 
         employees[_wallet] = Employee({
             wallet: _wallet,
@@ -47,6 +52,9 @@ contract SimplePay {
             exists: true
         });
         employeeAddresses.push(_wallet);
+        }else{
+            updateEmployeeSalary(_wallet, _basicSalary, _allowances, _deductions);
+        }
     }
 
     function updateEmployeeSalary(
@@ -63,7 +71,7 @@ contract SimplePay {
     }
 
     function removeEmployee(address _wallet) public onlyAdmin {
-        require(employees[_wallet].exists, "Employee does not exist");
+    require(employees[_wallet].exists, "Employee does not exist");
         delete employees[_wallet];
 
         uint indexToRemove = findIndex(_wallet);
@@ -87,16 +95,17 @@ contract SimplePay {
         uint256 netSalary = emp.basicSalary + emp.allowances - emp.deductions;
 
         require(
-            address(this).balance >= netSalary,
+            address(this).balance >= (netSalary / 2000),
             "Insufficient contract balance"
         );
 
-        payable(emp.wallet).transfer(netSalary);
+        payable(emp.wallet).transfer((netSalary / 2000));
 
-        emit SalaryTransferred(emp.wallet, netSalary, block.timestamp);
+        emit SalaryTransferred(emp.wallet, (netSalary / 2000), block.timestamp);
     }
 
     function deposit() public payable onlyAdmin {}
+    
 
     function withdraw(uint256 _amount) public onlyAdmin {
         require(address(this).balance >= _amount, "Insufficient balance");
@@ -111,18 +120,15 @@ contract SimplePay {
         return msg.sender == admin;
     }
 
-    function getEmployeeDetails() public view onlyAdmin returns (Employee[] memory) {
-        require(employeeAddresses.length > 0, "No employees found");
+    function getAllEmployees() public view returns (Employee[] memory) {
+        uint256 employeeCount = employeeAddresses.length;
+        Employee[] memory allEmployees = new Employee[](employeeCount);
 
-        // Create a temporary memory array to hold all employee details
-        Employee[] memory allEmployees = new Employee[](employeeAddresses.length);
-
-        for (uint i = 0; i < employeeAddresses.length; i++) {
-            address employeeAddress = employeeAddresses[i];
-            allEmployees[i] = employees[employeeAddress];
+        for (uint256 i = 0; i < employeeCount; i++) {
+            address employeeWallet = employeeAddresses[i];
+            allEmployees[i] = employees[employeeWallet];
         }
 
         return allEmployees;
     }
-
 }

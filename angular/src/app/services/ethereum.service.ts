@@ -80,18 +80,23 @@ export class EthereumService {
     deductions: string
   ) {
     if (!this.contract) return;
-    await this.contract["addEmployee"](
-      wallet,
-      basicSalary,
-      allowances,
-      deductions
-    );
-    return;
+    try {
+      await this.contract["addEmployeeWallet"](
+        wallet,
+        basicSalary,
+        allowances,
+        deductions
+      );
+      return;
+    } catch (error) {
+      console.error("Error calling addEmployee:", error);
+      return;
+    }
   }
 
   public async getEmployees() {
     if (!this.contract) return;
-    return await this.contract["getEmployeeDetails"]();
+    return await this.contract["getAllEmployees"]();
   }
 
   public async transferSalary(wallet: string) {
@@ -101,8 +106,18 @@ export class EthereumService {
       await tx.wait(); // Wait for the transaction to be mined
       return true;
     } catch (error: any) {
-      console.error("Error transferring salary:", error.reason || error.message);
+      console.error(
+        "Error transferring salary:",
+        error.reason || error.message
+      );
       return false;
     }
+  }
+
+  public async fundContract() {
+    if (!this.contract) return;
+    return await this.contract["fundContract"]({
+      value: ethers.parseEther("10"),
+    });
   }
 }

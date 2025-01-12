@@ -5,10 +5,13 @@ import { niceForm } from "../../employee"; // Assuming this is correct
 import { NiceFormComponent } from "../nice-form/nice-form.component"; // Ensure NiceFormComponent is standalone or its module is imported
 import { Validators } from "@angular/forms";
 
+import { AgGridAngular } from "ag-grid-angular";
+import type { ColDef } from "ag-grid-community";
+
 @Component({
   selector: "app-wallet",
   standalone: true,
-  imports: [CommonModule, NiceFormComponent],
+  imports: [CommonModule, NiceFormComponent, AgGridAngular],
   providers: [EthereumService],
   templateUrl: "wallet.html",
 })
@@ -22,8 +25,7 @@ export class WalletComponent implements OnInit {
     console.log(this.ethereumService);
 
     if (this.ethData.isAdmin) {
-      //this.employees = await this.ethereumService.getEmployees();
-      console.log(this.employees);
+      await this.loadEmployees();
     }
   }
 
@@ -32,7 +34,14 @@ export class WalletComponent implements OnInit {
     isAdmin: false,
   };
 
-  employees = [];
+  employees: any[] = [];
+
+  employeeColDef: ColDef[] = [
+    { field: "wallet" },
+    { field: "basicSalary" },
+    { field: "allowances" },
+    { field: "deductions" },
+  ];
 
   async addEmployee(data: {
     wallet: string;
@@ -46,6 +55,7 @@ export class WalletComponent implements OnInit {
       data.allowances,
       data.deductions
     );
+    await this.loadEmployees();
   }
 
   // Form configuration
@@ -86,4 +96,40 @@ export class WalletComponent implements OnInit {
       validators: [Validators.required, Validators.pattern("[0-9]*")],
     },
   ];
+
+  async loadEmployees() {
+    const a = await this.ethereumService.getEmployees();
+    const e = a.map((x: any) => {
+      return {
+        wallet: x["0"],
+        basicSalary: x["1"],
+        allowances: x["2"],
+        deductions: x["3"],
+        exists: x["4"],
+      };
+    });
+    this.employees = [...e];
+  }
+
+  transferForm: niceForm[] = [
+    {
+      name: "wallet",
+      type: "text",
+      title: "Wallet:",
+      placeholder: "0x...",
+      default: "",
+      validators: [
+        Validators.required,
+        Validators.pattern(/^0x[a-fA-F0-9]{40}$/),
+      ],
+    },
+  ];
+
+  async transfer(data: { wallet: string }) {
+    await this.ethereumService.transferSalary(data.wallet);
+  }
+
+  async fundContract() {
+    await this.ethereumService.fundContract();
+  }
 }
