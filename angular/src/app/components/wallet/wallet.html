@@ -26,6 +26,7 @@
     ></app-nice-form>
     <h3>Transfer</h3>
     <app-nice-form
+      *ngIf="wallets.length > 0"
       [formcontrol]="transferForm"
       (result)="transfer($event)"
     ></app-nice-form>

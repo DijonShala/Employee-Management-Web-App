@@ -22,10 +22,22 @@ export class WalletComponent implements OnInit {
     await this.ethereumService.connectToBC();
     this.ethData.balance = await this.ethereumService.getBalance();
     this.ethData.isAdmin = await this.ethereumService.isAdmin();
-    console.log(this.ethereumService);
 
     if (this.ethData.isAdmin) {
       await this.loadEmployees();
+      this.wallets = this.employees.map((x) => {
+        return { label: x.wallet, value: x.wallet };
+      });
+      this.transferForm = [
+        {
+          name: "wallet",
+          type: "select",
+          title: "Wallet:",
+          default: "",
+          validators: [Validators.required],
+          options: this.wallets,
+        },
+      ];
     }
   }
 
@@ -35,6 +47,8 @@ export class WalletComponent implements OnInit {
   };
 
   employees: any[] = [];
+
+  wallets: { label: any; value: any }[] = [];
 
   employeeColDef: ColDef[] = [
     { field: "wallet" },
@@ -111,19 +125,7 @@ export class WalletComponent implements OnInit {
     this.employees = [...e];
   }
 
-  transferForm: niceForm[] = [
-    {
-      name: "wallet",
-      type: "text",
-      title: "Wallet:",
-      placeholder: "0x...",
-      default: "",
-      validators: [
-        Validators.required,
-        Validators.pattern(/^0x[a-fA-F0-9]{40}$/),
-      ],
-    },
-  ];
+  transferForm: niceForm[] = [];
 
   async transfer(data: { wallet: string }) {
     await this.ethereumService.transferSalary(data.wallet);

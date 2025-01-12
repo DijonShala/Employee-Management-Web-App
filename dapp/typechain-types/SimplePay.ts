@@ -50,13 +50,15 @@ export declare namespace SimplePay {
 export interface SimplePayInterface extends Interface {
   getFunction(
     nameOrSignature:
-      | "addEmployee"
+      | "WEI_PER_ETHER"
+      | "addEmployeeWallet"
       | "admin"
       | "deposit"
       | "employeeAddresses"
       | "employees"
+      | "fundContract"
+      | "getAllEmployees"
       | "getBalance"
-      | "getEmployeeDetails"
       | "isAdmin"
       | "removeEmployee"
       | "transferSalary"
@@ -67,7 +69,11 @@ export interface SimplePayInterface extends Interface {
   getEvent(nameOrSignatureOrTopic: "SalaryTransferred"): EventFragment;
 
   encodeFunctionData(
-    functionFragment: "addEmployee",
+    functionFragment: "WEI_PER_ETHER",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "addEmployeeWallet",
     values: [AddressLike, BigNumberish, BigNumberish, BigNumberish]
   ): string;
   encodeFunctionData(functionFragment: "admin", values?: undefined): string;
@@ -81,11 +87,15 @@ export interface SimplePayInterface extends Interface {
     values: [AddressLike]
   ): string;
   encodeFunctionData(
-    functionFragment: "getBalance",
+    functionFragment: "fundContract",
     values?: undefined
   ): string;
   encodeFunctionData(
-    functionFragment: "getEmployeeDetails",
+    functionFragment: "getAllEmployees",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "getBalance",
     values?: undefined
   ): string;
   encodeFunctionData(functionFragment: "isAdmin", values?: undefined): string;
@@ -107,7 +117,11 @@ export interface SimplePayInterface extends Interface {
   ): string;
 
   decodeFunctionResult(
-    functionFragment: "addEmployee",
+    functionFragment: "WEI_PER_ETHER",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "addEmployeeWallet",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "admin", data: BytesLike): Result;
@@ -117,11 +131,15 @@ export interface SimplePayInterface extends Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "employees", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "getBalance", data: BytesLike): Result;
   decodeFunctionResult(
-    functionFragment: "getEmployeeDetails",
+    functionFragment: "fundContract",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(
+    functionFragment: "getAllEmployees",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(functionFragment: "getBalance", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "isAdmin", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "removeEmployee",
@@ -203,7 +221,9 @@ export interface SimplePay extends BaseContract {
     event?: TCEvent
   ): Promise<this>;
 
-  addEmployee: TypedContractMethod<
+  WEI_PER_ETHER: TypedContractMethod<[], [bigint], "view">;
+
+  addEmployeeWallet: TypedContractMethod<
     [
       _wallet: AddressLike,
       _basicSalary: BigNumberish,
@@ -238,13 +258,15 @@ export interface SimplePay extends BaseContract {
     "view"
   >;
 
-  getBalance: TypedContractMethod<[], [bigint], "view">;
+  fundContract: TypedContractMethod<[], [void], "payable">;
 
-  getEmployeeDetails: TypedContractMethod<
+  getAllEmployees: TypedContractMethod<
     [],
     [SimplePay.EmployeeStructOutput[]],
     "view"
   >;
+
+  getBalance: TypedContractMethod<[], [bigint], "view">;
 
   isAdmin: TypedContractMethod<[], [boolean], "view">;
 
@@ -278,7 +300,10 @@ export interface SimplePay extends BaseContract {
   ): T;
 
   getFunction(
-    nameOrSignature: "addEmployee"
+    nameOrSignature: "WEI_PER_ETHER"
+  ): TypedContractMethod<[], [bigint], "view">;
+  getFunction(
+    nameOrSignature: "addEmployeeWallet"
   ): TypedContractMethod<
     [
       _wallet: AddressLike,
@@ -314,11 +339,14 @@ export interface SimplePay extends BaseContract {
     "view"
   >;
   getFunction(
+    nameOrSignature: "fundContract"
+  ): TypedContractMethod<[], [void], "payable">;
+  getFunction(
+    nameOrSignature: "getAllEmployees"
+  ): TypedContractMethod<[], [SimplePay.EmployeeStructOutput[]], "view">;
+  getFunction(
     nameOrSignature: "getBalance"
   ): TypedContractMethod<[], [bigint], "view">;
-  getFunction(
-    nameOrSignature: "getEmployeeDetails"
-  ): TypedContractMethod<[], [SimplePay.EmployeeStructOutput[]], "view">;
   getFunction(
     nameOrSignature: "isAdmin"
   ): TypedContractMethod<[], [boolean], "view">;

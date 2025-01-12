@@ -21,6 +21,8 @@ contract SimplePay {
         uint256 timestamp
     );
 
+    uint256 public constant WEI_PER_ETHER = 1e18;
+
     modifier onlyAdmin() {
         require(msg.sender == admin, "Only admin can perform this action");
         _;
@@ -92,16 +94,16 @@ contract SimplePay {
         require(employees[_wallet].exists, "Employee does not exist");
         Employee memory emp = employees[_wallet];
 
-        uint256 netSalary = emp.basicSalary + emp.allowances - emp.deductions;
+        uint256 netSalary = (emp.basicSalary + emp.allowances - emp.deductions) * 300 / 1000000 * WEI_PER_ETHER;
 
         require(
-            address(this).balance >= (netSalary / 2000),
-            "Insufficient contract balance"
+            address(this).balance >= netSalary,
+            "Insufficient contract balance."
         );
 
-        payable(emp.wallet).transfer((netSalary / 2000));
+        if (!payable(emp.wallet).send(netSalary)) revert();
 
-        emit SalaryTransferred(emp.wallet, (netSalary / 2000), block.timestamp);
+        emit SalaryTransferred(emp.wallet, netSalary, block.timestamp);
     }
 
     function deposit() public payable onlyAdmin {}
