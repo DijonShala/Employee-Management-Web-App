@@ -2,23 +2,23 @@
   <!--GREETINGS CARD-->
 
   <div class="container text-center py-2 my-5">
-    <p>Good morning {{employee.firstName}} {{employee.lastName}}</p>
+    <p i18n>Good morning {{employee.firstName}} {{employee.lastName}}</p>
   </div>
 
   <!-- TOAST -->
   <div class="toast w-sm mx-auto" data-bs-autohide="false">
     <div class="toast-header">
-      <strong class="me-auto"
+      <strong i18n class="me-auto"
         >Congratulations worker! 😃😃😃😃😃😃😃😃😃😃😃😃</strong
       >
       <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
     </div>
     <div class="toast-body text-left">
-      <span>You have worked for </span>
+      <span i18n>You have worked for </span>
 
       <strong class="display-6">{{clocked_time | date : 'H'}}</strong>
       <span class="display-8">{{clocked_time | date : 'mm'}}</span>
-      <span> hours!</span>
+      <span i18n> hours!</span>
     </div>
   </div>
 
@@ -27,7 +27,7 @@
     <div>
       <p class="h4">{{current_time | date : 'EEE, d MMMM y'}}</p>
 
-      <p class="h5 text-secondary" [hidden]="employee.status != 'active'">
+      <p i18n class="h5 text-secondary" [hidden]="employee.status != 'active'">
         Clocked in since
         <strong>{{employee.clocked_in_time | date : 'H:mm'}}</strong>
       </p>
@@ -50,7 +50,7 @@
 
     <div class="d-flex flex-column gap-2 align-items-center">
       <!-- daily clock in time -->
-      <p *ngIf="employee.clock_in_time != null">
+      <p i18n *ngIf="employee.clock_in_time != null">
         Your working hours are
         <br />
         <strong>{{employee.clock_in_time | date : 'H:mm'}}</strong>
@@ -63,6 +63,7 @@
 
       <!-- clock in clock out -->
       <button
+        i18n
         type="button"
         class="btn w-75 btn-success"
         [hidden]="employee.status == 'active'"
@@ -72,6 +73,7 @@
         <i class="fa-regular fa-clock"></i>
       </button>
       <button
+        i18n
         type="button"
         class="btn w-75 btn-dark"
         [hidden]="employee.status != 'active'"
@@ -82,5 +84,4 @@
       </button>
     </div>
   </div>
-
 </main>

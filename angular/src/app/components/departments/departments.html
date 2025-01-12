@@ -3,7 +3,7 @@
     <div
       class="container-fluid sidebar-header d-flex align-items-center justify-content-between"
     >
-      <h5>Departments</h5>
+      <h5 i18n>Departments</h5>
     </div>
     <ul class="nav flex-column mt-3">
       <li *ngFor="let department of departments" class="nav-item">
@@ -19,11 +19,13 @@
   </div>
 
   <div class="container-sm p-5 bg-light">
-    <div *ngIf="error" class="alert alert-danger">Error adding department.</div>
-    <div *ngIf="success" class="alert alert-success">
+    <div i18n *ngIf="error" class="alert alert-danger">
+      Error adding department.
+    </div>
+    <div i18n *ngIf="success" class="alert alert-success">
       Department successfully added.
     </div>
-    <h3>Create department</h3>
+    <h3 i18n>Create department</h3>
     <app-nice-form
       [formcontrol]="createDepartmentform"
       (result)="addDepartment($event)"

@@ -40,16 +40,18 @@ export class DepartmentComponent {
       {
         name: "name",
         type: "text",
-        title: "Name: " + this.strongstring(this.department.name),
-        placeholder: "Name",
+        title: $localize`Name: ` + this.strongstring(this.department.name),
+        placeholder: $localize`Name`,
         default: "",
         validators: [Validators.required],
       },
       {
         name: "description",
         type: "text",
-        title: "Description: " + this.strongstring(this.department.description),
-        placeholder: "Description",
+        title:
+          $localize`Description: ` +
+          this.strongstring(this.department.description),
+        placeholder: $localize`Description`,
         default: "",
         validators: [Validators.required],
       },

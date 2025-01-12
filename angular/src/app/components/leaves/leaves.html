@@ -1,10 +1,10 @@
 <div class="container-sm p-5 bg-light">
-  <div *ngIf="error" class="alert alert-danger">Error adding leave.</div>
-  <div *ngIf="success" class="alert alert-success">
+  <div i18n *ngIf="error" class="alert alert-danger">Error adding leave.</div>
+  <div i18n *ngIf="success" class="alert alert-success">
     Leave successfully added.
   </div>
 
-  <h3>Add a leave request</h3>
+  <h3 i18n>Add a leave request</h3>
   <app-nice-form
     [formcontrol]="leaveform"
     (result)="addLeave($event)"
@@ -17,11 +17,11 @@
     <table class="table table-bordered table-hover">
       <thead>
         <tr>
-          <th>Reason</th>
-          <th>Start Date</th>
-          <th>End Date</th>
-          <th>Status</th>
-          <th>Applied At</th>
+          <th i18n>Reason</th>
+          <th i18n>Start Date</th>
+          <th i18n>End Date</th>
+          <th i18n>Status</th>
+          <th i18n>Applied At</th>
         </tr>
       </thead>
       <tbody>

@@ -1,12 +1,12 @@
 <div class="container-sm p-5 bg-light">
-  <h3>Get salaries by Month / Year</h3>
+  <h3 i18n>Get salaries by Month / Year</h3>
   <app-nice-form
     [formcontrol]="monthform"
     (result)="fetchSalariesByMonthYear($event)"
   ></app-nice-form>
 
   <div *ngIf="filteredSalaries.length > 0" class="mt-4">
-    <h4>Salaries for the selected month and year</h4>
+    <h4 i18n>Salaries for the selected month and year</h4>
     <ag-grid-angular
       [rowData]="filteredSalaries"
       [columnDefs]="filteredSalaryDefs"
@@ -15,7 +15,7 @@
   </div>
 
   <div *ngIf="filteredSalaries.length === 0" class="mt-4">
-    <p>No salaries found for the selected month and year.</p>
+    <p i18n>No salaries found for the selected month and year.</p>
   </div>
 </div>
 
@@ -23,7 +23,7 @@
 
 <div class="container-sm p-5 bg-light">
   <div *ngIf="allLeaves.length > 0" class="mt-4">
-    <h4>Leave Requests</h4>
+    <h4 i18n>Leave Requests</h4>
     <ag-grid-angular
       [rowData]="allLeaves"
       [columnDefs]="allLeavesDefs"
@@ -32,14 +32,14 @@
   </div>
 
   <div *ngIf="allLeaves.length === 0" class="mt-4">
-    <p>No leave requests found.</p>
+    <p i18n>No leave requests found.</p>
   </div>
 </div>
 
 <br />
 
 <div class="container-sm p-5 bg-light" *ngIf="showFilterEmployeeForm">
-  <h3>Filter Employee</h3>
+  <h3 i18n>Filter Employee</h3>
   <app-nice-form
     [formcontrol]="formFilterEmployee"
     (result)="fetchFilterEmployee($event)"
@@ -48,13 +48,14 @@
 </div>
 <div class="container-sm p-5 bg-light">
   <div *ngIf="FilteredEmployee" class="mt-4">
-    <h4>Filtered employee</h4>
+    <h4 i18n>Filtered employee</h4>
     <ag-grid-angular
       [rowData]="FilteredEmployee"
       [columnDefs]="filteredEmployeeDefs"
       style="height: 400px"
     />
     <button
+      i18n
       class="btn btn-primary"
       (click)="showMoreThen10()"
       *ngIf="!limit10 && FilteredEmployee.length >= 10"
@@ -65,13 +66,13 @@
 </div>
 
 <div *ngIf="FilteredEmployee && FilteredEmployee.length === 0" class="mt-4">
-  <p>No employee found.</p>
+  <p i18n>No employee found.</p>
 </div>
 <br />
 
 <div class="container-sm p-5 bg-light">
   <div *ngIf="allTasks.length > 0" class="mt-4">
-    <h4>Tasks</h4>
+    <h4 i18n>Tasks</h4>
     <ag-grid-angular
       [rowData]="allTasks"
       [columnDefs]="allTasksDefs"
@@ -80,6 +81,6 @@
   </div>
 
   <div *ngIf="allTasks.length === 0" class="mt-4">
-    <p>No tasks found.</p>
+    <p i18n>No tasks found.</p>
   </div>
 </div>

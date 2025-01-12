@@ -24,6 +24,7 @@
       />
 
       <div
+        i18n
         *ngIf="formgroup.get(control.name)?.dirty && !formgroup.get(control.name)?.valid"
         class="invalid-feedback"
       >
@@ -45,6 +46,7 @@
       ></label>
 
       <div
+        i18n
         *ngIf="formgroup.get(control.name)?.dirty && !formgroup.get(control.name)?.valid"
         class="invalid-feedback"
       >
@@ -63,6 +65,7 @@
         </option>
       </select>
       <div
+        i18n
         *ngIf="formgroup.get(control.name)?.dirty && !formgroup.get(control.name)?.valid"
         class="invalid-feedback"
       >
@@ -72,7 +75,7 @@
   </div>
 
   <!-- BUTTON -->
-  <div class="text-center">
+  <div i18n class="text-center">
     <button
       [disabled]="!formgroup.valid"
       type="submit"
