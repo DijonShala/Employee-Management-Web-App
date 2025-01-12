@@ -85,28 +85,19 @@
         <th>Deductions</th>
         <th>Net Salary</th>
         <th>Pay Date</th>
+        <th>Actions</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let salary of employee_salary">
-        <td>
-          {{ salary.basicSalary * conversion | currency: selected_currency}}
-        </td>
-
-        <td *ngIf="salary.allowances != undefined">
-          {{ salary.allowances * conversion | currency: selected_currency}}
-        </td>
-
-        <td *ngIf="salary.deductions != undefined">
-          {{ salary.deductions * conversion | currency: selected_currency}}
-        </td>
-
-        <td>
-          {{ (salary.basicSalary + (salary.allowances || 0) - (salary.deductions
-          || 0)) * conversion | currency: selected_currency }}
-        </td>
-
+        <td>{{ salary.basicSalary * conversion | currency: selected_currency}}</td>
+        <td *ngIf="salary.allowances != undefined">{{ salary.allowances * conversion | currency: selected_currency}}</td>
+        <td *ngIf="salary.deductions != undefined">{{ salary.deductions * conversion | currency: selected_currency}}</td>
+        <td>{{ (salary.basicSalary + (salary.allowances || 0) - (salary.deductions || 0)) * conversion | currency: selected_currency }}</td>
         <td>{{ salary.payDate | date: 'shortDate' }}</td>
+        <td>
+          <payslip-pdf [user]="employee" [salary]="salary" [conversion]="conversion" [selected_currency]="selected_currency"></payslip-pdf>
+        </td>
       </tr>
     </tbody>
   </table>

@@ -17,6 +17,7 @@ import { SidebarComponent } from "../sidebar/sidebar.component";
 import { NgxChartsModule } from "@swimlane/ngx-charts";
 import { FormsModule } from "@angular/forms";
 import { WalletComponent } from "../wallet/wallet.component";
+import { PayslipPdfComponent } from "../payslip-pdf/payslip-pdf.component";
 
 @Component({
   selector: "app-salaries",
@@ -29,9 +30,9 @@ import { WalletComponent } from "../wallet/wallet.component";
     NgxChartsModule,
     FormsModule,
     WalletComponent,
-  ],
+    PayslipPdfComponent
+],
   templateUrl: "salaries.html",
-  styles: ``,
 })
 export class SalariesComponent implements OnInit {
   constructor(
