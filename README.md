@@ -93,8 +93,15 @@ Prijavljeni uporabniki (navadni uporabnik):
 
 - salary, basicSalary, deductions, netSalary, allowances tipa number
 
-## Internacionalizacija
+## Tehnološki izzvi
+## 1. Internacionalizacija
 
 Aplikacija je podprta v več jezikih preko Angular internacionalizacije (i18n). Internacionalizacija uporabniku omogoča prikaz strani prilagojene različnim jezikom in kulturnim nastavitvam.
 
 Podprta jezika sta angleščina in slovenščina.
+
+## 2. Knjižnica jsPDF
+
+Aplikacija uporablja knjižnico jsPDF za generiranje PDF dokumentov neposredno v brskalniku, kar omogoča enostaven prenos plačilnih list s prilagojenimi podatki.
+
+Vsebina PDF dokumentov se dinamično prilagaja glede na podatke iz aplikacije, kar zagotavlja personalizacijo za vsakega uporabnika (npr. konverzije valut, formati datumov, prilagojeni naslovi).
