@@ -4,6 +4,7 @@
     <body>
       <trans-unit id="6077419884346646410" datatype="html">
         <source>Month: </source>
+        <target>Mesec</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/analytics/analytics.component.ts</context>
           <context context-type="linenumber">181</context>
@@ -11,6 +12,7 @@
       </trans-unit>
       <trans-unit id="5425952377645565391" datatype="html">
         <source>Enter month (1-12)</source>
+        <target>Vnesite mesec (1-12)</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/analytics/analytics.component.ts</context>
           <context context-type="linenumber">182</context>
@@ -18,6 +20,7 @@
       </trans-unit>
       <trans-unit id="2476251429306026469" datatype="html">
         <source>Year: </source>
+        <target>Leto</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/analytics/analytics.component.ts</context>
           <context context-type="linenumber">189</context>
@@ -25,6 +28,7 @@
       </trans-unit>
       <trans-unit id="5172073235227142492" datatype="html">
         <source>Enter year</source>
+        <target>Vnesite leto</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/analytics/analytics.component.ts</context>
           <context context-type="linenumber">190</context>
@@ -32,6 +36,7 @@
       </trans-unit>
       <trans-unit id="6705389399467993545" datatype="html">
         <source>First name: </source>
+        <target>Ime: </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/analytics/analytics.component.ts</context>
           <context context-type="linenumber">261</context>
@@ -43,6 +48,7 @@
       </trans-unit>
       <trans-unit id="5342432350421167093" datatype="html">
         <source>First name</source>
+        <target>Ime</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/analytics/analytics.component.ts</context>
           <context context-type="linenumber">262</context>
@@ -62,6 +68,7 @@
       </trans-unit>
       <trans-unit id="5425776166982577114" datatype="html">
         <source>Last name: </source>
+        <target>Priimek: </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/analytics/analytics.component.ts</context>
           <context context-type="linenumber">269</context>
@@ -73,6 +80,7 @@
       </trans-unit>
       <trans-unit id="3586674587150281199" datatype="html">
         <source>Last name</source>
+        <target>Priimek</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/analytics/analytics.component.ts</context>
           <context context-type="linenumber">270</context>
@@ -122,6 +130,7 @@
       </trans-unit>
       <trans-unit id="5317679160053786322" datatype="html">
         <source>Phone number: </source>
+        <target>Telefonska stevilka: </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/analytics/analytics.component.ts</context>
           <context context-type="linenumber">286</context>
@@ -133,6 +142,7 @@
       </trans-unit>
       <trans-unit id="8121141462865337916" datatype="html">
         <source>Phone number</source>
+        <target>Telefonska stevilka</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/analytics/analytics.component.ts</context>
           <context context-type="linenumber">287</context>
@@ -152,6 +162,7 @@
       </trans-unit>
       <trans-unit id="3238782266344127799" datatype="html">
         <source>Job title: </source>
+        <target>Naziv službe: </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/analytics/analytics.component.ts</context>
           <context context-type="linenumber">295</context>
@@ -163,6 +174,7 @@
       </trans-unit>
       <trans-unit id="8511290818353315704" datatype="html">
         <source>Job title</source>
+        <target>Naziv službe</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/analytics/analytics.component.ts</context>
           <context context-type="linenumber">296</context>
@@ -182,6 +194,7 @@
       </trans-unit>
       <trans-unit id="4145496584631696119" datatype="html">
         <source>Role</source>
+        <target>Vloga</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/analytics/analytics.component.ts</context>
           <context context-type="linenumber">304</context>
@@ -205,6 +218,7 @@
       </trans-unit>
       <trans-unit id="3955967824702499842" datatype="html">
         <source>Department</source>
+        <target>Oddelek</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/analytics/analytics.component.ts</context>
           <context context-type="linenumber">318</context>
@@ -224,6 +238,7 @@
       </trans-unit>
       <trans-unit id="919886285013559702" datatype="html">
         <source>Salary: </source>
+        <target>Plača: </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/analytics/analytics.component.ts</context>
           <context context-type="linenumber">328</context>
@@ -235,6 +250,7 @@
       </trans-unit>
       <trans-unit id="498286527813307230" datatype="html">
         <source>Salary</source>
+        <target>Plača</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/analytics/analytics.component.ts</context>
           <context context-type="linenumber">329</context>
@@ -254,6 +270,7 @@
       </trans-unit>
       <trans-unit id="3471271257057728992" datatype="html">
         <source>Get salaries by Month / Year</source>
+        <target>Plače po mescih / letih</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/analytics/analytics.html</context>
           <context context-type="linenumber">2,3</context>
@@ -261,6 +278,7 @@
       </trans-unit>
       <trans-unit id="1724108941901605700" datatype="html">
         <source>Salaries for the selected month and year</source>
+        <target>Plače za izbrani mesec in leto</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/analytics/analytics.html</context>
           <context context-type="linenumber">9,10</context>
@@ -268,6 +286,7 @@
       </trans-unit>
       <trans-unit id="8814764295551491322" datatype="html">
         <source>No salaries found for the selected month and year.</source>
+        <target>Za izbrani mesec in leto ni bilo najdenih nobenih plač.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/analytics/analytics.html</context>
           <context context-type="linenumber">18,19</context>
@@ -275,6 +294,7 @@
       </trans-unit>
       <trans-unit id="2595878478433403759" datatype="html">
         <source>Leave Requests</source>
+        <target>Prošnja za dopust</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/analytics/analytics.html</context>
           <context context-type="linenumber">26,27</context>
@@ -282,6 +302,7 @@
       </trans-unit>
       <trans-unit id="3931902536043682281" datatype="html">
         <source>No leave requests found.</source>
+        <target>Ni bilo najedenih prošenj za dopust.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/analytics/analytics.html</context>
           <context context-type="linenumber">35,36</context>
@@ -289,6 +310,7 @@
       </trans-unit>
       <trans-unit id="2351188473647228179" datatype="html">
         <source>Filter Employee</source>
+        <target>Filtriraj zaposlene</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/analytics/analytics.html</context>
           <context context-type="linenumber">42,43</context>
@@ -296,6 +318,7 @@
       </trans-unit>
       <trans-unit id="7813530781929806452" datatype="html">
         <source>Filtered employee</source>
+        <target>Filtrirani zaposleni</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/analytics/analytics.html</context>
           <context context-type="linenumber">51,52</context>
@@ -303,6 +326,7 @@
       </trans-unit>
       <trans-unit id="6381140642359438701" datatype="html">
         <source> Show all </source>
+        <target>Prikaži vse</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/analytics/analytics.html</context>
           <context context-type="linenumber">63,64</context>
@@ -310,6 +334,7 @@
       </trans-unit>
       <trans-unit id="5504143472255748396" datatype="html">
         <source>No employee found.</source>
+        <target>Ni bil najden noben zaposleni.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/analytics/analytics.html</context>
           <context context-type="linenumber">69,70</context>
@@ -317,6 +342,7 @@
       </trans-unit>
       <trans-unit id="6904866445262015585" datatype="html">
         <source>Tasks</source>
+        <target>Naloge</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/analytics/analytics.html</context>
           <context context-type="linenumber">75,76</context>
@@ -332,6 +358,7 @@
       </trans-unit>
       <trans-unit id="4235065345356758392" datatype="html">
         <source>No tasks found.</source>
+        <target>Ni bila najdena nobena naloga.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/analytics/analytics.html</context>
           <context context-type="linenumber">84,85</context>
@@ -339,6 +366,7 @@
       </trans-unit>
       <trans-unit id="4717069579836429470" datatype="html">
         <source> « Previous </source>
+        <target>Prejšni</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/calendar/calendar.html</context>
           <context context-type="linenumber">4</context>
@@ -346,6 +374,7 @@
       </trans-unit>
       <trans-unit id="286029990518921231" datatype="html">
         <source> Next » </source>
+        <target>Naslednji</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/calendar/calendar.html</context>
           <context context-type="linenumber">8</context>
@@ -353,6 +382,7 @@
       </trans-unit>
       <trans-unit id="2228687254429887477" datatype="html">
         <source>Good morning <x id="INTERPOLATION" equiv-text="{{employee.firstName}}"/> <x id="INTERPOLATION_1" equiv-text="{{employee.lastName}}"/></source>
+        <target>Dobro jutro <x id="INTERPOLATION" equiv-text="{{employee.firstName}}"/> <x id="INTERPOLATION_1" equiv-text="{{employee.lastName}}"/></target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/clockin/clockin.html</context>
           <context context-type="linenumber">5,8</context>
@@ -381,6 +411,8 @@
       </trans-unit>
       <trans-unit id="3320740117716010879" datatype="html">
         <source> Clocked in since <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/><x id="INTERPOLATION" equiv-text="{{employee.clocked_in_time | date : &apos;H:mm&apos;}}"/><x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/></source>
+        <target> Vpisan od <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/><x id="INTERPOLATION" equiv-text="{{employee.clocked_in_time | date : &apos;H:mm&apos;}}"/><x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/></target>
+        
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/clockin/clockin.html</context>
           <context context-type="linenumber">31,35</context>
@@ -388,6 +420,8 @@
       </trans-unit>
       <trans-unit id="404874525263101685" datatype="html">
         <source> Your working hours are <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br /&gt;"/><x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/><x id="INTERPOLATION" equiv-text="{{employee.clock_in_time | date : &apos;H:mm&apos;}}"/><x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> to <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/><x id="INTERPOLATION_1" equiv-text="{{employee.clock_out_time | date : &apos;H:mm&apos;}}"/><x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/><x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span *ngIf=&quot;!ontime&quot;&gt;"/> Free time <x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/><x id="START_TAG_SPAN_1" ctype="x-span_1" equiv-text="&lt;span *ngIf=&quot;ontime&quot;&gt;"/> Work hours <x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/></source>
+        <target> Tvoje delovne ure so <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br /&gt;"/><x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/><x id="INTERPOLATION" equiv-text="{{employee.clock_in_time | date : &apos;H:mm&apos;}}"/><x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> do <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/><x id="INTERPOLATION_1" equiv-text="{{employee.clock_out_time | date : &apos;H:mm&apos;}}"/><x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/><x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span *ngIf=&quot;!ontime&quot;&gt;"/> Prosti čas <x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/><x id="START_TAG_SPAN_1" ctype="x-span_1" equiv-text="&lt;span *ngIf=&quot;ontime&quot;&gt;"/> Delovni čas <x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/></target>
+        
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/clockin/clockin.html</context>
           <context context-type="linenumber">54,64</context>
@@ -395,6 +429,8 @@
       </trans-unit>
       <trans-unit id="905566501624778376" datatype="html">
         <source> Clock in <x id="START_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;i class=&quot;fa-regular fa-clock&quot;&gt;"/><x id="CLOSE_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;/i&gt;"/></source>
+        <target> Prični <x id="START_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;i class=&quot;fa-regular fa-clock&quot;&gt;"/><x id="CLOSE_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;/i&gt;"/></target>
+        
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/clockin/clockin.html</context>
           <context context-type="linenumber">72,75</context>
@@ -402,6 +438,8 @@
       </trans-unit>
       <trans-unit id="3936319270470427793" datatype="html">
         <source> Clock out <x id="START_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;i class=&quot;fa-solid fa-flag-checkered&quot;&gt;"/><x id="CLOSE_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;/i&gt;"/></source>
+        <target> Končaj <x id="START_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;i class=&quot;fa-solid fa-flag-checkered&quot;&gt;"/><x id="CLOSE_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;/i&gt;"/></target>
+        
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/clockin/clockin.html</context>
           <context context-type="linenumber">82,85</context>
@@ -409,6 +447,7 @@
       </trans-unit>
       <trans-unit id="402785015655073812" datatype="html">
         <source>Name: </source>
+        <target>Ime: </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/departments/department.component.ts</context>
           <context context-type="linenumber">43</context>
@@ -420,6 +459,7 @@
       </trans-unit>
       <trans-unit id="8953033926734869941" datatype="html">
         <source>Name</source>
+        <target>Ime</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/departments/department.component.ts</context>
           <context context-type="linenumber">44</context>
@@ -431,6 +471,7 @@
       </trans-unit>
       <trans-unit id="4678185361290766066" datatype="html">
         <source>Description: </source>
+        <target>Opis: </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/departments/department.component.ts</context>
           <context context-type="linenumber">52</context>
@@ -446,6 +487,7 @@
       </trans-unit>
       <trans-unit id="4902817035128594900" datatype="html">
         <source>Description</source>
+        <target>Opis</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/departments/department.component.ts</context>
           <context context-type="linenumber">54</context>
@@ -461,6 +503,7 @@
       </trans-unit>
       <trans-unit id="2646138298680426771" datatype="html">
         <source> Error updating department. </source>
+        <target>Napaka pri posodobitvi oddelka.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/departments/department.html</context>
           <context context-type="linenumber">3,4</context>
@@ -468,6 +511,7 @@
       </trans-unit>
       <trans-unit id="1305973402960143805" datatype="html">
         <source> Department successfully updated. </source>
+        <target>Oddelek uspešno posodobljen.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/departments/department.html</context>
           <context context-type="linenumber">6,7</context>
@@ -475,6 +519,7 @@
       </trans-unit>
       <trans-unit id="8106846958317156084" datatype="html">
         <source>Update department</source>
+        <target>Posodobi oddelek</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/departments/department.html</context>
           <context context-type="linenumber">9,10</context>
@@ -482,6 +527,7 @@
       </trans-unit>
       <trans-unit id="4168485708389700387" datatype="html">
         <source>Delete <x id="INTERPOLATION" equiv-text="{{department?.name}}"/></source>
+        <target>Izbriši <x id="INTERPOLATION" equiv-text="{{department?.name}}"/></target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/departments/department.html</context>
           <context context-type="linenumber">17,18</context>
@@ -489,6 +535,7 @@
       </trans-unit>
       <trans-unit id="3010736884764248350" datatype="html">
         <source>Remove the department from the database.</source>
+        <target>Odstrani oddelek iz podatkovne baze.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/departments/department.html</context>
           <context context-type="linenumber">18,19</context>
@@ -496,6 +543,8 @@
       </trans-unit>
       <trans-unit id="6660925946511264619" datatype="html">
         <source> Delete </source>
+        <target> Izbriši </target>
+
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/departments/department.html</context>
           <context context-type="linenumber">21,22</context>
@@ -507,6 +556,7 @@
       </trans-unit>
       <trans-unit id="5146366560938404572" datatype="html">
         <source>Employees in <x id="INTERPOLATION" equiv-text="{{ department?.name }}"/></source>
+        <target>Zaposleni v <x id="INTERPOLATION" equiv-text="{{ department?.name }}"/></target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/departments/department.html</context>
           <context context-type="linenumber">30,31</context>
@@ -514,6 +564,8 @@
       </trans-unit>
       <trans-unit id="4564500260818749210" datatype="html">
         <source>No employees found in this department.</source>
+        <target>Ni bilo najdenih zaposlenih v tem oddelku.</target>
+        
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/departments/department.html</context>
           <context context-type="linenumber">44,45</context>
@@ -521,6 +573,7 @@
       </trans-unit>
       <trans-unit id="6945686797037328785" datatype="html">
         <source>Departments</source>
+        <target>Oddelki</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/departments/departments.html</context>
           <context context-type="linenumber">6,7</context>
@@ -528,6 +581,7 @@
       </trans-unit>
       <trans-unit id="7587521414697337106" datatype="html">
         <source> Error adding department. </source>
+        <target>Napaka pri dodajanju oddelka.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/departments/departments.html</context>
           <context context-type="linenumber">23,24</context>
@@ -535,6 +589,7 @@
       </trans-unit>
       <trans-unit id="7472646345309023411" datatype="html">
         <source> Department successfully added. </source>
+        <target>Oddelek uspešno dodan.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/departments/departments.html</context>
           <context context-type="linenumber">26,27</context>
@@ -542,6 +597,7 @@
       </trans-unit>
       <trans-unit id="5599993015628535649" datatype="html">
         <source>Create department</source>
+        <target>Ustvari oddelek</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/departments/departments.html</context>
           <context context-type="linenumber">28,29</context>
@@ -549,6 +605,7 @@
       </trans-unit>
       <trans-unit id="5886378528605303352" datatype="html">
         <source>Start date: </source>
+        <target>Začetek:</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/leavecard/leavecard.html</context>
           <context context-type="linenumber">16,17</context>
@@ -568,6 +625,7 @@
       </trans-unit>
       <trans-unit id="8435351814596696414" datatype="html">
         <source>Due date: </source>
+        <target>Rok: </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/leavecard/leavecard.html</context>
           <context context-type="linenumber">18,19</context>
@@ -583,6 +641,7 @@
       </trans-unit>
       <trans-unit id="1812589082213808092" datatype="html">
         <source> Change status </source>
+        <target>Spremeni stanje</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/leavecard/leavecard.html</context>
           <context context-type="linenumber">30,31</context>
@@ -594,6 +653,7 @@
       </trans-unit>
       <trans-unit id="4416413576346763682" datatype="html">
         <source>Pending</source>
+        <target>V teku</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/leavecard/leavecard.html</context>
           <context context-type="linenumber">33,34</context>
@@ -601,6 +661,7 @@
       </trans-unit>
       <trans-unit id="5906272961955453157" datatype="html">
         <source>Approved</source>
+        <target>Odobrjeno</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/leavecard/leavecard.html</context>
           <context context-type="linenumber">34,35</context>
@@ -608,6 +669,7 @@
       </trans-unit>
       <trans-unit id="4188654437346976139" datatype="html">
         <source>Rejected</source>
+        <target>Zavrnjeno</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/leavecard/leavecard.html</context>
           <context context-type="linenumber">35,36</context>
@@ -615,6 +677,7 @@
       </trans-unit>
       <trans-unit id="9082126793384907136" datatype="html">
         <source> Delete leave </source>
+        <target>Izbriši dopust</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/leavecard/leavecard.html</context>
           <context context-type="linenumber">44</context>
@@ -622,6 +685,7 @@
       </trans-unit>
       <trans-unit id="2539191919061544581" datatype="html">
         <source>Reason: </source>
+        <target>Razlog: </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/leaves/leaves.component.ts</context>
           <context context-type="linenumber">34</context>
@@ -629,6 +693,7 @@
       </trans-unit>
       <trans-unit id="4775550080689015987" datatype="html">
         <source>Reason</source>
+        <target>Razlog</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/leaves/leaves.component.ts</context>
           <context context-type="linenumber">35</context>
@@ -644,6 +709,7 @@
       </trans-unit>
       <trans-unit id="6918871917201353101" datatype="html">
         <source>Start Date: </source>
+        <target>Začetek: </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/leaves/leaves.component.ts</context>
           <context context-type="linenumber">42</context>
@@ -651,6 +717,7 @@
       </trans-unit>
       <trans-unit id="3604386807230411192" datatype="html">
         <source>Start Date</source>
+        <target>Začetek: </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/leaves/leaves.component.ts</context>
           <context context-type="linenumber">43</context>
@@ -662,6 +729,7 @@
       </trans-unit>
       <trans-unit id="546611767641046985" datatype="html">
         <source>End Date: </source>
+        <target>Konec: </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/leaves/leaves.component.ts</context>
           <context context-type="linenumber">51</context>
@@ -669,6 +737,7 @@
       </trans-unit>
       <trans-unit id="7379726829888309084" datatype="html">
         <source>End Date</source>
+        <target>Konec</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/leaves/leaves.component.ts</context>
           <context context-type="linenumber">52</context>
@@ -680,6 +749,7 @@
       </trans-unit>
       <trans-unit id="4926333365611331217" datatype="html">
         <source>Error adding leave.</source>
+        <target>Napaka pri dodajanju dopusta.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/leaves/leaves.html</context>
           <context context-type="linenumber">2,3</context>
@@ -687,6 +757,7 @@
       </trans-unit>
       <trans-unit id="8675206752141852801" datatype="html">
         <source> Leave successfully added. </source>
+        <target>Dopust uspešno dodan. </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/leaves/leaves.html</context>
           <context context-type="linenumber">4,5</context>
@@ -694,6 +765,7 @@
       </trans-unit>
       <trans-unit id="7013329871173035012" datatype="html">
         <source>Add a leave request</source>
+        <target>Dodaj prošnjo za dopust</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/leaves/leaves.html</context>
           <context context-type="linenumber">7,8</context>
@@ -701,6 +773,7 @@
       </trans-unit>
       <trans-unit id="5611592591303869712" datatype="html">
         <source>Status</source>
+        <target>Stanje</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/leaves/leaves.html</context>
           <context context-type="linenumber">23,24</context>
@@ -708,6 +781,7 @@
       </trans-unit>
       <trans-unit id="5623588427144468177" datatype="html">
         <source>Applied At</source>
+        <target>Prošnja oddana</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/leaves/leaves.html</context>
           <context context-type="linenumber">24,25</context>
@@ -715,6 +789,7 @@
       </trans-unit>
       <trans-unit id="5312727456282218392" datatype="html">
         <source>User name</source>
+        <target>Uporabnisko ime</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/login/login.component.ts</context>
           <context context-type="linenumber">28</context>
@@ -734,6 +809,7 @@
       </trans-unit>
       <trans-unit id="1431416938026210429" datatype="html">
         <source>Password</source>
+        <target>Geslo</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/login/login.component.ts</context>
           <context context-type="linenumber">36</context>
@@ -754,6 +830,8 @@
       <trans-unit id="3571907995517493982" datatype="html">
         <source>I have read and agreed to the
         &lt;strong&gt;&lt;a href=&quot;&quot;&gt;Terms of Service&lt;/a&gt; *&lt;/strong&gt;</source>
+        <target>Prebral sem in se strinjam z
+        &lt;strong&gt;&lt;a href=&quot;&quot;&gt;Pogoji Storitve&lt;/a&gt; *&lt;/strong&gt;</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/login/login.component.ts</context>
           <context context-type="linenumber">44,45</context>
@@ -761,6 +839,7 @@
       </trans-unit>
       <trans-unit id="5207635742003539443" datatype="html">
         <source>Sign in</source>
+        <target>Prijavi se</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/login/login.html</context>
           <context context-type="linenumber">3,4</context>
@@ -768,6 +847,7 @@
       </trans-unit>
       <trans-unit id="3798878138156054457" datatype="html">
         <source>Sign in to gain access to more clocking features.</source>
+        <target>Prijavi se za več funkcij ure.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/login/login.html</context>
           <context context-type="linenumber">4,6</context>
@@ -775,6 +855,8 @@
       </trans-unit>
       <trans-unit id="4118985042862663858" datatype="html">
         <source> You must sign in before accessing clocking and calendar features.<x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br /&gt;"/> You must have administrator priviliges to access registration menu. </source>
+        <target> Za dostop do ure in koledarja se morate prijaviti.<x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br /&gt;"/> Do registracijskega menija lahko dostopa le administrator. </target>
+        
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/login/login.html</context>
           <context context-type="linenumber">7,9</context>
@@ -782,6 +864,8 @@
       </trans-unit>
       <trans-unit id="4626478191041079889" datatype="html">
         <source> Username or password incorrect! Try again using the correct username and password! </source>
+        <source> Geslo ali uporabniško ime je napačno! Poskusite znova. </source>
+        
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/login/login.html</context>
           <context context-type="linenumber">12,13</context>
@@ -789,6 +873,7 @@
       </trans-unit>
       <trans-unit id="7237822545599635203" datatype="html">
         <source>Clockin</source>
+        <target>Ura</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/navbar/navbar.html</context>
           <context context-type="linenumber">12,13</context>
@@ -796,6 +881,7 @@
       </trans-unit>
       <trans-unit id="5261140917507536194" datatype="html">
         <source> Clock in </source>
+        <target>Začni</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/navbar/navbar.html</context>
           <context context-type="linenumber">23,24</context>
@@ -803,6 +889,7 @@
       </trans-unit>
       <trans-unit id="5179548294080016805" datatype="html">
         <source> Calendar </source>
+        <target>Koledar</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/navbar/navbar.html</context>
           <context context-type="linenumber">30,31</context>
@@ -810,6 +897,7 @@
       </trans-unit>
       <trans-unit id="7715848895573190774" datatype="html">
         <source> Analytics </source>
+        <target>Analitike</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/navbar/navbar.html</context>
           <context context-type="linenumber">37,38</context>
@@ -817,6 +905,7 @@
       </trans-unit>
       <trans-unit id="4169556036986788978" datatype="html">
         <source> Employee </source>
+        <target>Zaposleni</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/navbar/navbar.html</context>
           <context context-type="linenumber">45,46</context>
@@ -824,6 +913,7 @@
       </trans-unit>
       <trans-unit id="2547597085201417245" datatype="html">
         <source> Departments </source>
+        <target>Oddelki</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/navbar/navbar.html</context>
           <context context-type="linenumber">53,54</context>
@@ -831,6 +921,7 @@
       </trans-unit>
       <trans-unit id="5356677481738441703" datatype="html">
         <source> Tasks </source>
+        <target>Naloge</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/navbar/navbar.html</context>
           <context context-type="linenumber">61,62</context>
@@ -838,6 +929,7 @@
       </trans-unit>
       <trans-unit id="7649832968595676228" datatype="html">
         <source> Leaves </source>
+        <target>Prošnje za dopust</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/navbar/navbar.html</context>
           <context context-type="linenumber">69,70</context>
@@ -845,6 +937,7 @@
       </trans-unit>
       <trans-unit id="4066921978991293761" datatype="html">
         <source> Salaries </source>
+        <target>Plače</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/navbar/navbar.html</context>
           <context context-type="linenumber">77,78</context>
@@ -852,6 +945,7 @@
       </trans-unit>
       <trans-unit id="4426319772533875265" datatype="html">
         <source> Settings </source>
+        <target>Nastavitve</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/navbar/navbar.html</context>
           <context context-type="linenumber">84,85</context>
@@ -859,6 +953,7 @@
       </trans-unit>
       <trans-unit id="9093895799419435986" datatype="html">
         <source>Data added succesfully!</source>
+        <target>Podatki uspešno dodani!</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/navbar/navbar.html</context>
           <context context-type="linenumber">95,96</context>
@@ -866,6 +961,7 @@
       </trans-unit>
       <trans-unit id="8770434802642846232" datatype="html">
         <source>Delete Data</source>
+        <target>Izbriši podatke</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/navbar/navbar.html</context>
           <context context-type="linenumber">111,112</context>
@@ -873,6 +969,7 @@
       </trans-unit>
       <trans-unit id="6133906285780667869" datatype="html">
         <source>Data deleted succesfully!</source>
+        <target>Podatki uspešno izbrisani</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/navbar/navbar.html</context>
           <context context-type="linenumber">116,117</context>
@@ -880,6 +977,7 @@
       </trans-unit>
       <trans-unit id="2715185765061607307" datatype="html">
         <source> Log in </source>
+        <target>Prijava</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/navbar/navbar.html</context>
           <context context-type="linenumber">138,139</context>
@@ -887,6 +985,7 @@
       </trans-unit>
       <trans-unit id="7507948636555938109" datatype="html">
         <source>Log out</source>
+        <target>Odjava</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/navbar/navbar.html</context>
           <context context-type="linenumber">144,145</context>
@@ -894,6 +993,7 @@
       </trans-unit>
       <trans-unit id="933751318126992255" datatype="html">
         <source> Invalid input. </source>
+        <target>Neveljaven vhod.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/nice-form/nice-form.html</context>
           <context context-type="linenumber">31,32</context>
@@ -901,6 +1001,7 @@
       </trans-unit>
       <trans-unit id="8843329569871630583" datatype="html">
         <source> Check this box to continue </source>
+        <target>Za nadaljevanje označite to polje</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/nice-form/nice-form.html</context>
           <context context-type="linenumber">53,54</context>
@@ -908,6 +1009,7 @@
       </trans-unit>
       <trans-unit id="6334980516813870490" datatype="html">
         <source> Please select a valid option. </source>
+        <target>Izberite veljavno opcijo.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/nice-form/nice-form.html</context>
           <context context-type="linenumber">72,73</context>
@@ -919,6 +1021,11 @@
       type=&quot;submit&quot;
       class=&quot;btn btn-primary w-75&quot;
     &gt;"/> Submit <x id="CLOSE_TAG_BUTTON" ctype="x-button" equiv-text="&lt;/button&gt;"/></source>
+        <source><x id="START_TAG_BUTTON" ctype="x-button" equiv-text="&lt;button
+      [disabled]=&quot;!formgroup.valid&quot;
+      type=&quot;submit&quot;
+      class=&quot;btn btn-primary w-75&quot;
+    &gt;"/> Oddaj <x id="CLOSE_TAG_BUTTON" ctype="x-button" equiv-text="&lt;/button&gt;"/></source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/nice-form/nice-form.html</context>
           <context context-type="linenumber">80,87</context>
@@ -926,6 +1033,8 @@
       </trans-unit>
       <trans-unit id="2022957416183851793" datatype="html">
         <source>Department ID</source>
+         <target>ID oddelka</target>
+
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/register/register.component.ts</context>
           <context context-type="linenumber">96</context>
@@ -937,6 +1046,7 @@
       </trans-unit>
       <trans-unit id="3479439260272663944" datatype="html">
         <source>Wallet Address</source>
+        
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/register/register.component.ts</context>
           <context context-type="linenumber">114</context>
@@ -951,6 +1061,8 @@
       </trans-unit>
       <trans-unit id="1847047605496409443" datatype="html">
         <source>Street</source>
+        <target>Ulica</target>
+        
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/register/register.component.ts</context>
           <context context-type="linenumber">124</context>
@@ -962,6 +1074,7 @@
       </trans-unit>
       <trans-unit id="2314075913167237221" datatype="html">
         <source>City</source>
+        <target>Mesto</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/register/register.component.ts</context>
           <context context-type="linenumber">133</context>
@@ -973,6 +1086,7 @@
       </trans-unit>
       <trans-unit id="1200737650075932684" datatype="html">
         <source>Zip code</source>
+        <target>Zip koda</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/register/register.component.ts</context>
           <context context-type="linenumber">142</context>
@@ -984,6 +1098,7 @@
       </trans-unit>
       <trans-unit id="516176798986294299" datatype="html">
         <source>Country</source>
+        <target>Država</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/register/register.component.ts</context>
           <context context-type="linenumber">151</context>
@@ -995,6 +1110,7 @@
       </trans-unit>
       <trans-unit id="4514019506785057477" datatype="html">
         <source> Employee added successfully! </source>
+        <target>Zaposleni uspešno dodan!</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/register/register.html</context>
           <context context-type="linenumber">9</context>
@@ -1002,6 +1118,7 @@
       </trans-unit>
       <trans-unit id="878464921218238689" datatype="html">
         <source> Attempting to add an employee resulted in an error. Try again. </source>
+        <target>Neuspeh! Poskusi znova.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/register/register.html</context>
           <context context-type="linenumber">13</context>
@@ -1009,6 +1126,7 @@
       </trans-unit>
       <trans-unit id="2536634350996949158" datatype="html">
         <source>Register user</source>
+        <target>Registriraj uporabnika</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/register/register.html</context>
           <context context-type="linenumber">16,17</context>
@@ -1016,6 +1134,7 @@
       </trans-unit>
       <trans-unit id="8615882581665897783" datatype="html">
         <source>Register a user to the company.</source>
+        <target>Registriraj uporabnika.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/register/register.html</context>
           <context context-type="linenumber">17,19</context>
@@ -1023,6 +1142,7 @@
       </trans-unit>
       <trans-unit id="1330097374644020617" datatype="html">
         <source>User Name: </source>
+        <target>Uporabniško ime: </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/salaries/salaries.component.ts</context>
           <context context-type="linenumber">52</context>
@@ -1030,6 +1150,7 @@
       </trans-unit>
       <trans-unit id="160640128319879431" datatype="html">
         <source>User Name</source>
+        <target>Uporabniško ime</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/salaries/salaries.component.ts</context>
           <context context-type="linenumber">53</context>
@@ -1037,6 +1158,7 @@
       </trans-unit>
       <trans-unit id="1301333901919840822" datatype="html">
         <source>Basic salary: </source>
+        <target>Osnovna plača: </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/salaries/salaries.component.ts</context>
           <context context-type="linenumber">61</context>
@@ -1048,6 +1170,7 @@
       </trans-unit>
       <trans-unit id="112285895283457563" datatype="html">
         <source>Basic salary</source>
+        <target>Osnovna plača</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/salaries/salaries.component.ts</context>
           <context context-type="linenumber">62</context>
@@ -1063,6 +1186,7 @@
       </trans-unit>
       <trans-unit id="7215426212735879342" datatype="html">
         <source>Allowances: </source>
+        <target>Bonus: </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/salaries/salaries.component.ts</context>
           <context context-type="linenumber">70</context>
@@ -1074,6 +1198,7 @@
       </trans-unit>
       <trans-unit id="8246238518478163457" datatype="html">
         <source>Allowances</source>
+        <target>Bonus</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/salaries/salaries.component.ts</context>
           <context context-type="linenumber">71</context>
@@ -1093,6 +1218,7 @@
       </trans-unit>
       <trans-unit id="4182581047579570354" datatype="html">
         <source>Deductions: </source>
+        <target>Odliv: </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/salaries/salaries.component.ts</context>
           <context context-type="linenumber">79</context>
@@ -1104,6 +1230,7 @@
       </trans-unit>
       <trans-unit id="7713048457185445437" datatype="html">
         <source>Deductions</source>
+        <target>Odliv</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/salaries/salaries.component.ts</context>
           <context context-type="linenumber">80</context>
@@ -1123,6 +1250,7 @@
       </trans-unit>
       <trans-unit id="5599270224485117449" datatype="html">
         <source>Net pay</source>
+        <target>Skupaj</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/salaries/salaries.component.ts</context>
           <context context-type="linenumber">221</context>
@@ -1130,6 +1258,7 @@
       </trans-unit>
       <trans-unit id="8497528947328199741" datatype="html">
         <source>Time</source>
+        <target>Čas</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/salaries/salaries.component.ts</context>
           <context context-type="linenumber">276</context>
@@ -1137,6 +1266,7 @@
       </trans-unit>
       <trans-unit id="4915033650769187104" datatype="html">
         <source>Money</source>
+        <target>Denar</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/salaries/salaries.component.ts</context>
           <context context-type="linenumber">277</context>
@@ -1144,6 +1274,7 @@
       </trans-unit>
       <trans-unit id="5106251472736637167" datatype="html">
         <source>Error adding salary.</source>
+        <target>Prišlo je do napake.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/salaries/salaries.html</context>
           <context context-type="linenumber">2,3</context>
@@ -1151,6 +1282,7 @@
       </trans-unit>
       <trans-unit id="9150942156208025751" datatype="html">
         <source> Salary successfully added. </source>
+        <target>Uspeh.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/salaries/salaries.html</context>
           <context context-type="linenumber">4,5</context>
@@ -1158,6 +1290,7 @@
       </trans-unit>
       <trans-unit id="4851868244746405636" datatype="html">
         <source>Add a salary to this employee</source>
+        <target>Dodaj plačo zaposlenemu.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/salaries/salaries.html</context>
           <context context-type="linenumber">6,7</context>
@@ -1197,6 +1330,7 @@
       </trans-unit>
       <trans-unit id="6617385984745454649" datatype="html">
         <source>Old Password: </source>
+        <target>Staro geslo: </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/settings/settings.component.ts</context>
           <context context-type="linenumber">31</context>
@@ -1215,6 +1349,7 @@
       </trans-unit>
       <trans-unit id="1657622243094871799" datatype="html">
         <source>New Password: </source>
+        <target>Novo geslo: </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/settings/settings.component.ts</context>
           <context context-type="linenumber">39</context>
@@ -1222,6 +1357,7 @@
       </trans-unit>
       <trans-unit id="5168522639719511798" datatype="html">
         <source> Error changing Password. </source>
+        <target>Napaka pri spremnijanju gesla.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/settings/settings.html</context>
           <context context-type="linenumber">3,4</context>
@@ -1229,6 +1365,7 @@
       </trans-unit>
       <trans-unit id="3651266035714526054" datatype="html">
         <source> Password changed successfully. </source>
+        <target>Geslo uspešno spremenjeno.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/settings/settings.html</context>
           <context context-type="linenumber">6,7</context>
@@ -1236,6 +1373,7 @@
       </trans-unit>
       <trans-unit id="6582573664846559511" datatype="html">
         <source>Change Password</source>
+        <target>Spremeni geslo</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/settings/settings.html</context>
           <context context-type="linenumber">9,10</context>
@@ -1243,6 +1381,7 @@
       </trans-unit>
       <trans-unit id="4555457172864212828" datatype="html">
         <source>Users</source>
+        <target>Uporabniki</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/sidebar/sidebar.html</context>
           <context context-type="linenumber">5,6</context>
@@ -1271,6 +1410,7 @@
       </trans-unit>
       <trans-unit id="6497406089385927805" datatype="html">
         <source> Delete task </source>
+        <target>Izbriši nalogo</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/taskcard/taskcard.html</context>
           <context context-type="linenumber">44</context>
@@ -1299,6 +1439,7 @@
       </trans-unit>
       <trans-unit id="2480330610788235096" datatype="html">
         <source>Reason for request: </source>
+        <target>Razlog za prošnjo: </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/userpage/userpage.component.ts</context>
           <context context-type="linenumber">365</context>
@@ -1306,6 +1447,7 @@
       </trans-unit>
       <trans-unit id="888341446683346521" datatype="html">
         <source>Start date</source>
+        <target>Začetek</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/userpage/userpage.component.ts</context>
           <context context-type="linenumber">375</context>
@@ -1317,6 +1459,7 @@
       </trans-unit>
       <trans-unit id="7568076775984985279" datatype="html">
         <source>End date: </source>
+        <target>Konec: </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/userpage/userpage.component.ts</context>
           <context context-type="linenumber">383</context>
@@ -1324,6 +1467,7 @@
       </trans-unit>
       <trans-unit id="126074860850048964" datatype="html">
         <source>End date</source>
+        <target>Konec</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/userpage/userpage.component.ts</context>
           <context context-type="linenumber">384</context>
@@ -1331,6 +1475,7 @@
       </trans-unit>
       <trans-unit id="1625672495835334813" datatype="html">
         <source>Task description: </source>
+        <target>Opis naloge: </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/userpage/userpage.component.ts</context>
           <context context-type="linenumber">430</context>
@@ -1338,6 +1483,7 @@
       </trans-unit>
       <trans-unit id="2413171611497962745" datatype="html">
         <source>Due date</source>
+        <target>Rok</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/userpage/userpage.component.ts</context>
           <context context-type="linenumber">449</context>
@@ -1345,6 +1491,7 @@
       </trans-unit>
       <trans-unit id="4809671662306843236" datatype="html">
         <source> Employee updated successfully! </source>
+        <target>Uspešno dodan zaposleni!</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/userpage/userpage.html</context>
           <context context-type="linenumber">9</context>
@@ -1352,6 +1499,7 @@
       </trans-unit>
       <trans-unit id="6919550951770897401" datatype="html">
         <source> Attempting to update an employee resulted in an error. Try again. </source>
+        <target>Neuspeh! Poskusite znova.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/userpage/userpage.html</context>
           <context context-type="linenumber">13</context>
@@ -1359,6 +1507,7 @@
       </trans-unit>
       <trans-unit id="670727319419806754" datatype="html">
         <source>Change <x id="INTERPOLATION" equiv-text="{{employee.userName}}"/>&apos;s user data</source>
+        <target>Spremeni podatke <x id="INTERPOLATION" equiv-text="{{employee.userName}}"/></target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/userpage/userpage.html</context>
           <context context-type="linenumber">16,17</context>
@@ -1366,6 +1515,8 @@
       </trans-unit>
       <trans-unit id="537458670197119268" datatype="html">
         <source>Update the data of this user.</source>
+        <target>Posodobi uporabnikove podatke.</target>
+        
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/userpage/userpage.html</context>
           <context context-type="linenumber">17,19</context>
@@ -1373,6 +1524,7 @@
       </trans-unit>
       <trans-unit id="8217248324968023456" datatype="html">
         <source>Delete <x id="INTERPOLATION" equiv-text="{{employee.userName}}"/>&apos;s user profile</source>
+        <target>Izbriši uporabniški profil <x id="INTERPOLATION" equiv-text="{{employee.userName}}"/></target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/userpage/userpage.html</context>
           <context context-type="linenumber">28,29</context>
@@ -1380,6 +1532,7 @@
       </trans-unit>
       <trans-unit id="7633134905394160941" datatype="html">
         <source>Remove the data of this user from the database.</source>
+        <target>Izbriši uporabnika iz podatkovne baze.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/userpage/userpage.html</context>
           <context context-type="linenumber">29,30</context>
@@ -1387,6 +1540,8 @@
       </trans-unit>
       <trans-unit id="8326218343142054058" datatype="html">
         <source><x id="INTERPOLATION" equiv-text="{{ employee?.userName }}"/> salaries</source>
+        <target><x id="INTERPOLATION" equiv-text="{{ employee?.userName }}"/> plače</target>
+        
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/userpage/userpage.html</context>
           <context context-type="linenumber">50,51</context>
@@ -1394,6 +1549,7 @@
       </trans-unit>
       <trans-unit id="5286479625623930333" datatype="html">
         <source>Leave requests</source>
+        <target>Prošnje za dopust</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/userpage/userpage.html</context>
           <context context-type="linenumber">62,64</context>
@@ -1401,6 +1557,7 @@
       </trans-unit>
       <trans-unit id="8117726667015044486" datatype="html">
         <source>Create a task</source>
+        <target>Ustvari nalogo</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/userpage/userpage.html</context>
           <context context-type="linenumber">75,76</context>
