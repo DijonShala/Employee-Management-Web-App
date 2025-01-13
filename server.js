@@ -443,7 +443,7 @@ app.use("/api", apiRouter);
  * Angular routing
  */
 app.get("*", (req, res) => {
-  res.sendFile(join(__dirname, "angular", "build", "browser", "index.html"));
+  res.sendFile(join(__dirname, "angular", "build", "browser", "sl-SI", "index.html"));
 });
 /**
  * Swagger file and explorer
