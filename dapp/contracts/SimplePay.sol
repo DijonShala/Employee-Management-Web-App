@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-contract SimplePay {
-    address public admin;
+import "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
 
+contract SimplePay is ReentrancyGuard {
     struct Employee {
         address wallet;
         uint256 basicSalary;
@@ -14,6 +14,8 @@ contract SimplePay {
 
     mapping(address => Employee) public employees;
     address[] public employeeAddresses;
+
+    address public admin;
 
     event EmployeeAdded(
         address indexed employee,
@@ -45,7 +47,7 @@ contract SimplePay {
     function fundContract() external payable {
         require(msg.value > 0, "You must send some Ether");
 
-         emit ContractFunded(msg.sender, msg.value, block.timestamp);
+        emit ContractFunded(msg.sender, msg.value, block.timestamp);
     }
 
     function addEmployeeWallet(
@@ -56,25 +58,24 @@ contract SimplePay {
     ) public onlyAdmin {
         require(_wallet != address(0), "Invalid wallet address");
 
-        if(!employees[_wallet].exists){
+        if (!employees[_wallet].exists) {
+            employees[_wallet] = Employee({
+                wallet: _wallet,
+                basicSalary: _basicSalary,
+                allowances: _allowances,
+                deductions: _deductions,
+                exists: true
+            });
+            employeeAddresses.push(_wallet);
 
-        employees[_wallet] = Employee({
-            wallet: _wallet,
-            basicSalary: _basicSalary,
-            allowances: _allowances,
-            deductions: _deductions,
-            exists: true
-        });
-        employeeAddresses.push(_wallet);
-
-        emit EmployeeAdded(
+            emit EmployeeAdded(
                 _wallet,
                 _basicSalary,
                 _allowances,
                 _deductions,
                 block.timestamp
             );
-        }else{
+        } else {
             updateEmployeeSalary(_wallet, _basicSalary, _allowances, _deductions);
         }
     }
@@ -93,7 +94,7 @@ contract SimplePay {
     }
 
     function removeEmployee(address _wallet) public onlyAdmin {
-    require(employees[_wallet].exists, "Employee does not exist");
+        require(employees[_wallet].exists, "Employee does not exist");
         delete employees[_wallet];
 
         uint indexToRemove = findIndex(_wallet);
@@ -101,20 +102,14 @@ contract SimplePay {
         employeeAddresses.pop();
     }
 
-    function findIndex(address _wallet) internal view returns (uint) {
-        for (uint i = 0; i < employeeAddresses.length; i++) {
-            if (employeeAddresses[i] == _wallet) {
-                return i;
-            }
-        }
-        revert("Address not found");
-    }
-
-    function transferSalary(address _wallet) public onlyAdmin {
+    function transferSalary(address _wallet) public onlyAdmin nonReentrant {
         require(employees[_wallet].exists, "Employee does not exist");
         Employee memory emp = employees[_wallet];
 
-        uint256 netSalary = (emp.basicSalary + emp.allowances - emp.deductions) * 300 / 1000000 * WEI_PER_ETHER;
+        uint256 netSalary = (emp.basicSalary + emp.allowances - emp.deductions) *
+            300 /
+            1000000 *
+            WEI_PER_ETHER;
 
         require(
             address(this).balance >= netSalary,
@@ -127,9 +122,8 @@ contract SimplePay {
     }
 
     function deposit() public payable onlyAdmin {}
-    
 
-    function withdraw(uint256 _amount) public onlyAdmin {
+    function withdraw(uint256 _amount) public onlyAdmin nonReentrant {
         require(address(this).balance >= _amount, "Insufficient balance");
         payable(admin).transfer(_amount);
     }
@@ -138,7 +132,7 @@ contract SimplePay {
         return address(this).balance;
     }
 
-    function isAdmin() public view returns (bool){
+    function isAdmin() public view returns (bool) {
         return msg.sender == admin;
     }
 
@@ -152,5 +146,14 @@ contract SimplePay {
         }
 
         return allEmployees;
+    }
+
+    function findIndex(address _wallet) internal view returns (uint) {
+        for (uint i = 0; i < employeeAddresses.length; i++) {
+            if (employeeAddresses[i] == _wallet) {
+                return i;
+            }
+        }
+        revert("Address not found");
     }
 }

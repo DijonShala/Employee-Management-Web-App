@@ -12,9 +12,9 @@ describe("SimplePay", () => {
     simplePayInstance = await hre.ethers.deployContract("SimplePay");
   });
 
-  describe("addEmployee", () => {
+  describe("addEmployeeWallet", () => {
     it("should add an employee successfully by admin", async () => {
-      await simplePayInstance.connect(admin).addEmployee(
+      await simplePayInstance.connect(admin).addEmployeeWallet(
         employee.address,
         5000,
         1000,
@@ -29,7 +29,7 @@ describe("SimplePay", () => {
 
     it("should fail to add an employee by non-admin", async () => {
       await expect(
-        simplePayInstance.connect(nonAdmin).addEmployee(
+        simplePayInstance.connect(nonAdmin).addEmployeeWallet(
           employee.address,
           5000,
           1000,
@@ -38,27 +38,29 @@ describe("SimplePay", () => {
       ).to.be.revertedWith("Only admin can perform this action");
     });
 
-    it("should fail to add an already existing employee", async () => {
-      await simplePayInstance.connect(admin).addEmployee(
+    it("should update an already existing employee", async () => {
+      await simplePayInstance.connect(admin).addEmployeeWallet(
         employee.address,
         5000,
         1000,
         500
       );
-      await expect(
-        simplePayInstance.connect(admin).addEmployee(
-          employee.address,
-          6000,
-          1200,
-          800
-        )
-      ).to.be.revertedWith("Employee already exists");
+      await simplePayInstance.connect(admin).addEmployeeWallet(
+        employee.address,
+        6000,
+        1200,
+        800
+      );
+      const emp = await simplePayInstance.employees(employee.address);
+      expect(emp.basicSalary).to.equal(6000);
+      expect(emp.allowances).to.equal(1200);
+      expect(emp.deductions).to.equal(800);
     });
   });
 
   describe("updateEmployeeSalary", () => {
     it("should update an employee's salary successfully", async () => {
-      await simplePayInstance.connect(admin).addEmployee(
+      await simplePayInstance.connect(admin).addEmployeeWallet(
         employee.address,
         5000,
         1000,
@@ -90,7 +92,7 @@ describe("SimplePay", () => {
 
   describe("removeEmployee", () => {
     it("should remove an employee successfully", async () => {
-      await simplePayInstance.connect(admin).addEmployee(
+      await simplePayInstance.connect(admin).addEmployeeWallet(
         employee.address,
         5000,
         1000,
@@ -110,27 +112,32 @@ describe("SimplePay", () => {
 
   describe("transferSalary", () => {
     beforeEach(async () => {
-      await simplePayInstance.connect(admin).addEmployee(
+      await simplePayInstance.connect(admin).addEmployeeWallet(
         employee.address,
         5000,
         1000,
         500
       );
-      await simplePayInstance.connect(admin).deposit({ value: hre.ethers.parseEther("1") });
+      await simplePayInstance
+        .connect(admin)
+        .deposit({ value: hre.ethers.parseEther("10") });
     });
 
     it("should transfer salary successfully", async () => {
-        const initialBalance = await hre.ethers.provider.getBalance(employee.address);
-        await simplePayInstance.connect(admin).transferSalary(employee.address);
-        const finalBalance = await hre.ethers.provider.getBalance(employee.address);
-        expect(finalBalance - initialBalance).to.equal(5500n);
-      });
+      const initialBalance = await hre.ethers.provider.getBalance(employee.address);
+      await simplePayInstance.connect(admin).transferSalary(employee.address);
+      const finalBalance = await hre.ethers.provider.getBalance(employee.address);
+      const netSalary = BigInt(5000 + 1000 - 500) * 300n / 1000000n * BigInt(1e18);
+      expect(finalBalance - initialBalance).to.equal(netSalary);
+    });
 
     it("should fail to transfer salary if contract balance is insufficient", async () => {
-      await simplePayInstance.connect(admin).withdraw(hre.ethers.parseEther("1"));
+      await simplePayInstance
+        .connect(admin)
+        .withdraw(hre.ethers.parseEther("10"));
       await expect(
         simplePayInstance.connect(admin).transferSalary(employee.address)
-      ).to.be.revertedWith("Insufficient contract balance");
+      ).to.be.revertedWith("Insufficient contract balance.");
     });
 
     it("should fail to transfer salary to a non-existing employee", async () => {
@@ -143,13 +150,17 @@ describe("SimplePay", () => {
 
   describe("deposit and withdraw", () => {
     it("should allow admin to deposit funds", async () => {
-      await simplePayInstance.connect(admin).deposit({ value: hre.ethers.parseEther("1") });
+      await simplePayInstance
+        .connect(admin)
+        .deposit({ value: hre.ethers.parseEther("1") });
       const balance = await simplePayInstance.getBalance();
       expect(balance).to.equal(hre.ethers.parseEther("1"));
     });
 
     it("should allow admin to withdraw funds", async () => {
-      await simplePayInstance.connect(admin).deposit({ value: hre.ethers.parseEther("1") });
+      await simplePayInstance
+        .connect(admin)
+        .deposit({ value: hre.ethers.parseEther("1") });
       await simplePayInstance.connect(admin).withdraw(hre.ethers.parseEther("0.5"));
       const balance = await simplePayInstance.getBalance();
       expect(balance).to.equal(hre.ethers.parseEther("0.5"));
