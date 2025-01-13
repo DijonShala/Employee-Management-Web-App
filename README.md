@@ -27,9 +27,17 @@ Povezave do zaslonskih mask:
 - [Dodajanje zaposlenega (Admin)](./docs/adduser.html)
 
 Prikaz in delovanje strani v različnih brskalnikih deluje pravilno (Chrome, Firefox, Microsoft Edge). Aplikacija se prilagodi različnim velikostim zaslona.
+## Zunanji vir
 
 Aplikacija dostopa do zunanjega vira [FXRatesAPI](https://fxratesapi.com/) preko katerega pridobi aktualne vrednosti menjalnih tečajev za vse svetovne valute.
 
+## Iskanje
+
+Pri /analytics lahko iščemo plače po mescu in letu ter filtriramo zaposlene po želenih podatkih
+
+## Master/Detail
+
+Pri /departments če kliknemo na želen department se odpre seznam delavcev, ki delajo v tem oddelku. Če kliknemo delavca se odpre njegov profil
 ## Dostopno na
 
 https://clock-in.onrender.com
@@ -161,22 +169,17 @@ Account #10: 0xBcd4042DE499D14e55001CcbB24a551F3b954096 (100 ETH)
 
 Private Key: 0xf214f2b2cd398c806f84e317254e0f0b801d0643303237d97a22a48e01628897
 
-Account #11: 0x71bE63f3384f5fb98995898A86B02Fb2426c5788 (100 ETH)
-
-Private Key: 0x701b615bbdfb9de65240bc28bd21bbc0d996645a3dd57e7b12bc2bdf6f192c82
-
-Account #12: 0xFABB0ac9d68B0B445fB7357272Ff202C5651694a (100 ETH)
-
-Private Key: 0xa267530f49f8280200edf313ee7af6b827f2a8bce2897751d06a843f644967b1
-
-Account #13: 0x1CBd3b2770909D4e10f157cABC84C7264073C9Ec (100 ETH)
-
-Private Key: 0x47c99abed3324a2707c28affff1267e45918ec8c3f20b8aa892e8b065d2942dd
-
-Account #14: 0xdF3e18d64BC6A983f673Ab319CCaE4f1a57C7097 (100 ETH)
-
-Private Key: 0xc526ee95bf44d8fc405a158bb884d9d1238d99f0612e9f33d006bb0789009aaa
-
 ## Zunanja knjižnica
 
 ReentrancyGuard.sol je pogodba iz knjižnice OpenZeppelin, ki preprečuje reentrancy napade v pametnih pogodbah. Takšni napadi omogočajo zlonamernemu uporabniku, da zlorabi stanje pogodbe tako, da večkratno izvede funkcijo, preden se stanje pogodbe posodobi. To je ena najpogostejših varnostnih ranljivosti v pametnih pogodbah.
+
+##  Zagon verige blokov
+```
+npx hardhat node
+```
+```
+npx hardhat compile
+```
+```
+npx hardhat ignition deploy ./ignition/modules/SimplePay.ts --network localhost
+```
