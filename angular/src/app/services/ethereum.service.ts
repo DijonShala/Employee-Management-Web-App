@@ -26,10 +26,10 @@ export class EthereumService {
     this.listenToEvents();
   }
 
-  public reloadCurrentRoute() {
+  public reloadCurrentRoute(targetRoute: string = this.router.url) {
     const currentUrl = this.router.url;
     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-      this.router.navigate([currentUrl]);
+      this.router.navigate([targetRoute]);
     });
   }
   
@@ -55,7 +55,7 @@ export class EthereumService {
         const e = args[args.length - 1];
         if (startBlockNumber && e.log.blockNumber <= startBlockNumber) return;
 
-        this.ngZone.run(() => this.reloadCurrentRoute())
+        this.ngZone.run(() => this.reloadCurrentRoute('/salaries'))
       });
     });
   }

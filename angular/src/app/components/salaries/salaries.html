@@ -13,7 +13,9 @@
 </div>
 
 <!-- START: Error message -->
-<app-wallet></app-wallet>
+<div *ngIf="employee?.role === 'admin'">
+  <app-wallet></app-wallet>
+</div>
 <!-- END: Error message -->
 
 <!--
