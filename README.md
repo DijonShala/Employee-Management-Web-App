@@ -1,7 +1,9 @@
 # Spletno programiranje 2024/2025
+
 Lastni projekt pri predmetu **Spletno programiranje** v študijskem letu **2024/2025**.
 
 ## Opis aplikacije
+
 Naša aplikacija je namenjena spremljanju delovnih ur in zahtevkov zaposlenih. Glavni cilj aplikacije je omogočiti učinkovit nadzor nad delovnimi procesi in zagotavljanje enostavnega dostopa do relavantnih podatkov za različne uporabniške vloge. Aplikacija vključuje funkcionalnosti za administratorje in zaposlene.
 
 Funkcionalnosti:
@@ -15,6 +17,7 @@ Funkcionalnosti:
 - Dodeljevanje nalog
 
 Povezave do zaslonskih mask:
+
 - [Login stran](./docs/login.html)
 - [Beleženje prisotnosti](./docs/clockin.html)
 - [Koledar za spremljanje nalog](./docs/calendar.html)
@@ -25,7 +28,10 @@ Povezave do zaslonskih mask:
 
 Prikaz in delovanje strani v različnih brskalnikih deluje pravilno (Chrome, Firefox, Microsoft Edge). Aplikacija se prilagodi različnim velikostim zaslona.
 
+Aplikacija dostopa do zunanjega vira [FXRatesAPI](https://fxratesapi.com/) preko katerega pridobi aktualne vrednosti menjalnih tečajev za vse svetovne valute.
+
 ## Dostopno na
+
 https://clock-in.onrender.com
 
 ## Zaganjanje pri razvijanju:
@@ -39,7 +45,9 @@ npm start
 ```
 docker compose up --build --force-recreate
 ```
+
 ## Dodatni knižnici
+
 Nodemailer:
 
 - Uporablja se da obvesti zaposlene, da je bil njihov račun kreiran skupaj z uporabniškim imenon in geslon, ter s sporočilom, da si geslo čim prej zamenjajo,
@@ -75,7 +83,7 @@ Prijavljeni uporabniki (navadni uporabnik):
 
 - password (string), min(6)
 
--  email (string, enoličen, oblika email),
+- email (string, enoličen, oblika email),
 
 - hireDate, payDate, endDate, startDate, dueDate, appliedAt tipa Date (select polje)
 
@@ -85,7 +93,15 @@ Prijavljeni uporabniki (navadni uporabnik):
 
 - salary, basicSalary, deductions, netSalary, allowances tipa number
 
-## Iskanje
+## Tehnološki izzvi
+## 1. Internacionalizacija
 
+Aplikacija je podprta v več jezikih preko Angular internacionalizacije (i18n). Internacionalizacija uporabniku omogoča prikaz strani prilagojene različnim jezikom in kulturnim nastavitvam.
 
-## Master/Detail vzorec
+Podprta jezika sta angleščina in slovenščina.
+
+## 2. Knjižnica jsPDF
+
+Aplikacija uporablja knjižnico jsPDF za generiranje PDF dokumentov neposredno v brskalniku, kar omogoča enostaven prenos plačilnih list s prilagojenimi podatki.
+
+Vsebina PDF dokumentov se dinamično prilagaja glede na podatke iz aplikacije, kar zagotavlja personalizacijo za vsakega uporabnika (npr. konverzije valut, formati datumov, prilagojeni naslovi).
